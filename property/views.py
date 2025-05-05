@@ -49,7 +49,7 @@ properties = [
     },
 ]
 def index(request):
-    return render(request, template_name: "property/property.html", context: {
+    return render(request,"property/property.html",  {
         "properties":
     })
 
