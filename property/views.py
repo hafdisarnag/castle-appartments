@@ -55,7 +55,7 @@ def index(request):
     })
 
 def get_property_by_id(request, id):
-    property = [x for x in properties if x.id == id]
+    property = [x for x in properties if x['id'] == id][0]
     return render(request, "property/property.html", {
         "properties": property
     })
