@@ -20,6 +20,7 @@ import property.views
 
 urlpatterns = [
     path('', include('property.urls')),
+    path('', include('home.urls')),
     path('property/', property.views.index),
 
     path('admin/', admin.site.urls),
