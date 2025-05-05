@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <title>Properties</title>
     <style>
+        .properties-container {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 20px;
+        }
          .property-item{
-
+             padding: 10px;
+             background-color: rgba(155, 155, 155, .5);
          }
 
          .property-item h3{
@@ -19,14 +25,27 @@
              background-position: center;
              background-repeat: no-repeat;
          }
+
+         .property-item .property-type {
+             border-radius: 20px;
+             padding: 10px;
+             font-size: .7em;
+             background-color: lightblue;
+             max-width: 100px;
+         }
     </style>
 </head>
 <body>
-    {% for property in properties %}
+    <div class="properties-container">
+        {% for property in properties %}
         <div class="property-item">
-            <h3>{{ property.name }}</h3>
+            <h3>{{ property.address }}</h3>
             <div class="property-image" style="background-image: url({{ property.image }})"></div>
+            <div>${{ property.price }}</div>
+            <div class="property-type">{{ property.type }}</div>
+            <a href="{% url "property-by-id" id=property.id %}">See more</a>
         </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
 </body>
 </html>
