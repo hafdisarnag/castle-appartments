@@ -50,10 +50,12 @@ properties = [
 ]
 def index(request):
     return render(request,"property/property.html",  {
-        "properties":
+        "properties": properties
     })
 
-
 def get_property_by_id(request, id):
-    return HttpResponse(f"response from {request.path} with id {id}")
+    property = [x for x in properties if x.id == id]
+    return render(request, "property/property.html", {
+        "properties": property
+    })
 

@@ -2,9 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Castle Apartments</title>
+    <title>Properties</title>
+    <style>
+         .property-item{
+
+         }
+
+         .property-item h3{
+
+         }
+
+         .property-item .property-image{
+             height: 150px;
+             width: 150px;
+             background-size: cover;
+         }
+    </style>
 </head>
 <body>
-
+    {% for property in properties %}
+        <div class="property-item">
+            <h3>{{ property.name }}</h3>
+            <div class="property-image" style="background-image: url({{ property.image }})"></div>
+        </div>
+    {% endfor %}
 </body>
 </html>
