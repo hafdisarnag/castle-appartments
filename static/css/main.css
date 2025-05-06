@@ -1,0 +1,18 @@
+.home-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.dream-home {
+    position: absolute;
+    top: 40%;
+    left: 37%;
+    color: black;
+    font-size: 35px;
+    font-weight: bold;
+    background-color: #ffd3f8;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: Impact, serif;
+}

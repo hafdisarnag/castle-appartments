@@ -7,3 +7,5 @@ def index(request):
     return render(request,"home/home.html",  {
         "properties": Property.objects.all(),
     })
+
+
