@@ -9,7 +9,7 @@ def index(request):
     })
 
 def get_property_by_id(request, id):
-    property = [x for x in properties if x['id'] == id][0]
+    property = Property.objects.get(id=id)
     return render(request, "property/property.html", {
         "properties": property
     })
