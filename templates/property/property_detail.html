@@ -3,6 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .properties-container {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 20px;
+        }
+         .property-item{
+             padding: 10px;
+             background-color: rgba(155, 155, 155, .5);
+         }
+
+         .property-item h3{
+
+         }
+
+         .property-item .property-image{
+             height: 150px;
+             width: 150px;
+             background-size: contain;
+             background-position: center;
+             background-repeat: no-repeat;
+         }
+
+         .property-item .property-type {
+             border-radius: 20px;
+             padding: 10px;
+             font-size: .7em;
+             background-color: lightblue;
+             max-width: 100px;
+         }
+    </style>
 </head>
 <body>
     <div class="property-item">
