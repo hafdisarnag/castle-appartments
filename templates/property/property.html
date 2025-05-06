@@ -14,7 +14,7 @@
         .properties-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: 30px;
         }
 
         .property-item {
@@ -25,6 +25,7 @@
             text-align: left;
             position: relative;
             transition: transform 0.3s ease;
+            border: 1px solid #ddd;
         }
 
         .property-item:hover {
@@ -32,7 +33,7 @@
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
         }
 
-        /* Heart icon position */
+        /* Heart Icon */
         .heart-icon {
             position: absolute;
             top: 10px;
@@ -40,6 +41,7 @@
             font-size: 1.5em;
             color: #FF6F61;
             cursor: pointer;
+            z-index: 10; /* Ensure it’s above other elements */
         }
 
         .property-image {
@@ -48,12 +50,12 @@
             height: 230px;
             background-size: cover;
             background-position: center;
+            border-bottom: 1px solid #ddd;
         }
 
-        /* Property Type label */
         .property-type {
             position: absolute;
-            top: 10px;
+            bottom: 10px;
             right: 10px;
             background-color: #FFB6C1; /* soft pink */
             color: #000;
@@ -64,9 +66,12 @@
         }
 
         .property-info {
-            padding: 15px;
+            padding: 5px;
+            padding-top: 5px;
+            position: relative;
         }
 
+        /* Address styling */
         .property-info h3 {
             margin: 4px 0;
             font-size: 1.2em;
@@ -74,34 +79,46 @@
             font-weight: bold;
         }
 
+        /* Zip and City Styling */
+        .property-info .zip-city {
+            font-size: 0.9em; /* Smaller font size */
+            color: #777; /* Light gray */
+            margin-bottom: 1px; /* Further reduced space */
+            padding-bottom: 1px; /* Reduced padding */
+        }
+
+        /* Line Below Zip and City (and above details) */
+        .line {
+            width: 100%;
+            border-bottom: 1px solid #ddd;
+            margin: 2px 0; /* Reduced margin between Zip/City and line */
+            box-sizing: border-box; /* Ensures padding doesn’t interfere */
+        }
+
         .property-details {
+            padding: 5px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 12px;
+            margin-top: 5px; /* Added more space before details */
             font-size: 0.9em;
-            color: #777;
-        }
-
-        .property-detail {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #d48fb1; /* soft pink */
+            color: #000;
         }
 
         .property-price {
-            text-align: center;
+            padding: 5px;
+            text-align: left;
             font-weight: bold;
-            font-size: 1.2em;
-            margin: 15px 0;
+            font-size: 1.1em;
+            margin: 1px 0;
             color: #000;
+            border-top: 1px solid #ddd; /* Line separating details from price */
+            padding-top: 10px;
         }
 
         a {
             display: block;
-            text-align: center;
-            margin-bottom: 15px;
+            margin-top: 5px; /* More space before "See more" */
             font-size: 1em;
             color: #007bff;
             text-decoration: none;
@@ -126,14 +143,19 @@
             </div>
             <div class="property-info">
                 <h3>{{ property.address }}</h3>
-                <h3>{{ property.zip }} {{ property.city }}</h3>
-                <div class="property-details">
-                    <div class="property-detail">📐 {{ property.size }} m²</div>
-                    <div class="property-detail">🛏 {{ property.rooms }}</div>
-                    <div class="property-detail">🛁 {{ property.bathrooms }}</div>
-                    <div class="property-detail">🛌 {{ property.bedrooms }}</div>
-                </div>
-                <div class="property-price">{{ property.price }} kr.</div>
+                <!-- Zip and City -->
+                <div class="zip-city">{{ property.zip }} {{ property.city }}</div>
+            </div>
+            <!-- Line Below Zip and City (and above details) -->
+            <div class="line"></div>
+            <div class="property-details">
+                <div class="property-detail">📐 {{ property.size }} m²</div>
+                <div class="property-detail">🛏 {{ property.rooms }}</div>
+                <div class="property-detail">🛁 {{ property.bathrooms }}</div>
+                <div class="property-detail">🛌 {{ property.bedrooms }}</div>
+            </div>
+            <div class="property-price">
+                <div>{{ property.price }} kr.</div>
                 <a href="{% url 'property-by-id' id=property.id %}">See more</a>
             </div>
         </div>
