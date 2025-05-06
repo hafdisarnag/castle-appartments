@@ -10,6 +10,6 @@ def index(request):
 def get_property_by_id(request, id):
     property = Property.objects.get(id=id)
     return render(request, "property/property_detail.html", {
-        "properties": property
+        "property": property
     })
 
