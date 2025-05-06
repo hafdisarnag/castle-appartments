@@ -1,163 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Property Listing</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      background-color: #f7f7f7;
-      margin: 0;
-      padding: 20px;
-    }
 
-    .property-container {
-      max-width: 900px;
-      margin: auto;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      overflow: hidden;
-    }
-
-    .property-header {
-      position: relative;
-    }
-
-    .property-header img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-      display: block;
-    }
-
-    .property-info {
-      padding: 20px;
-    }
-
-    .property-type {
-      background-color: #ffd3f8;
-      color: #000;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 0.8em;
-      display: inline-block;
-      margin-bottom: 10px;
-    }
-
-    .property-info h2 {
-      margin: 10px 0;
-    }
-
-    .property-address {
-      color: #666;
-      margin-bottom: 20px;
-    }
-
-    .property-details {
-      display: flex;
-      gap: 20px;
-      margin-bottom: 20px;
-      font-size: 1em;
-      flex-wrap: wrap;
-    }
-
-    .property-detail {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .property-description {
-      margin-bottom: 20px;
-      color: #444;
-    }
-
-    .property-date {
-      color: #999;
-      font-size: 0.9em;
-      margin-bottom: 20px;
-    }
-
-    .property-price {
-      font-size: 1.5em;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-
-    .offer-section {
-      border-top: 1px solid #eee;
-      padding: 20px;
-      background-color: #f9f9f9;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
-    }
-
-    .offer-section form {
-      flex: 1;
-      min-width: 250px;
-    }
-
-    .offer-section label,
-    .offer-section input {
-      display: block;
-      margin-bottom: 10px;
-    }
-
-    .offer-section input {
-      padding: 8px;
-      width: 100%;
-      max-width: 300px;
-    }
-
-    .submit-button {
-      padding: 10px 20px;
-      background-color: #ffd3f8;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .seller-logo {
-      height: 50px;
-      margin-left: auto;
-    }
-
-    .go-back {
-      display: inline-block;
-      margin-top: 10px;
-      text-decoration: none;
-      color: #888;
-    }
-
-  </style>
-</head>
-<body>
-
-<div class="property-container">
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="property-container-det">
 
   <div class="property-header">
     <img src="{{ property.image }}" alt="Property Image">
   </div>
 
-  <div class="property-info">
-    <div class="property-type">{{ property.type }}</div>
+  <div class="property-info-det">
+    <div class="property-type-det">{{ property.type }}</div>
     <h2>{{ property.address }}</h2>
-    <div class="property-address">{{ property.zip }} {{ property.city }}</div>
+    <div class="property-address-det">{{ property.zip }} {{ property.city }}</div>
 
-    <div class="property-details">
-      <div class="property-detail">📐 {{ property.size }} m²</div>
-      <div class="property-detail">🚪 {{ property.rooms }}</div>
-      <div class="property-detail">🛁 {{ property.bathrooms }}</div>
-      <div class="property-detail">🛏 {{ property.bedrooms }}</div>
+    <div class="property-details-det">
+      <div class="property-detail-det">📐 {{ property.size }} m²</div>
+      <div class="property-detail-det">🚪 {{ property.rooms }}</div>
+      <div class="property-detail-det">🛁 {{ property.bathrooms }}</div>
+      <div class="property-detail-det">🛏 {{ property.bedrooms }}</div>
     </div>
 
     <div class="property-description">{{ property.description }}</div>
     <div class="property-date">📅 {{ property.date }}</div>
-    <div class="property-price">{{ property.price }} kr.</div>
+    <div class="property-price-det">{{ property.price }} kr.</div>
 
     <a href="javascript:history.back()" class="go-back">← Go Back</a>
   </div>
@@ -177,5 +42,4 @@
 
 </div>
 
-</body>
-</html>
+{% endblock %}
