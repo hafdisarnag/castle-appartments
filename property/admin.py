@@ -1,5 +1,12 @@
 from django.contrib import admin
-import property.models
+from .models import Property, PropertyImage
 
-# Register your models here.
-admin.site.register(property.models.Property)
+class PropertyImageInline(admin.TabularInline):  # or admin.StackedInline
+    model = PropertyImage
+    extra = 1  # number of extra image fields shown
+
+class PropertyAdmin(admin.ModelAdmin):
+    inlines = [PropertyImageInline]
+
+admin.site.register(Property, PropertyAdmin)
+

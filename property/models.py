@@ -13,10 +13,18 @@ class Property(models.Model):
     bedrooms = models.DecimalField(decimal_places=1, max_digits=4)
     description = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
-    image = models.CharField(max_length=255)
+
+
 
     def __str__(self):
         return f"{self.address} ({self.pk})"
+
+class PropertyImage(models.Model):
+    property = models.ForeignKey(Property, related_name='images', on_delete=models.CASCADE)
+    image_url = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"Image for {self.property.address}"
 
 
 

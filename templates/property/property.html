@@ -46,7 +46,7 @@
             {% for property in properties %}
             <div class="property-item">
                 <span class="heart-icon">🖤</span>
-                <div class="property-image" style="background-image: url({{ property.image }})">
+                <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
                     <div class="property-type">{{ property.type }}</div>
                 </div>
                 <div class="property-info">
