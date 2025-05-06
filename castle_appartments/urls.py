@@ -19,9 +19,11 @@ from django.urls import path, include
 import property.views
 
 urlpatterns = [
-    path('', include('property.urls')),
+
 
     path('', include('home.urls')),
+    path('', include('property.urls')),
+    path('',include('offers.urls')),
 
     path('property/<int:id>', property.views.get_property_by_id),
 
