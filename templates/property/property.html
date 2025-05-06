@@ -11,10 +11,55 @@
             padding: 20px;
         }
 
+        .main-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .filters {
+            width: 250px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            font-size: 0.95em;
+        }
+
+        .filters h2 {
+            margin-top: 0;
+        }
+
+        .filters input,
+        .filters select {
+            width: 100%;
+            padding: 6px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .filters label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .range-slider {
+            margin-bottom: 20px;
+        }
+
+        input[type="range"] {
+        accent-color: #ffd3f8;
+        width: 100%;
+        margin-bottom: 10px;
+        }
+
         .properties-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;
+            flex: 1;
         }
 
         .property-item {
@@ -33,15 +78,13 @@
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
         }
 
-        /* Heart Icon */
         .heart-icon {
             position: absolute;
             top: 10px;
             right: 10px;
             font-size: 1.5em;
-            color: #FF6F61;
             cursor: pointer;
-            z-index: 10; /* Ensure it’s above other elements */
+            z-index: 10;
         }
 
         .property-image {
@@ -57,7 +100,7 @@
             position: absolute;
             bottom: 10px;
             right: 10px;
-            background-color: #FFB6C1; /* soft pink */
+            background-color: #ffd3f8;
             color: #000;
             padding: 5px 10px;
             font-size: 0.9em;
@@ -67,11 +110,8 @@
 
         .property-info {
             padding: 5px;
-            padding-top: 5px;
-            position: relative;
         }
 
-        /* Address styling */
         .property-info h3 {
             margin: 4px 0;
             font-size: 1.2em;
@@ -79,20 +119,16 @@
             font-weight: bold;
         }
 
-        /* Zip and City Styling */
-        .property-info .zip-city {
-            font-size: 0.9em; /* Smaller font size */
-            color: #777; /* Light gray */
-            margin-bottom: 1px; /* Further reduced space */
-            padding-bottom: 1px; /* Reduced padding */
+        .zip-city {
+            font-size: 0.9em;
+            color: #777;
+            margin-bottom: 1px;
         }
 
-        /* Line Below Zip and City (and above details) */
         .line {
             width: 100%;
             border-bottom: 1px solid #ddd;
-            margin: 2px 0; /* Reduced margin between Zip/City and line */
-            box-sizing: border-box; /* Ensures padding doesn’t interfere */
+            margin: 2px 0;
         }
 
         .property-details {
@@ -100,7 +136,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 5px; /* Added more space before details */
+            margin-top: 5px;
             font-size: 0.9em;
             color: #000;
         }
@@ -112,15 +148,15 @@
             font-size: 1.1em;
             margin: 1px 0;
             color: #000;
-            border-top: 1px solid #ddd; /* Line separating details from price */
+            border-top: 1px solid #ddd;
             padding-top: 10px;
         }
 
         a {
             display: block;
-            margin-top: 5px; /* More space before "See more" */
+            margin-top: 5px;
             font-size: 1em;
-            color: #007bff;
+            color: #ffd3f8;
             text-decoration: none;
             font-weight: bold;
         }
@@ -131,35 +167,72 @@
     </style>
 </head>
 <body>
-    <div class="properties-container">
-        {% for property in properties %}
-        <div class="property-item">
-            <!-- Heart Icon -->
-            <span class="heart-icon">❤️</span>
+    <div class="main-container">
+        <!-- Filters Sidebar -->
+        <div class="filters">
+            <h2>Filters</h2>
+            <label for="postal">Postal code</label>
+            <input type="text" id="postal" placeholder="e.g. 101, 220">
 
-            <div class="property-image" style="background-image: url({{ property.image }})">
-                <!-- Property Type label -->
-                <div class="property-type">{{ property.type }}</div>
+            <label>Price range</label>
+            <div class="range-slider">
+                <input type="range" min="0" max="200000000" step="1000000">
+                <input type="range" min="0" max="200000000" step="1000000">
+                <div style="display: flex; justify-content: space-between;">
+                    <span>min</span>
+                    <span>max</span>
+                </div>
             </div>
-            <div class="property-info">
-                <h3>{{ property.address }}</h3>
-                <!-- Zip and City -->
-                <div class="zip-city">{{ property.zip }} {{ property.city }}</div>
-            </div>
-            <!-- Line Below Zip and City (and above details) -->
-            <div class="line"></div>
-            <div class="property-details">
-                <div class="property-detail">📐 {{ property.size }} m²</div>
-                <div class="property-detail">🛏 {{ property.rooms }}</div>
-                <div class="property-detail">🛁 {{ property.bathrooms }}</div>
-                <div class="property-detail">🛌 {{ property.bedrooms }}</div>
-            </div>
-            <div class="property-price">
-                <div>{{ property.price }} kr.</div>
-                <a href="{% url 'property-by-id' id=property.id %}">See more</a>
-            </div>
+
+            <label for="type">Type</label>
+            <select id="type">
+                <option>Fjölbýlishús</option>
+                <option>Einbýlishús</option>
+                <option>Raðhús</option>
+                <option>Parhús</option>
+                <option>Hæð</option>
+            </select>
+
+            <label for="rooms">Rooms</label>
+            <input type="number" id="rooms">
+
+            <label for="street">Street Search</label>
+            <input type="text" id="street">
+
+            <label for="sort">Sort by</label>
+            <select id="sort">
+                <option>Price: low to high</option>
+                <option>Price: high to low</option>
+                <option>Newest</option>
+            </select>
         </div>
-        {% endfor %}
+
+        <!-- Properties Grid -->
+        <div class="properties-container">
+            {% for property in properties %}
+            <div class="property-item">
+                <span class="heart-icon">🖤</span>
+                <div class="property-image" style="background-image: url({{ property.image }})">
+                    <div class="property-type">{{ property.type }}</div>
+                </div>
+                <div class="property-info">
+                    <h3>{{ property.address }}</h3>
+                    <div class="zip-city">{{ property.zip }} {{ property.city }}</div>
+                </div>
+                <div class="line"></div>
+                <div class="property-details">
+                    <div class="property-detail">📐 {{ property.size }} m²</div>
+                    <div class="property-detail">🛏 {{ property.rooms }}</div>
+                    <div class="property-detail">🛁 {{ property.bathrooms }}</div>
+                    <div class="property-detail">🛌 {{ property.bedrooms }}</div>
+                </div>
+                <div class="property-price">
+                    <div>{{ property.price }} kr.</div>
+                    <a href="{% url 'property-by-id' id=property.id %}">See more</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </body>
 </html>

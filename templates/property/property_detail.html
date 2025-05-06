@@ -1,48 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        .properties-container {
-            display: grid;
-            grid-template-columns: repeat(3,1fr);
-            gap: 20px;
-        }
-         .property-item{
-             padding: 10px;
-             background-color: rgba(155, 155, 155, .5);
-         }
+  <meta charset="UTF-8">
+  <title>Property Listing</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 20px;
+    }
 
-         .property-item h3{
+    .property-container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
 
-         }
+    .property-header {
+      position: relative;
+    }
 
-         .property-item .property-image{
-             height: 150px;
-             width: 150px;
-             background-size: contain;
-             background-position: center;
-             background-repeat: no-repeat;
-         }
+    .property-header img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+    }
 
-         .property-item .property-type {
-             border-radius: 20px;
-             padding: 10px;
-             font-size: .7em;
-             background-color: lightblue;
-             max-width: 100px;
-         }
-    </style>
+    .property-info {
+      padding: 20px;
+    }
+
+    .property-type {
+      background-color: #ffd3f8;
+      color: #000;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.8em;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .property-info h2 {
+      margin: 10px 0;
+    }
+
+    .property-address {
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .property-details {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+      font-size: 1em;
+      flex-wrap: wrap;
+    }
+
+    .property-detail {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .property-description {
+      margin-bottom: 20px;
+      color: #444;
+    }
+
+    .property-date {
+      color: #999;
+      font-size: 0.9em;
+      margin-bottom: 20px;
+    }
+
+    .property-price {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .offer-section {
+      border-top: 1px solid #eee;
+      padding: 20px;
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .offer-section form {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .offer-section label,
+    .offer-section input {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .offer-section input {
+      padding: 8px;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .submit-button {
+      padding: 10px 20px;
+      background-color: #ffd3f8;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .seller-logo {
+      height: 50px;
+      margin-left: auto;
+    }
+
+    .go-back {
+      display: inline-block;
+      margin-top: 10px;
+      text-decoration: none;
+      color: #888;
+    }
+
+  </style>
 </head>
 <body>
-    <div class="property-item">
-        <h3>{{ property.address }}</h3>
-        <div class="property-image" style="background-image: url({{ property.image }})"></div>
-        <div>${{ property.price }}</div>
-        <div class="property-type">{{ property.type }}</div>
-        <p>{{ property.description }}</p>
-        <a href="javascript:history.back()">Go Back</a>
+
+<div class="property-container">
+
+  <div class="property-header">
+    <img src="{{ property.image }}" alt="Property Image">
+  </div>
+
+  <div class="property-info">
+    <div class="property-type">{{ property.type }}</div>
+    <h2>{{ property.address }}</h2>
+    <div class="property-address">{{ property.zip }} {{ property.city }}</div>
+
+    <div class="property-details">
+      <div class="property-detail">📐 {{ property.size }} m²</div>
+      <div class="property-detail">🚪 {{ property.rooms }}</div>
+      <div class="property-detail">🛁 {{ property.bathrooms }}</div>
+      <div class="property-detail">🛏 {{ property.bedrooms }}</div>
     </div>
+
+    <div class="property-description">{{ property.description }}</div>
+    <div class="property-date">📅 {{ property.date }}</div>
+    <div class="property-price">{{ property.price }} kr.</div>
+
+    <a href="javascript:history.back()" class="go-back">← Go Back</a>
+  </div>
+
+  <div class="offer-section">
+    <form>
+      <label for="offer">Make a purchase offer:</label>
+      <input type="text" id="offer" name="offer">
+
+      <label for="expiration">Expiration date:</label>
+      <input type="date" id="expiration" name="expiration">
+
+      <button type="submit" class="submit-button">Submit</button>
+    </form>
+    <img src="remax-logo.png" alt="Remax Logo" class="seller-logo">
+  </div>
+
+</div>
+
 </body>
 </html>
