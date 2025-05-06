@@ -5,6 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-
+    <div class="property-item">
+        <h3>{{ property.address }}</h3>
+        <div class="property-image" style="background-image: url({{ property.image }})"></div>
+        <div>${{ property.price }}</div>
+        <div class="property-type">{{ property.type }}</div>
+        <p>{{ property.description }}</p>
+        <a href="javascript:history.back()">Go Back</a>
+    </div>
 </body>
 </html>
