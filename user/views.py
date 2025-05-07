@@ -1,29 +1,13 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
-from django.contrib import messages
-from .forms import ProfileForm
-from .models import Profile
 
-def profile_view(request):
-    return render(request, "user/profile.html", {
-        "user": request.user,
-        "profile": request.user.profile,
-    })
-
-
-def edit_profile(request):
-    profile = request.user.profile
+def register(request):
     if request.method == "POST":
-        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Profile updated successfully.")
-            return redirect("profile")
-        else:
-            messages.error(request, "Failed to update profile.")
+            return redirect('login')
     else:
-        form = ProfileForm(instance=profile)
-
-    return render(request, "user/edit_profile.html", {
-        "form": form
-    })
+        return render(request, 'user/register.html', {
+            'form': UserCreationForm()
+        })
