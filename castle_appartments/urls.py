@@ -24,9 +24,10 @@ urlpatterns = [
     path('', include('home.urls')),
     path('', include('property.urls')),
     path('',include('offers.urls')),
-    path('', include("users.urls")),
 
     path('property/<int:id>', property.views.get_property_by_id),
 
     path('admin/', admin.site.urls),
+
+    path('user/', include('user.urls')),
 ]
