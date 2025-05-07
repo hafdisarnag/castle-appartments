@@ -131,12 +131,8 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-<<<<<<< HEAD
-=======
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-
->>>>>>> 2dbef1c9661e146fb0d5002ee0cfdce538141d60
 
 LOGIN_REDIRECT_URL = '/user/profile'
 LOGIN_URL = '/'
