@@ -31,14 +31,14 @@
 
     <div class="property-details-det">
       <div class="property-detail-det">📐 {{ property.size }} m²</div>
-      <div class="property-detail-det">🚪 {{ property.rooms }}</div>
-      <div class="property-detail-det">🛁 {{ property.bathrooms }}</div>
-      <div class="property-detail-det">🛏 {{ property.bedrooms }}</div>
+      <div class="property-detail-det">🚪 {{ property.rooms|floatformat:0 }}</div>
+      <div class="property-detail-det">🛁 {{ property.bathrooms|floatformat:0 }}</div>
+      <div class="property-detail-det">🛏 {{ property.bedrooms|floatformat:0 }}</div>
     </div>
 
     <div class="property-description">{{ property.description }}</div>
     <div class="property-date">📅 {{ property.date }}</div>
-    <div class="property-price-det">{{ property.price }} kr.</div>
+    <div class="property-price-det">{{ property.price|floatformat:0 }} kr.</div>
 
     <a href="javascript:history.back()" class="go-back">← Go Back</a>
   </div>

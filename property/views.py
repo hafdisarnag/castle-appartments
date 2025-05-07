@@ -12,4 +12,3 @@ def get_property_by_id(request, id):
     return render(request, "property/property_detail.html", {
         "property": property
     })
-
