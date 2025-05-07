@@ -80,8 +80,24 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .price-value {
-    font-size: 0.75rem;
-    min-width: 60px;
+    font-size: 0.8rem;
+    color: #555;
+    min-width: 100px;
+    text-align: left;
+}
+
+.slider-tooltip {
+  display: none;
+  background: #f7b1dd;
+  color: #000;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  position: relative;
+  top: -5px;
+}
+.slider-tooltip.active {
+  display: inline-block;
 }
 
 .properties-container {

@@ -27,10 +27,13 @@
             <div class="slider-row">
               <label for="minPrice">Min</label>
               <input type="range" id="minPrice" min="0" max="200000000" step="1000000">
+              <span id="minPriceValue" class="slider-tooltip">0 kr</span>
             </div>
+
             <div class="slider-row">
               <label for="maxPrice">Max</label>
               <input type="range" id="maxPrice" min="0" max="200000000" step="1000000">
+              <span id="maxPriceValue" class="slider-tooltip">200,000,000 kr</span>
             </div>
           </div>
         </div>
@@ -74,13 +77,13 @@
                 </div>
                 <div class="line"></div>
                 <div class="property-details">
-                    <div class="property-detail">📐 {{ property.size }} m²</div>
-                    <div class="property-detail">🛏 {{ property.rooms }}</div>
-                    <div class="property-detail">🛁 {{ property.bathrooms }}</div>
-                    <div class="property-detail">🛌 {{ property.bedrooms }}</div>
+                    <div class="property-detail">📐 {{ property.size|floatformat:0 }} m²</div>
+                    <div class="property-detail">🛏 {{ property.rooms|floatformat:0 }}</div>
+                    <div class="property-detail">🛁 {{ property.bathrooms|floatformat:0 }}</div>
+                    <div class="property-detail">🛌 {{ property.bedrooms|floatformat:0 }}</div>
                 </div>
                 <div class="property-price">
-                    <div>{{ property.price }} kr.</div>
+                    <div>{{ property.price|floatformat:0 }} kr.</div>
                     <a href="{% url 'property-by-id' id=property.id %}">See more</a>
                 </div>
             </div>
