@@ -15,6 +15,18 @@
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'offers-index' %}active{% endif %}" href="{% url 'offers-index' %}">Offers</a>
         </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url "logout" %}">Logout</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url "register" %}">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url "login" %}">Login</a>
+            </li>
+        {% endif %}
       </ul>
     </div>
   </div>
