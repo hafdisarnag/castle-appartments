@@ -12,6 +12,7 @@ class Property(models.Model):
     bathrooms = models.DecimalField(decimal_places=1, max_digits=4)
     bedrooms = models.DecimalField(decimal_places=1, max_digits=4)
     description = models.TextField()
+    additional_info = models.TextField(blank=True)
     date = models.DateTimeField(auto_now_add=True)
 
 
