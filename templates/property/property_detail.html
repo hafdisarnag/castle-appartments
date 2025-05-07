@@ -56,18 +56,22 @@
     <a href="javascript:history.back()" class="go-back">← Go Back</a>
   </div>
 
-  <div class="offer-section">
-    <form>
-      <label for="offer">Make a purchase offer:</label>
-      <input type="text" id="offer" name="offer">
+<div class="offer-section">
+  <form class="offer-form">
+    <label for="offer">Make a purchase offer:</label>
+    <input type="text" id="offer" name="offer">
 
-      <label for="expiration">Expiration date:</label>
-      <input type="date" id="expiration" name="expiration">
+    <label for="expiration">Expiration date:</label>
+    <input type="date" id="expiration" name="expiration">
 
-      <button type="submit" class="submit-button">Submit</button>
-    </form>
-    <img src="remax-logo.png" alt="Remax Logo" class="seller-logo">
+    <button type="submit" class="submit-button">Submit</button>
+  </form>
+
+  <div class="seller-cover-wrapper">
+    <img src="{{ property.seller.cover_image.url }}" alt="{{ property.seller.name }} Cover" class="seller-cover-img">
   </div>
+</div>
+
 
 </div>
 <div class="image-thumbnail-gallery mt-4">
