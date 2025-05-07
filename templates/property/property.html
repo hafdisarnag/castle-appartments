@@ -1,62 +1,71 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block content %}
-<div class="main-container">
+    <div class="main-container">
+        <!-- Filters Sidebar -->
+        <div class="filters">
+            <h2>Filters</h2>
+            <label for="postal">Postal code</label>
+            <input type="text" id="postal" placeholder="e.g. 101, 220">
 
-    <!-- Inline Filter Toolbar (above properties) -->
-    <div class="filter-toolbar">
-        <button class="filter-toggle">☰</button>
-
-        <select id="type">
-            <option disabled selected>Type</option>
-            <option>Fjölbýlishús</option>
-            <option>Einbýlishús</option>
-            <option>Raðhús</option>
-            <option>Parhús</option>
-            <option>Hæð</option>
-        </select>
-
-        <input type="text" id="postal" placeholder="Postal code">
-
-        <input type="number" id="rooms" placeholder="Rooms">
-
-        <input type="text" id="street" placeholder="Street Search">
-
-        <select id="sort">
-            <option>Sort: Price low to high</option>
-            <option>Sort: Price high to low</option>
-            <option>Newest</option>
-        </select>
-
-        <input type="range" min="0" max="200000000" step="1000000" class="price-slider">
-    </div>
-
-    <!-- Properties Grid -->
-    <div class="properties-container">
-        {% for property in properties %}
-        <div class="property-item">
-            <span class="heart-icon">🖤</span>
-            <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
-                <div class="property-type">{{ property.type }}</div>
+            <label>Price range</label>
+            <div class="range-slider">
+                <input type="range" min="0" max="200000000" step="1000000">
+                <input type="range" min="0" max="200000000" step="1000000">
+                <div style="display: flex; justify-content: space-between;">
+                    <span>min</span>
+                    <span>max</span>
+                </div>
             </div>
-            <div class="property-info">
-                <h3>{{ property.address }}</h3>
-                <div class="zip-city">{{ property.zip }} {{ property.city }}</div>
-            </div>
-            <div class="line"></div>
-            <div class="property-details">
-                <div class="property-detail">📐 {{ property.size }} m²</div>
-                <div class="property-detail">🛏 {{ property.rooms }}</div>
-                <div class="property-detail">🛁 {{ property.bathrooms }}</div>
-                <div class="property-detail">🛌 {{ property.bedrooms }}</div>
-            </div>
-            <div class="property-price">
-                <div>{{ property.price }} kr.</div>
-                <a href="{% url 'property-by-id' id=property.id %}">See more</a>
-            </div>
+
+            <label for="type">Type</label>
+            <select id="type">
+                <option>Fjölbýlishús</option>
+                <option>Einbýlishús</option>
+                <option>Raðhús</option>
+                <option>Parhús</option>
+                <option>Hæð</option>
+            </select>
+
+            <label for="rooms">Rooms</label>
+            <input type="number" id="rooms">
+
+            <label for="street">Street Search</label>
+            <input type="text" id="street">
+
+            <label for="sort">Sort by</label>
+            <select id="sort">
+                <option>Price: low to high</option>
+                <option>Price: high to low</option>
+                <option>Newest</option>
+            </select>
         </div>
-        {% endfor %}
+
+        <!-- Properties Grid -->
+        <div class="properties-container">
+            {% for property in properties %}
+            <div class="property-item">
+                <span class="heart-icon">🖤</span>
+                <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
+                    <div class="property-type">{{ property.type }}</div>
+                </div>
+                <div class="property-info">
+                    <h3>{{ property.address }}</h3>
+                    <div class="zip-city">{{ property.zip }} {{ property.city }}</div>
+                </div>
+                <div class="line"></div>
+                <div class="property-details">
+                    <div class="property-detail">📐 {{ property.size }} m²</div>
+                    <div class="property-detail">🛏 {{ property.rooms }}</div>
+                    <div class="property-detail">🛁 {{ property.bathrooms }}</div>
+                    <div class="property-detail">🛌 {{ property.bedrooms }}</div>
+                </div>
+                <div class="property-price">
+                    <div>{{ property.price }} kr.</div>
+                    <a href="{% url 'property-by-id' id=property.id %}">See more</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
-</div>
 {% endblock %}
