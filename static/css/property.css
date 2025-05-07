@@ -211,3 +211,12 @@ a {
     font-family: Impact, serif;
     padding-left: 5px;
 }
+
+#search-icon {
+  transition: all 0.5s;
+}
+
+#search-icon:hover {
+  cursor: pointer;
+    background-color: rgba(0, 0, 0, .1);
+}
