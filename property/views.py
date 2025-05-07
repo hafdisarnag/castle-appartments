@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from property.models import Property
+from sellers.models import Seller
+
 
 def index(request):
     return render(request,"property/property.html",  {
@@ -12,3 +14,10 @@ def get_property_by_id(request, id):
     return render(request, "property/property_detail.html", {
         "property": property
     })
+
+def get_seller_by_id(request, id):
+    seller = Seller.objects.get(id=id)
+    return render(request, "sellers/sellerprofile.html", {
+        "seller": seller,
+    })
+

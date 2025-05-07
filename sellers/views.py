@@ -8,7 +8,7 @@ def seller_profile(request, seller_id):
     seller = get_object_or_404(Seller, id=seller_id)
     properties = seller.property_set.all()
 
-    return render(request, 'sellers/profile.html', {
+    return render(request, 'sellers/sellerprofile.html', {
         'seller': seller,
         'properties': properties,
     })
