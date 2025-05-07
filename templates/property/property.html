@@ -1,45 +1,52 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+    <div class="filters">
+      <h2>Filters</h2>
+
+      <div class="filter-group">
+        <label for="postal">Postal code</label>
+        <input type="text" id="postal" placeholder="e.g. 101, 220">
+
+        <label>Price range</label>
+        <div class="range-slider">
+          <input type="range" min="0" max="200000000" step="1000000">
+          <input type="range" min="0" max="200000000" step="1000000">
+          <div style="display: flex; justify-content: space-between;">
+            <span>min</span>
+            <span>max</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label for="type">Type</label>
+        <select id="type">
+          <option>Fjölbýlishús</option>
+          <option>Einbýlishús</option>
+          <option>Raðhús</option>
+          <option>Parhús</option>
+          <option>Hæð</option>
+        </select>
+
+        <label for="rooms">Rooms</label>
+        <input type="number" id="rooms">
+      </div>
+
+      <div class="filter-group">
+        <label for="street">Street Search</label>
+        <input type="text" id="street">
+
+        <label for="sort">Sort by</label>
+        <select id="sort">
+          <option>Price: low to high</option>
+          <option>Price: high to low</option>
+          <option>Newest</option>
+        </select>
+      </div>
+    </div>
     <div class="main-container">
         <!-- Filters Sidebar -->
-        <div class="filters">
-            <h2>Filters</h2>
-            <label for="postal">Postal code</label>
-            <input type="text" id="postal" placeholder="e.g. 101, 220">
-
-            <label>Price range</label>
-            <div class="range-slider">
-                <input type="range" min="0" max="200000000" step="1000000">
-                <input type="range" min="0" max="200000000" step="1000000">
-                <div style="display: flex; justify-content: space-between;">
-                    <span>min</span>
-                    <span>max</span>
-                </div>
-            </div>
-
-            <label for="type">Type</label>
-            <select id="type">
-                <option>Fjölbýlishús</option>
-                <option>Einbýlishús</option>
-                <option>Raðhús</option>
-                <option>Parhús</option>
-                <option>Hæð</option>
-            </select>
-
-            <label for="rooms">Rooms</label>
-            <input type="number" id="rooms">
-
-            <label for="street">Street Search</label>
-            <input type="text" id="street">
-
-            <label for="sort">Sort by</label>
-            <select id="sort">
-                <option>Price: low to high</option>
-                <option>Price: high to low</option>
-                <option>Newest</option>
-            </select>
-        </div>
 
         <!-- Properties Grid -->
         <div class="properties-container">
