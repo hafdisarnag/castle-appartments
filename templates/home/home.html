@@ -2,13 +2,43 @@
 {% load static %}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/property.css' %}">
+
+
 {% endblock %}
 {% block content %}
     <div class="image-text-home">
         <img class="home-image" src="{% static 'images/home-mynd.jpeg' %}">
         <p class="dream-home">Find your dream home</p>
     </div>
-    <p class="featured-properties">Featured properties</p>
+    <h2 class="section-title">Recently listed</h2>
+<div class="main-container">
+  <div class="properties-container">
+    {% for property in featured_properties %}
+      <div class="property-item">
+        <span class="heart-icon">🖤</span>
+        <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
+          <div class="property-type">{{ property.type }}</div>
+        </div>
+        <div class="property-info">
+          <h3>{{ property.address }}</h3>
+          <div class="zip-city">{{ property.zip }} {{ property.city }}</div>
+        </div>
+        <div class="line"></div>
+        <div class="property-details">
+          <div class="property-detail">📐 {{ property.size|floatformat:0 }} m²</div>
+          <div class="property-detail">🛏 {{ property.rooms|floatformat:0 }}</div>
+          <div class="property-detail">🛁 {{ property.bathrooms|floatformat:0 }}</div>
+          <div class="property-detail">🛌 {{ property.bedrooms|floatformat:0 }}</div>
+        </div>
+        <div class="property-price">
+          <div>{{ property.price|floatformat:0 }} kr.</div>
+          <a href="{% url 'property-by-id' id=property.id %}">See more</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
 
 
 {% endblock %}

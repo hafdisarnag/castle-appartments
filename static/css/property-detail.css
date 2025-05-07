@@ -133,4 +133,11 @@
   object-fit: cover;
 }
 
+.toggle-description {
+  font-weight: bold;
+  color: #f7b1dd;
+  display: inline-block;
+  margin-top: 8px;
+}
+
 
