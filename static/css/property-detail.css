@@ -120,3 +120,17 @@
     text-decoration: none;
     color: #888;
 }
+.image-thumbnail-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+  padding: 0 20px;
+}
+
+.thumb-img {
+  width: 100%;
+  object-fit: cover;
+}
+
+

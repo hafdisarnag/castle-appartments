@@ -8,12 +8,25 @@
 <div class="property-container-det">
 
   <div class="property-header">
-    <img src="{{ property.image }}" alt="Property Image">
+      <div id="propertyCarousel" class="carousel slide">
+  <div class="carousel-inner">
+      {% for img in property.images.all %}
+          <div class="carousel-item {% if forloop.first %}active{% endif %}">
+              <img src="{{ img.image_url }}" class="d-block w-100" alt="Property Image">
+          </div>
+      {% endfor %}
   </div>
-
-  <div class="property-info-det">
+  <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+      </div>
+  </div>
+    <div class="property-info-det">
     <div class="property-type-det">{{ property.type }}</div>
-    <h2>{{ property.address }}</h2>
+        <h2>{{ property.address }}</h2>
     <div class="property-address-det">{{ property.zip }} {{ property.city }}</div>
 
     <div class="property-details-det">
@@ -44,5 +57,9 @@
   </div>
 
 </div>
-
+<div class="image-thumbnail-gallery mt-4">
+  {% for img in property.images.all %}
+    <img src="{{ img.image_url }}" class="thumb-img" alt="Thumbnail">
+  {% endfor %}
+</div>
 {% endblock %}
