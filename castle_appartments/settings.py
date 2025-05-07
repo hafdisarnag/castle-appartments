@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'property.apps.PropertiesConfig',
-    'user.apps.UserConfig',
+    'sellers.apps.SellersConfig',
 ]
 
 MIDDLEWARE = [
@@ -131,5 +131,11 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+<<<<<<< HEAD
 LOGIN_REDIRECT_URL = '/user/profile'
 LOGIN_URL = '/'
+=======
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+>>>>>>> 2dbef1c9661e146fb0d5002ee0cfdce538141d60
