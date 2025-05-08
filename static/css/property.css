@@ -220,3 +220,16 @@ a {
   cursor: pointer;
     background-color: rgba(0, 0, 0, .1);
 }
+
+.sold-label {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: red;
+    color: white;
+    padding: 4px 10px;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    font-weight: bold;
+    z-index: 10;
+}

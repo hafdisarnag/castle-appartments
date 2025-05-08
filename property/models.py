@@ -24,6 +24,9 @@ class Property(models.Model):
     def __str__(self):
         return f"{self.address} ({self.pk})"
 
+    def is_sold(self):
+        return self.offers.filter(status='accepted').exists()
+
 class PropertyImage(models.Model):
     property = models.ForeignKey(Property, related_name='images', on_delete=models.CASCADE)
     image_url = models.CharField(max_length=255)
