@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+{% load humanize %}
+{% load custom_filters %}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/property.css' %}">
 {% endblock %}
@@ -91,7 +93,7 @@
                     <div class="property-detail">🛌 {{ property.bedrooms|floatformat:0 }}</div>
                 </div>
                 <div class="property-price">
-                    <div>{{ property.price|floatformat:0 }} kr.</div>
+                    <div>{{ property.price|floatformat:0|intcomma|replace_comma }} kr.</div>
                     <a href="{% url 'property-by-id' id=property.id %}">See more</a>
                 </div>
             </div>
