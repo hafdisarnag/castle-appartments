@@ -1,6 +1,19 @@
 {% extends "base.html" %}
+
 {% block content %}
 <div class="container mt-5">
+
+    {% if messages %}
+        <div class="mb-4">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <!-- Profile Header -->
     <div class="text-center mb-5">
         {% if user.profile.profile_image %}
@@ -9,15 +22,42 @@
             <div class="rounded-circle bg-secondary d-inline-block" style="width: 120px; height: 120px;"></div>
         {% endif %}
         <h3 class="mt-3">{{ user.get_full_name|default:user.username }}</h3>
-        <p class="text-muted">Username: {{ user.username }}</p>
+
         <div class="d-flex flex-column align-items-center gap-2 mt-2">
-            <a href="#edit-profile-form" class="btn btn-outline-dark shadow-sm px-4">Edit Profile</a>
+            <button id="toggle-edit-btn" class="btn btn-outline-dark shadow-sm px-4">Edit Profile</button>
             <form method="post" action="{% url 'logout' %}" class="mb-3">
-            {% csrf_token %}
-                <button type="submit" class="btn shadow-sm px-4 border" style="background-color: #ff7474; color: black;">Log out </button>
+                {% csrf_token %}
+                <button type="submit" class="btn shadow-sm px-4 border" style="background-color: #ff7474; color: black;">Log out</button>
             </form>
         </div>
 
+        <!-- Edit Profile Form (initially hidden) -->
+        <div id="edit-profile-form" class="mt-4 d-none" style="max-width: 400px; margin: 0 auto;">
+            <form method="post" enctype="multipart/form-data" action="{% url 'profile' %}">
+                {% csrf_token %}
+
+                <!-- Username -->
+                <div class="mb-3">
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div class="text-danger">{{ form.username.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Profile Image -->
+                <div class="mb-3">
+                    {{ form.profile_image.label_tag }}
+                    {{ form.profile_image }}
+                    {% if form.profile_image.errors %}
+                        <div class="text-danger">{{ form.profile_image.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+    </div>
 
     <!-- Offer Stats -->
     <h4 class="text-center mt-5 mb-3">My Offers</h4>
@@ -72,44 +112,16 @@
         {% endfor %}
     </div>
 
-    <div class="text-center">
+    <div class="text-center mb-5">
         <a href="#" class="btn btn-outline-dark shadow-sm">View all Saved properties</a>
     </div>
-    <div id="edit-profile-form" class="mt-5">
-        <h4>Edit Your Profile</h4>
-        <form method="post" enctype="multipart/form-data" action="{% url 'profile' %}">
-            {% csrf_token %}
-
-            <!-- Username -->
-            <div class="mb-3">
-                {{ form.username.label_tag }}
-                {{ form.username }}
-                {% if form.username.errors %}
-                    <div class="text-danger">{{ form.username.errors }}</div>
-                {% endif %}
-            </div>
-
-            <!-- Favorite Property -->
-            <div class="mb-3">
-                {{ form.favorite_property.label_tag }}
-                {{ form.favorite_property }}
-                {% if form.favorite_property.errors %}
-                    <div class="text-danger">{{ form.favorite_property.errors }}</div>
-                {% endif %}
-            </div>
-
-            <!-- Profile Image -->
-            <div class="mb-3">
-                {{ form.profile_image.label_tag }}
-                {{ form.profile_image }}
-                {% if form.profile_image.errors %}
-                    <div class="text-danger">{{ form.profile_image.errors }}</div>
-                {% endif %}
-            </div>
-
-            <button type="submit" class="btn btn-primary">Update</button>
-        </form>
-    </div>
-    </div>
 </div>
+
+<!-- Toggle Form Script -->
+<script>
+    document.getElementById("toggle-edit-btn").addEventListener("click", function () {
+        const form = document.getElementById("edit-profile-form");
+        form.classList.toggle("d-none");
+    });
+</script>
 {% endblock %}
