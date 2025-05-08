@@ -26,6 +26,7 @@ urlpatterns = [
     path('property/<int:id>', property.views.get_property_by_id),
     path('admin/', admin.site.urls),
     path('user/', include('user.urls')),
+    path('seller/', include('sellers.urls')),
 ]
 
 from django.conf import settings
