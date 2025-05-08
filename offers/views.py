@@ -1,3 +1,4 @@
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from offers.forms.forms import OfferForm
@@ -25,3 +26,14 @@ def make_offer(request, property_id):
 def my_offers(request):
     offers = Offer.objects.filter(user=request.user).select_related('property')
     return render(request, 'offers/offers.html', {'offers': offers})
+
+@login_required
+def finalize_offer(request, offer_id):
+    offer = get_object_or_404(Offer, id=offer_id, user=request.user)
+
+    if offer.status != 'accepted':
+        return HttpResponseForbidden("Offer is not accepted yet.")
+
+    offer.is_finalized = True
+    offer.save()
+    return redirect('my_offers')

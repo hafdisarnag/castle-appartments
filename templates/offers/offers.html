@@ -1,21 +1,63 @@
 {% extends "base.html" %}
-{% block content %}
-  <div class="container mt-4">
-    <h2>My Offers</h2>
-    <ul class="list-group">
-      {% for offer in offers %}
-        <li class="list-group-item">
-          <strong>{{ offer.property.title }}</strong><br>
-          Offer: ${{ offer.amount }}<br>
-          Expires: {{ offer.expires_at }}
-          {% if offer.is_expired %}
-            <span class="badge bg-danger">Expired</span>
-          {% endif %}
-        </li>
-      {% empty %}
-        <li class="list-group-item">You have not made any offers yet.</li>
-      {% endfor %}
-    </ul>
-  </div>
-{% endblock %}
+{% load humanize %}
+{% load custom_filters %}
 
+{% block content %}
+<div class="container mt-5">
+  <h2 class="text-center mb-4"">My Purchase Offers</h2>
+
+  {% if offers %}
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover text-center align-middle" style="background-color: #fff0f5; border-color: #ffc0cb; border-radius: 12px;">
+        <thead class="text-white" style="background-color: #ff69b4;">
+          <tr>
+            <th>Property</th>
+            <th>Date</th>
+            <th>Expires</th>
+            <th>Status</th>
+            <th>Seller</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for offer in offers %}
+            <tr>
+              <td>
+                <a href="{% url 'property-by-id' offer.property.id %}" class="text-decoration-none" style="color: black;">
+                  {{ offer.property.address }}
+                </a>
+              </td>
+              <td>{{ offer.created_at|date:"Y-m-d" }}</td>
+              <td>{{ offer.expires_at|date:"Y-m-d" }}</td>
+              <td>
+  {% if offer.is_accepted %}
+    <span class="badge bg-success">Accepted</span>
+  {% elif offer.is_expired %}
+   <span class="badge" style="background-color: #ffe0f0; color: black; font-weight: 500;">Accepted</span>
+
+  {% else %}
+    <span class="badge" style="background-color: #ffe0f0; color: black; font-weight: 500;">Pending</span>
+
+  {% endif %}
+</td>
+              <td>{{ offer.property.seller.name }}</td>
+              <td><strong>{{ offer.amount|floatformat:0|intcomma|replace_comma }} kr.</strong></td>
+            <td>
+        {% if offer.status == 'accepted' and not offer.is_finalized %}
+            <a href="{% url 'finalize_offer' offer.id %}" class="btn btn-pink">Finalize</a>
+        {% elif offer.is_finalized %}
+            <span class="badge" style="background-color: #d1e7dd; color: #0f5132;">Finalized</span>
+        {% else %}
+            <span>-</span>
+        {% endif %}
+    </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-center text-muted mt-4">You haven’t made any offers yet.</p>
+  {% endif %}
+</div>
+{% endblock %}
