@@ -34,26 +34,20 @@ def get_property_by_id(request, id):
     property = get_object_or_404(Property, id=id)
 
     existing_offer = None
+    accepted_offer = None
     form = None
 
     if request.user.is_authenticated:
         existing_offer = Offer.objects.filter(user=request.user, property=property).first()
+        accepted_offer = property.offers.filter(is_accepted=True).first()
+        form = OfferForm(instance=existing_offer)
 
-        if request.method == 'POST':
-            form = OfferForm(request.POST, instance=existing_offer)
-            if form.is_valid():
-                offer = form.save(commit=False)
-                offer.user = request.user
-                offer.property = property
-                offer.save()
-                return redirect('my_offers')
-        else:
-            form = OfferForm(instance=existing_offer)
 
     return render(request, "property/property_detail.html", {
         "property": property,
         "form": form,
         "existing_offer": existing_offer,
+        "accepted_offer": accepted_offer,
     })
 
 

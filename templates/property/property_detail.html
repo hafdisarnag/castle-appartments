@@ -7,6 +7,20 @@
 <link rel="stylesheet" href="{% static 'css/property-detail.css' %}">
 {% endblock %}
 {% block content %}
+
+
+{% if messages %}
+  <div class="container mt-4">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}  text-center fw-semibold px-4 py-3" role="alert" style="font-size: 1.1rem; background-color: #98ff9a; color: black">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+
+
 <div class="property-container-det">
 
   <div class="property-header">
@@ -83,7 +97,7 @@
     </div>
   {% else %}
     {% if user.is_authenticated %}
-      <form method="post" class="offer-form">
+      <form method="post" action="{% url 'make_offer' property.id %}" class="offer-form">
         {% csrf_token %}
         <div class="mb-3">
           <label for="{{ form.amount.id_for_label }}">Offer Amount:</label>
