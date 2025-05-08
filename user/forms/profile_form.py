@@ -7,7 +7,7 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['favorite_property', 'profile_image']
+        fields = ['profile_image']
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
