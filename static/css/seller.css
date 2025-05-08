@@ -1,55 +1,103 @@
 .seller-profile-container {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 2rem auto;
-  padding: 1rem;
-  background-color: #fefefe;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  text-align: center;
-}
-
-.seller-logo {
-  max-height: 80px;
-  margin: 1rem 0;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
 }
 
 .seller-cover {
-  max-width: 100%;
-  border-radius: 10px;
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.seller-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
   margin-bottom: 1rem;
 }
 
-.seller-type, .seller-address, .seller-bio {
-  margin: 0.5rem 0;
+.seller-logo {
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  padding: 5px;
+  background-color: #f9f9f9;
+}
+
+.seller-info h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #2c3e50;
+}
+
+.seller-type {
+  font-weight: bold;
+  color: #555;
+}
+
+.seller-address {
+  font-style: italic;
+  color: #777;
+}
+
+.seller-bio {
+  margin-top: 1rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+.property-list-title {
+  margin-top: 2.5rem;
+  font-size: 1.5rem;
+  color: #333;
 }
 
 .property-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
 }
 
 .property-card {
+  display: block;
   text-decoration: none;
-  color: inherit;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
-  transition: transform 0.2s ease;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  transition: all 0.3s ease;
+  background: white;
 }
 
 .property-card:hover {
-  transform: scale(1.02);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
 }
 
 .property-card img {
   width: 100%;
-  height: 150px;
+  height: 160px;
   object-fit: cover;
+  display: block;
 }
 
 .property-info {
-  padding: 0.5rem;
-  background: #f8f8f8;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.property-address {
+  font-size: 1rem;
+  color: #2c3e50;
+  font-weight: 500;
 }
