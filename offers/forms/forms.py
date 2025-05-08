@@ -1,15 +1,14 @@
 from django import forms
-from .models import Offer
+from offers.models import Offer
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 
 class OfferForm(forms.ModelForm):
     class Meta:
         model = Offer
-        fields = ['amount', 'message', 'expires_at']
+        fields = ['amount', 'expires_at']
         widgets = {
             'amount': forms.NumberInput(attrs={'class': 'form-control'}),
-            'message': forms.Textarea(attrs={'class': 'form-control'}),
             'expires_at': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
 
