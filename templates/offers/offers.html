@@ -1,6 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Offers</h1>
+  <div class="container mt-4">
+    <h2>My Offers</h2>
+    <ul class="list-group">
+      {% for offer in offers %}
+        <li class="list-group-item">
+          <strong>{{ offer.property.title }}</strong><br>
+          Offer: ${{ offer.amount }}<br>
+          Expires: {{ offer.expires_at }}
+          {% if offer.is_expired %}
+            <span class="badge bg-danger">Expired</span>
+          {% endif %}
+        </li>
+      {% empty %}
+        <li class="list-group-item">You have not made any offers yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
 {% endblock %}
-
 

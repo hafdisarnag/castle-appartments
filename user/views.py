@@ -2,6 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from user.forms.profile_form import ProfileForm
 from user.models import Profile
+from django.contrib import messages
 
 def register(request):
     if request.method == 'POST':
@@ -21,15 +22,17 @@ def profile(request):
     user_profile = Profile.objects.filter(user=request.user).first()
 
     if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=user_profile)  # ← add request.FILES
+        form = ProfileForm(request.POST, request.FILES, instance=user_profile, user=request.user)
         if form.is_valid():
-            instance = form.save(commit=False)
-            instance.user = request.user
-            instance.save()
+            form.save()
+            messages.success(request, 'Profile updated successfully.')
             return redirect('profile')
+        else:
+            messages.error(request, 'Failed to update profile. Please fix the errors below.')
     else:
-        form = ProfileForm(instance=user_profile)
+        form = ProfileForm(instance=user_profile, user=request.user)
 
     return render(request, 'user/profile.html', {
         'form': form,
+        'user': request.user,
     })

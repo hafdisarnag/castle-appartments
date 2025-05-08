@@ -13,14 +13,14 @@
           <a class="nav-link {% if request.resolver_match.url_name == 'property-index' %}active{% endif %}" href="{% url 'property-index' %}">Properties</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if request.resolver_match.url_name == 'offers-index' %}active{% endif %}" href="{% url 'offers-index' %}">Offers</a>
+          <a class="nav-link {% if request.resolver_match.url_name == 'my_offers' %}active{% endif %}" href="{% url 'my_offers' %}">Offers</a>
         </li>
         {% if user.is_authenticated %}
             <a href="{% url 'profile' %}">
         {% if user.profile.profile_image %}
               <div class="avatar" style="background-image: url('{{ user.profile.profile_image.url }}')"></div>
         {% else %}
-              <div class="avatar" style="background-image: url('/static/images/default-avatar.png')"></div>
+              <div class="avatar ms-3" style="background-image: url('/static/images/profile.jpeg')"></div>
         {% endif %}
     </a>
         {% else %}

@@ -1,6 +1,8 @@
 
 {% extends "base.html" %}
 {% load static %}
+{% load humanize %}
+{% load custom_filters %}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/property-detail.css' %}">
 {% endblock %}
@@ -51,21 +53,37 @@
 </div>
 
     <div class="property-date">📅 {{ property.date }}</div>
-    <div class="property-price-det">{{ property.price|floatformat:0 }} kr.</div>
+    <div class="property-price-det">
+        {{ property.price|floatformat:0|intcomma|replace_comma }} kr.
+    </div>
 
     <a href="javascript:history.back()" class="go-back">← Go Back</a>
   </div>
-
+{% if existing_offer %}
+  <div class="alert alert-info">
+    You’ve already made an offer of
+    <strong>{{ existing_offer.amount|floatformat:0|intcomma|replace_comma}} kr.</strong>
+    You can update your offer below.
+  </div>
+{% else %}
+  <h4>Make a purchase offer:</h4>
+{% endif %}
 <div class="offer-section">
-  <form class="offer-form">
-    <label for="offer">Make a purchase offer:</label>
-    <input type="text" id="offer" name="offer">
+  <form method="post" class="offer-form">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label for="{{ form.amount.id_for_label }}">Offer Amount:</label>
+    {{ form.amount }}
+  </div>
 
-    <label for="expiration">Expiration date:</label>
-    <input type="date" id="expiration" name="expiration">
+  <div class="mb-3">
+    <label for="{{ form.expires_at.id_for_label }}">Expiration Date:</label>
+    {{ form.expires_at }}
+  </div>
 
-    <button type="submit" class="submit-button">Submit</button>
-  </form>
+
+  <button type="submit" class="submit-button">Submit</button>
+</form>
 
   <div class="seller-cover-wrapper">
     <img src="{{ property.seller.cover_image.url }}" alt="{{ property.seller.name }} Cover" class="seller-cover-img">
