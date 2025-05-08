@@ -49,8 +49,9 @@
         <div>
           <input type="number" id="rooms">
         </div>
-        <div>
-          <input type="text" id="street">
+        <div class="input-group">
+            <span class="input-group-text" id="search-icon"> 🔍</span>
+            <input type="search" id="search-value" class="form-control" placeholder="Enter search..." aria-label="Search" aria-describedby="search-icon">
         </div>
         <div>
           <select id="sort">
@@ -64,7 +65,7 @@
     <div class="main-container">
         <!-- Filters Sidebar -->
         <!-- Properties Grid -->
-        <div class="properties-container">
+        <div class="properties-container" id="property-placeholder">
             {% for property in properties %}
             <div class="property-item">
                 <span class="heart-icon">🖤</span>
@@ -90,4 +91,7 @@
             {% endfor %}
         </div>
     </div>
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'js/property_filter.js' %}"></script>
 {% endblock %}
