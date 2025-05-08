@@ -25,7 +25,7 @@ class Property(models.Model):
     def __str__(self):
         return f"{self.address} ({self.pk})"
 
-    def is_sold(self):
+    def has_accepted_offer(self):
         return self.offers.filter(status='accepted').exists()
 
 class PropertyImage(models.Model):

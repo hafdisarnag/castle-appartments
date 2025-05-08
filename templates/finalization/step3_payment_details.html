@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container mt-5">
-    <h2>Step 3: {{ method|title|replace:'_',' ' }} Details</h2>
+    <h2>Step 3: {{ method|cut:"_"|title }} Details</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <div class="d-flex justify-content-between mt-4">
-            <a href="{% url 'finalization:step2_payment' %}" class="btn btn-secondary">Back</a>
+            <a href="{% url 'finalization:step2_payment' offer_id  %}" class="btn btn-secondary">Back</a>
             <button type="submit" class="btn btn-primary">Next</button>
         </div>
     </form>

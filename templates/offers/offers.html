@@ -43,13 +43,16 @@
               <td>{{ offer.property.seller.name }}</td>
               <td><strong>{{ offer.amount|floatformat:0|intcomma|replace_comma }} kr.</strong></td>
             <td>
-        {% if offer.status == 'accepted' and not offer.is_finalized %}
-            <a href="{% url 'finalize_offer' offer.id %}" class="btn btn-pink">Finalize</a>
-        {% elif offer.is_finalized %}
-            <span class="badge" style="background-color: #d1e7dd; color: #0f5132;">Finalized</span>
-        {% else %}
-            <span>-</span>
-        {% endif %}
+        {% if offer.is_accepted and not offer.is_finalized and not offer.property.is_sold %}
+    <a href="{% url 'finalization:step1_contact' offer.id %}" class="btn btn-sm" style="background-color: #f8c6d8; color: #8b005d;">
+        Finalize
+    </a>
+
+{% elif offer.property.is_sold %}
+    <span class="badge bg-secondary">Sold</span>
+{% else %}
+    <span>-</span>
+{% endif %}
     </td>
             </tr>
           {% endfor %}

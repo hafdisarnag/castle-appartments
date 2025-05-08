@@ -6,7 +6,7 @@
         {% csrf_token %}
         {{ form.as_p }}
         <div class="d-flex justify-content-between mt-4">
-            <a href="{% url 'finalization:step1_contact' %}" class="btn btn-secondary">Back</a>
+            <a href="{% url 'finalization:step1_contact' offer_id  %}" class="btn btn-secondary">Back</a>
             <button type="submit" class="btn btn-primary">Next</button>
         </div>
     </form>

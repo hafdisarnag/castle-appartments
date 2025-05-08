@@ -14,19 +14,19 @@
     </ul>
 
     <h5 class="mt-4">Payment Method</h5>
-    <p>{{ payment_method.payment_method|title|replace:'_',' ' }}</p>
+    <p>{{ payment_method.payment_method|cut:"_"|title }}</p>
 
     <h5 class="mt-4">Payment Details</h5>
     <ul>
         {% for key, value in payment_details.items %}
-            <li><strong>{{ key|title|replace:'_',' ' }}:</strong> {{ value }}</li>
+            <li><strong>{{ method|cut:"_"|title }}:</strong> {{ value }}</li>
         {% endfor %}
     </ul>
 
     <form method="post" class="mt-4">
         {% csrf_token %}
         <div class="d-flex justify-content-between">
-            <a href="{% url 'finalization:step3_payment_details' %}" class="btn btn-secondary">Back</a>
+            <a href="{% url 'finalization:step3_payment_details' offer_id  %}" class="btn btn-secondary">Back</a>
             <button type="submit" class="btn btn-success">Confirm Purchase</button>
         </div>
     </form>
