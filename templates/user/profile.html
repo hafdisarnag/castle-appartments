@@ -4,7 +4,7 @@
 
     <h1>Profile</h1>
 
-    <form method="post" enctype="multipart/form-data" action="{% url 'profile' %}">
+    <form method="post" action="{% url 'profile' %}">
 
         {% csrf_token %}
         {{ form }}
