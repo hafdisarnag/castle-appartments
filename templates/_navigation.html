@@ -32,6 +32,13 @@
         {% endif %}
       </ul>
     </div>
-    <div class="avatar" style="background-image: url({{ user.profile.profile_image }})"></div>
+    {% if user.is_authenticated %}
+        <div class="avatar" style="background-image: url('{{ user.profile.profile_image.url }}')"></div>
+    {% endif %}
+    {% if user.profile.profile_image %}
+        <div class="avatar" style="background-image: url('{{ user.profile.profile_image.url }}')"></div>
+    {% else %}
+        <div class="avatar" style="background-image: url('/static/default-avatar.png')"></div>
+    {% endif %}
   </div>
 </nav>
