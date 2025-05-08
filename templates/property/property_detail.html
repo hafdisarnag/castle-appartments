@@ -70,14 +70,6 @@
 {% endif %}
 <div class="offer-section">
     {% if user.is_authenticated %}
-      {% if existing_offer %}
-        <div class="alert alert-info">
-          You’ve already made an offer of
-          <strong>{{ existing_offer.amount|floatformat:0|intcomma|replace_comma }} kr.</strong>
-          You can update your offer below.
-        </div>
-      {% else %}
-      {% endif %}
 
       <form method="post" class="offer-form">
         {% csrf_token %}
