@@ -16,11 +16,8 @@ class Offer(models.Model):
     amount = models.DecimalField("Offer Amount", max_digits=20, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
     expires_at = models.DateField("Expires On")
-<<<<<<< HEAD
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')  # ← new field
-=======
     is_accepted = models.BooleanField(default=False)
->>>>>>> 0d707eee77e98c65ccacb43b9e1430d2d740e739
 
     def is_expired(self):
         from django.utils import timezone
