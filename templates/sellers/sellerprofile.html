@@ -30,7 +30,7 @@
     <h2 class="property-list-title">Properties for Sale</h2>
     <div class="property-list">
       {% for property in properties %}
-        <a href="{% url 'property_detail' property.id %}" class="property-card">
+        <a href="{% url 'property-by-id' property.id %}" class="property-card">
           {% if property.images.first %}
             <img src="{{ property.images.first.image_url }}" alt="Property Image">
           {% endif %}
