@@ -13,7 +13,7 @@
           <a class="nav-link {% if request.resolver_match.url_name == 'property-index' %}active{% endif %}" href="{% url 'property-index' %}">Properties</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if request.resolver_match.url_name == 'offers-index' %}active{% endif %}" href="{% url 'offers-index' %}">Offers</a>
+          <a class="nav-link {% if request.resolver_match.url_name == 'my_offers' %}active{% endif %}" href="{% url 'my_offers' %}">Offers</a>
         </li>
         {% if user.is_authenticated %}
             <a href="{% url 'profile' %}">

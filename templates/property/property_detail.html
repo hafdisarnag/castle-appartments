@@ -57,15 +57,21 @@
   </div>
 
 <div class="offer-section">
-  <form class="offer-form">
-    <label for="offer">Make a purchase offer:</label>
-    <input type="text" id="offer" name="offer">
+  <form method="post" class="offer-form">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label for="{{ form.amount.id_for_label }}">Offer Amount:</label>
+    {{ form.amount }}
+  </div>
 
-    <label for="expiration">Expiration date:</label>
-    <input type="date" id="expiration" name="expiration">
+  <div class="mb-3">
+    <label for="{{ form.expires_at.id_for_label }}">Expiration Date:</label>
+    {{ form.expires_at }}
+  </div>
 
-    <button type="submit" class="submit-button">Submit</button>
-  </form>
+
+  <button type="submit" class="submit-button">Submit</button>
+</form>
 
   <div class="seller-cover-wrapper">
     <img src="{{ property.seller.cover_image.url }}" alt="{{ property.seller.name }} Cover" class="seller-cover-img">
