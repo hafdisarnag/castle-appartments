@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'property.apps.PropertiesConfig',
     'sellers.apps.SellersConfig',
     'user.apps.UserConfig',
-    'widget_tweaks',
+    'offers.apps.OffersConfig'
 ]
 
 MIDDLEWARE = [
