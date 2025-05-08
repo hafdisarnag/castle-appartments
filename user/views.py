@@ -1,6 +1,9 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 
+from user.forms.profile_form import ProfileForm
+from user.models import Profile
+
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -13,4 +16,16 @@ def register(request):
         })
 
 def profile(request):
-    return render(request, 'user/profile.html')
+    user_profile = Profile.objects.filter(user=request.user).first()
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
+            return redirect('profile')
+
+    return render(request, 'user/profile.html', {
+        'form': ProfileForm(instance=user_profile),
+    })
