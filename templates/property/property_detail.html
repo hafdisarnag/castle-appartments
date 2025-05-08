@@ -69,21 +69,36 @@
   <h4>Make a purchase offer:</h4>
 {% endif %}
 <div class="offer-section">
-  <form method="post" class="offer-form">
-  {% csrf_token %}
-  <div class="mb-3">
-    <label for="{{ form.amount.id_for_label }}">Offer Amount:</label>
-    {{ form.amount }}
-  </div>
+    {% if user.is_authenticated %}
+      {% if existing_offer %}
+        <div class="alert alert-info">
+          You’ve already made an offer of
+          <strong>{{ existing_offer.amount|floatformat:0|intcomma|replace_comma }} kr.</strong>
+          You can update your offer below.
+        </div>
+      {% else %}
+      {% endif %}
 
-  <div class="mb-3">
-    <label for="{{ form.expires_at.id_for_label }}">Expiration Date:</label>
-    {{ form.expires_at }}
-  </div>
+      <form method="post" class="offer-form">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="{{ form.amount.id_for_label }}">Offer Amount:</label>
+          {{ form.amount }}
+        </div>
 
+        <div class="mb-3">
+          <label for="{{ form.expires_at.id_for_label }}">Expiration Date:</label>
+          {{ form.expires_at }}
+        </div>
 
-  <button type="submit" class="submit-button">Submit</button>
-</form>
+        <button type="submit" class="submit-button">Submit</button>
+      </form>
+    {% else %}
+      <div class="alert alert-warning mt-3">
+        <a href="{% url 'login' %}"><strong>Log in</strong></a> to make a purchase offer on this property.
+      </div>
+    {% endif %}
+
 
   <div class="seller-cover-wrapper">
     <img src="{{ property.seller.cover_image.url }}" alt="{{ property.seller.name }} Cover" class="seller-cover-img">
