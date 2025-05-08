@@ -35,9 +35,9 @@ def profile(request):
     else:
         form = ProfileForm(instance=user_profile, user=request.user)
 
-    offers = Offer.objects.filter(user=request.user)
+    offers = Offer.objects.filter(user=request.user).select_related('property')
     pending_offers = offers.filter(expires_at__gte=timezone.now().date()).count()
-    accepted_offers = 0  # You can implement logic later if acceptance is defined
+    expired_offers = offers.filter(expires_at__lt=timezone.now().date()).count()
 
     saved_properties = request.user.favorite_properties.all()
 
@@ -46,7 +46,7 @@ def profile(request):
         'user': request.user,
         'offers': offers,
         'pending_offers': pending_offers,
-        'accepted_offers': accepted_offers,
+        'expired_offers': expired_offers,
         'saved_properties': saved_properties,
     })
 
