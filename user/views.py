@@ -1,8 +1,11 @@
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from user.forms.profile_form import ProfileForm
 from user.models import Profile
 from django.contrib import messages
+from django.utils import timezone
+from offers.models import Offer
+from property.models import Property
 
 def register(request):
     if request.method == 'POST':
@@ -32,7 +35,28 @@ def profile(request):
     else:
         form = ProfileForm(instance=user_profile, user=request.user)
 
+    offers = Offer.objects.filter(user=request.user)
+    pending_offers = offers.filter(expires_at__gte=timezone.now().date()).count()
+    accepted_offers = 0  # You can implement logic later if acceptance is defined
+
+    saved_properties = request.user.favorite_properties.all()
+
     return render(request, 'user/profile.html', {
         'form': form,
         'user': request.user,
+        'offers': offers,
+        'pending_offers': pending_offers,
+        'accepted_offers': accepted_offers,
+        'saved_properties': saved_properties,
     })
+
+
+def toggle_favorite(request, property_id):
+    property = get_object_or_404(Property, id=property_id)
+
+    if request.user in property.favorites.all():
+        property.favorites.remove(request.user)
+    else:
+        property.favorites.add(request.user)
+
+    return redirect('profile')

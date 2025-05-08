@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+{% load humanize %}
+{% load custom_filters %}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/property.css' %}">
 {% endblock %}
@@ -68,7 +70,14 @@
         <div class="properties-container" id="property-placeholder">
             {% for property in properties %}
             <div class="property-item">
-                <span class="heart-icon">🖤</span>
+                <form method="post" action="{% url 'toggle_favorite' property.id %}">
+                    {% csrf_token %}
+                    {% if user in property.favorites.all %}
+                        <button class="btn btn-sm btn-outline-danger">Unsave ❤️</button>
+                    {% else %}
+                        <button class="btn btn-sm btn-outline-primary">Save 🤍</button>
+                    {% endif %}
+                </form>
                 <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
                     <div class="property-type">{{ property.type }}</div>
                 </div>
@@ -84,7 +93,7 @@
                     <div class="property-detail">🛌 {{ property.bedrooms|floatformat:0 }}</div>
                 </div>
                 <div class="property-price">
-                    <div>{{ property.price|floatformat:0 }} kr.</div>
+                    <div>{{ property.price|floatformat:0|intcomma|replace_comma }} kr.</div>
                     <a href="{% url 'property-by-id' id=property.id %}">See more</a>
                 </div>
             </div>
