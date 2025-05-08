@@ -68,7 +68,14 @@
         <div class="properties-container" id="property-placeholder">
             {% for property in properties %}
             <div class="property-item">
-                <span class="heart-icon">🖤</span>
+                <form method="post" action="{% url 'toggle_favorite' property.id %}">
+                    {% csrf_token %}
+                    {% if user in property.favorites.all %}
+                        <button class="btn btn-sm btn-outline-danger">Unsave ❤️</button>
+                    {% else %}
+                        <button class="btn btn-sm btn-outline-primary">Save 🤍</button>
+                    {% endif %}
+                </form>
                 <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
                     <div class="property-type">{{ property.type }}</div>
                 </div>
