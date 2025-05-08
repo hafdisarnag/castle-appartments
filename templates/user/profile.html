@@ -1,8 +1,14 @@
 {% extends "base.html" %}
-
+{% load widget_tweaks %}
 {% block content %}
 <div class="container mt-4">
     <h1 class="mb-4">Profile</h1>
+
+    {% if updated %}
+        <div class="alert alert-success" role="alert">
+            Profile updated successfully!
+        </div>
+    {% endif %}
 
     {% if user.profile.profile_image %}
         <div class="mb-3">
@@ -14,11 +20,31 @@
     <!-- Form needs enctype to upload files -->
     <form method="post" enctype="multipart/form-data" action="{% url 'profile' %}">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div class="mb-3">
+            <label for="id_username" class="form-label">Username:</label>
+            {{ form.username|add_class:"form-control" }}
+            {% if form.username.errors %}
+                <div class="text-danger">{{ form.username.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_favorite_property" class="form-label">Favorite Property:</label>
+            {{ form.favorite_property|add_class:"form-control" }}
+            {% if form.favorite_property.errors %}
+                <div class="text-danger">{{ form.favorite_property.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_profile_image" class="form-label">Profile Image:</label>
+            {{ form.profile_image|add_class:"form-control" }}
+            {% if form.profile_image.errors %}
+                <div class="text-danger">{{ form.profile_image.errors }}</div>
+            {% endif %}
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
 
-    <!-- Logout button, optional here if already in navbar dropdown -->
     <form method="post" action="{% url 'logout' %}" class="mt-3">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Logout</button>

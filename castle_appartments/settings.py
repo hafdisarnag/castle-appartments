@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'property.apps.PropertiesConfig',
     'sellers.apps.SellersConfig',
     'user.apps.UserConfig',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -136,4 +137,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 LOGIN_REDIRECT_URL = '/user/profile'
-LOGIN_URL = '/' 
+LOGIN_URL = '/'
