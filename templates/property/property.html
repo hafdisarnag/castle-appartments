@@ -21,9 +21,10 @@
       <!-- Row 2: Inputs (including your original sliders) -->
       <div class="filter-input-row">
         <div></div> <!-- For "Filters" label -->
-        <div>
-          <input type="text" id="postal" placeholder="e.g. 101, 220">
-        </div>
+        <div class="input-group">
+    <span class="input-group-text" id="postal-search-icon">🔍</span>
+    <input type="text" id="postal" class="form-control" placeholder="e.g. 101, 220" aria-describedby="postal-search-icon">
+</div>
         <div>
           <div class="price-slider-stack">
             <div class="slider-row">
@@ -41,11 +42,12 @@
         </div>
         <div>
           <select id="type">
-            <option>Fjölbýlishús</option>
-            <option>Einbýlishús</option>
-            <option>Raðhús</option>
-            <option>Parhús</option>
-            <option>Hæð</option>
+              <option value="">Any type</option>
+              <option value="Fjölbýlishús">Fjölbýlishús</option>
+              <option value="Einbýlishús">Einbýlishús</option>
+              <option value="Raðhús">Raðhús</option>
+              <option value="Parhús">Parhús</option>
+              <option value="Hæð">Hæð</option>
           </select>
         </div>
         <div>
@@ -62,6 +64,9 @@
             <option>Newest</option>
           </select>
         </div>
+          <div>
+  <button id="search-button" class="btn btn-primary">Search</button>
+</div>
       </div>
     </div>
     <div class="main-container">

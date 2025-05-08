@@ -8,7 +8,35 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
 
 def index(request):
-    if 'search_filter' in request.GET:
+    if request.GET:
+        queryset = Property.objects.all()
+
+        if 'search_filter' in request.GET:
+            queryset = queryset.filter(address__icontains=request.GET['search_filter'])
+
+        if 'postal' in request.GET:
+            queryset = queryset.filter(zip__iexact=request.GET['postal'])
+
+        if 'min_price' in request.GET:
+            queryset = queryset.filter(price__gte=request.GET['min_price'])
+
+        if 'max_price' in request.GET:
+            queryset = queryset.filter(price__lte=request.GET['max_price'])
+
+        if 'type' in request.GET and request.GET['type'].strip():
+            queryset = queryset.filter(type=request.GET['type'])
+
+        if 'rooms' in request.GET:
+            queryset = queryset.filter(rooms__gte=request.GET['rooms'])
+
+        if 'sort' in request.GET:
+            if request.GET['sort'] == "Price: low to high":
+                queryset = queryset.order_by("price")
+            elif request.GET['sort'] == "Price: high to low":
+                queryset = queryset.order_by("-price")
+            elif request.GET['sort'] == "Newest":
+                queryset = queryset.order_by("-date")
+
         return JsonResponse({
             'data': [{
                 'type': x.type,
@@ -22,38 +50,31 @@ def index(request):
                 'price': x.price,
                 'id': x.id,
                 'image': x.images.first().image_url if x.images.exists() else None,
-
-            } for x in Property.objects.filter(address__icontains=request.GET['search_filter']) .order_by('id')],
+            } for x in queryset],
         })
-    return render(request,"property/property.html",  {
+
+    return render(request, "property/property.html", {
         "properties": Property.objects.all(),
     })
-
 
 def get_property_by_id(request, id):
     property = get_object_or_404(Property, id=id)
 
     existing_offer = None
+    accepted_offer = None
     form = None
 
     if request.user.is_authenticated:
         existing_offer = Offer.objects.filter(user=request.user, property=property).first()
+        accepted_offer = property.offers.filter(is_accepted=True).first()
+        form = OfferForm(instance=existing_offer)
 
-        if request.method == 'POST':
-            form = OfferForm(request.POST, instance=existing_offer)
-            if form.is_valid():
-                offer = form.save(commit=False)
-                offer.user = request.user
-                offer.property = property
-                offer.save()
-                return redirect('my_offers')
-        else:
-            form = OfferForm(instance=existing_offer)
 
     return render(request, "property/property_detail.html", {
         "property": property,
         "form": form,
         "existing_offer": existing_offer,
+        "accepted_offer": accepted_offer,
     })
 
 

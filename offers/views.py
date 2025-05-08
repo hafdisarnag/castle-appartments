@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from offers.forms.forms import OfferForm
 from offers.models import Offer
 from property.models import Property
+from django.contrib import messages
+
 
 @login_required
 def make_offer(request, property_id):
@@ -28,11 +30,13 @@ def make_offer(request, property_id):
             offer.user = request.user
             offer.property = prop
             offer.save()
-            return redirect('my_offers')
+            messages.success(request, "Your offer has been submitted successfully.")
+            return redirect('property-by-id', id=property_id)
+
     else:
         form = OfferForm(instance=existing_offer)
 
-    return render(request, 'offers/offer.html', {
+    return render(request, 'property/property_detail.html', {
         'form': form,
         'property': prop,
         'existing_offer': existing_offer,
