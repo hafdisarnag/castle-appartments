@@ -17,7 +17,7 @@ class Property(models.Model):
     description = models.TextField()
     additional_info = models.TextField(blank=True)
     date = models.DateTimeField(auto_now_add=True)
-    seller = models.ForeignKey(Seller, on_delete=models.CASCADE, null=True, blank=True)
+    seller = models.ForeignKey(Seller, on_delete=models.CASCADE, related_name='properties', null=True, blank=True)
 
     def __str__(self):
         return f"{self.address} ({self.pk})"
