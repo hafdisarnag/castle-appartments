@@ -27,23 +27,21 @@
 
   <p class="seller-bio">{{ seller.bio }}</p>
 
-  <h2 class="property-list-title">Properties for Sale</h2>
-  <div class="property-list">
-    {% for property in properties %}
-      <a href="{% url 'property_detail' property.id %}" class="property-card">
-        {% if property.images.first %}
-          <img src="{{ property.images.first.image_url }}" alt="Property Image">
-        {% else %}
-          <img src="{% static 'images/default-property.jpg' %}" alt="No image">
-        {% endif %}
-        <div class="property-info">
-          <p class="property-address">{{ property.address }}</p>
-        </div>
-      </a>
-    {% empty %}
-      <p>No properties listed by this seller.</p>
-    {% endfor %}
-  </div>
+    <h2 class="property-list-title">Properties for Sale</h2>
+    <div class="property-list">
+      {% for property in properties %}
+        <a href="{% url 'property_detail' property.id %}" class="property-card">
+          {% if property.images.first %}
+            <img src="{{ property.images.first.image_url }}" alt="Property Image">
+          {% endif %}
+          <div class="property-info">
+            <p>{{ property.address }}</p>
+          </div>
+        </a>
+      {% empty %}
+        <p>No properties listed by this seller.</p>
+      {% endfor %}
+    </div>
 
 </div>
 {% endblock %}
