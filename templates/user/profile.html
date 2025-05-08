@@ -4,4 +4,12 @@
 
     <h1>Profile</h1>
 
+    <form method="post" enctype="multipart/form-data" action="{% url 'profile' %}">
+
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" class="btn btn-primary" value="Update" />
+
+    </form>
+
 {% endblock %}
