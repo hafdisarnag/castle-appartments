@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'property.apps.PropertiesConfig',
     'sellers.apps.SellersConfig',
     'user.apps.UserConfig',
-    'offers.apps.OffersConfig'
+    'offers.apps.OffersConfig',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [
