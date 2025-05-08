@@ -20,6 +20,7 @@ class Property(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE, related_name='properties', null=True, blank=True)
     favorites = models.ManyToManyField(User, related_name='favorite_properties', blank=True)
+    is_sold = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.address} ({self.pk})"

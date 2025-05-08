@@ -10,7 +10,8 @@ class Offer(models.Model):
     amount = models.DecimalField("Offer Amount", max_digits=20, decimal_places=2)
 
     created_at = models.DateTimeField(auto_now_add=True)
-    expires_at = models.DateField("Expires On")  # ✅ No default — user must choose
+    expires_at = models.DateField("Expires On")
+    is_accepted = models.BooleanField(default=False)
 
     def is_expired(self):
         from django.utils import timezone

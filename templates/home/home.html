@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+{% load humanize %}
+{% load custom_filters %}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
 <link rel="stylesheet" href="{% static 'css/property.css' %}">
@@ -16,26 +18,33 @@
   <div class="properties-container">
     {% for property in featured_properties %}
       <div class="property-item">
-        <span class="heart-icon">🖤</span>
-        <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
-          <div class="property-type">{{ property.type }}</div>
-        </div>
-        <div class="property-info">
-          <h3>{{ property.address }}</h3>
-          <div class="zip-city">{{ property.zip }} {{ property.city }}</div>
-        </div>
-        <div class="line"></div>
-        <div class="property-details">
-          <div class="property-detail">📐 {{ property.size|floatformat:0 }} m²</div>
-          <div class="property-detail">🛏 {{ property.rooms|floatformat:0 }}</div>
-          <div class="property-detail">🛁 {{ property.bathrooms|floatformat:0 }}</div>
-          <div class="property-detail">🛌 {{ property.bedrooms|floatformat:0 }}</div>
-        </div>
-        <div class="property-price">
-          <div>{{ property.price|floatformat:0 }} kr.</div>
-          <a href="{% url 'property-by-id' id=property.id %}">See more</a>
-        </div>
-      </div>
+                <form method="post" action="{% url 'toggle_favorite' property.id %}">
+                    {% csrf_token %}
+                    {% if user in property.favorites.all %}
+                        <button class="btn btn-sm btn-outline-danger">Unsave 🩷️</button>
+                    {% else %}
+                        <button class="btn btn-sm btn-outline-primary">Save 🤍</button>
+                    {% endif %}
+                </form>
+                <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
+                    <div class="property-type">{{ property.type }}</div>
+                </div>
+                <div class="property-info">
+                    <h3>{{ property.address }}</h3>
+                    <div class="zip-city">{{ property.zip }} {{ property.city }}</div>
+                </div>
+                <div class="line"></div>
+                <div class="property-details">
+                    <div class="property-detail">📐 {{ property.size }} m²</div>
+                    <div class="property-detail">🛏 {{ property.rooms|floatformat:0 }}</div>
+                    <div class="property-detail">🛁 {{ property.bathrooms|floatformat:0 }}</div>
+                    <div class="property-detail">🛌 {{ property.bedrooms|floatformat:0 }}</div>
+                </div>
+                <div class="property-price">
+                    <div>{{ property.price|floatformat:0|intcomma|replace_comma }} kr.</div>
+                    <a href="{% url 'property-by-id' id=property.id %}">See more</a>
+                </div>
+            </div>
     {% endfor %}
   </div>
 </div>
