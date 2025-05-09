@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'offers.apps.OffersConfig',
     'django.contrib.humanize',
     'finalization',
+    'inspiration',
 ]
 
 MIDDLEWARE = [

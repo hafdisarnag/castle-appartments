@@ -28,7 +28,7 @@ urlpatterns = [
     path('user/', include('user.urls')),
     path('seller/', include('sellers.urls')),
     path('finalize/', include('finalization.urls', namespace='finalization')),
-
+    path('inspiration/', include('inspiration.urls')),
 ]
 
 from django.conf import settings

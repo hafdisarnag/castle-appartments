@@ -83,4 +83,3 @@ def get_seller_by_id(request, id):
     return render(request, "sellers/sellerprofile.html", {
         "seller": seller,
     })
-
