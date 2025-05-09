@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/inspiration.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="inspo-container">
+  <h1>Home Design Inspiration</h1>
+<div class="filter-bar">
+  <a href="{% url 'inspiration' %}" class="{% if not selected_category %}active{% endif %}">All</a>
+  <a href="?category=living" class="{% if selected_category == 'living' %}active{% endif %}">Living Room</a>
+  <a href="?category=bedroom" class="{% if selected_category == 'bedroom' %}active{% endif %}">Bedroom</a>
+  <a href="?category=kitchen" class="{% if selected_category == 'kitchen' %}active{% endif %}">Kitchen</a>
+  <a href="?category=bathroom" class="{% if selected_category == 'bathroom' %}active{% endif %}">Bathroom</a>
+  <a href="?category=other" class="{% if selected_category == 'other' %}active{% endif %}">Other</a>
+</div>
+  <div class="inspo-grid">
+    {% for idea in ideas %}
+      <div class="inspo-card">
+        <img src="{{ idea.image_url }}" alt="{{ idea.title }}">
+        <h3>{{ idea.title }}</h3>
+        <p>{{ idea.description }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
