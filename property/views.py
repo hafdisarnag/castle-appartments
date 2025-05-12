@@ -26,8 +26,8 @@ def index(request):
         if 'type' in request.GET and request.GET['type'].strip():
             queryset = queryset.filter(type=request.GET['type'])
 
-        if 'rooms' in request.GET:
-            queryset = queryset.filter(rooms__gte=request.GET['rooms'])
+        if 'rooms' in request.GET and request.GET['rooms'].strip():
+            queryset = queryset.filter(rooms=request.GET['rooms'])
 
         if 'sort' in request.GET:
             if request.GET['sort'] == "Price: low to high":
