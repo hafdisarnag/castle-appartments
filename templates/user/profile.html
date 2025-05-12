@@ -59,40 +59,6 @@
         </div>
     </div>
 
-    <!-- Offer Stats -->
-    <h4 class="text-center mt-5 mb-3">My Offers</h4>
-
-    <table class="table table-bordered text-center align-middle">
-        <thead class="table-light">
-            <tr>
-                <th>Property</th>
-                <th>Offer Amount</th>
-                <th>Expires On</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for offer in offers %}
-            <tr>
-                <td>{{ offer.property.address }}</td>
-                <td>{{ offer.amount|floatformat:0 }} kr.</td>
-                <td>{{ offer.expires_at }}</td>
-                <td>
-                    {% if offer.is_expired %}
-                        <span class="badge bg-danger">Expired</span>
-                    {% else %}
-                        <span class="badge bg-warning text-dark">Pending</span>
-                    {% endif %}
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="4">You haven’t made any offers yet.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
     <!-- Saved Properties Section -->
     <h4 class="text-center mb-4">Saved Properties</h4>
     <div class="row row-cols-1 row-cols-md-3 g-4 mb-4 justify-content-center">

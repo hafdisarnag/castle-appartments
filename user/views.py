@@ -3,8 +3,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from user.forms.profile_form import ProfileForm
 from user.models import Profile
 from django.contrib import messages
-from django.utils import timezone
-from offers.models import Offer
 from property.models import Property
 
 def register(request):
@@ -35,18 +33,11 @@ def profile(request):
     else:
         form = ProfileForm(instance=user_profile, user=request.user)
 
-    offers = Offer.objects.filter(user=request.user).select_related('property')
-    pending_offers = offers.filter(expires_at__gte=timezone.now().date()).count()
-    expired_offers = offers.filter(expires_at__lt=timezone.now().date()).count()
-
     saved_properties = request.user.favorite_properties.all()
 
     return render(request, 'user/profile.html', {
         'form': form,
         'user': request.user,
-        'offers': offers,
-        'pending_offers': pending_offers,
-        'expired_offers': expired_offers,
         'saved_properties': saved_properties,
     })
 
