@@ -8,12 +8,12 @@
 .open-house-time {
   position: absolute;
   top: 12px;
-  left: 12px;
+  right: 12px;
   background-color: #f69cd3; /* eða #375a9e ef þú vilt halda bláum */
   color: #fff;
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: 0.8rem;
+  padding: 6px 14px;
+  border-radius: 10px;
+  font-size: 0.9rem;
   font-weight: 600;
   z-index: 2;
   box-shadow: 0 1px 4px rgba(0,0,0,0.2);
