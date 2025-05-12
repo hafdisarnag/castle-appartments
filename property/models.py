@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from sellers.models import Seller
-
+import requests
 
 # Create your models here.
 class Property(models.Model):
@@ -20,6 +20,8 @@ class Property(models.Model):
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE, related_name='properties', null=True, blank=True)
     favorites = models.ManyToManyField(User, related_name='favorite_properties', blank=True)
     is_sold = models.BooleanField(default=False)
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.address} ({self.pk})"
@@ -27,12 +29,27 @@ class Property(models.Model):
     def has_accepted_offer(self):
         return self.offers.filter(status='accepted').exists()
 
+    def save(self, *args, **kwargs):
+        if not self.latitude or not self.longitude:
+            full_address = f"{self.address}, {self.city}, {self.zip}"
+            self.latitude, self.longitude = self.geocode_address(full_address)
+        super().save(*args, **kwargs)
+
+    def geocode_address(self, address):
+        url = f"https://nominatim.openstreetmap.org/search?format=json&q={address}"
+        headers = {'User-Agent': 'CastleApartmentsBot/1.0'}  # Required by Nominatim
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            data = response.json()
+            if data:
+                return float(data[0]['lat']), float(data[0]['lon'])
+        return None, None
+
 class PropertyImage(models.Model):
     property = models.ForeignKey(Property, related_name='images', on_delete=models.CASCADE)
     image_url = models.CharField(max_length=255)
 
     def __str__(self):
         return f"Image for {self.property.address}"
-
 
 
