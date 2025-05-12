@@ -10,10 +10,11 @@
 {% endblock %}
 
 {% block content %}
-    <div class="image-text-home">
-        <img class="home-image" src="{% static 'images/home-mynd.jpeg' %}">
-        <a href="{% url 'property-index' %}" class="dream-home">Find your dream home</a>
-    </div>
+    <div class="hero-collage">
+      <img class="home-image" src="{% static 'images/home-mynd.jpeg' %}">
+      <a href="{% url 'property-index' %}" class="dream-home">Find your dream home</a>
+  </div>
+
     <h2 class="section-title">Recently listed</h2>
     <div class="main-container">
       <div class="properties-container" id="property-list">

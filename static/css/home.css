@@ -69,7 +69,7 @@ body {
 
 .dream-home {
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 2rem;
@@ -126,5 +126,10 @@ body {
   background-color: #f6c2e9;
   color: white;
   transition: 0.3s ease;
+}
+.hero-collage {
+    position: relative;
+    width: 100vw;
+    height: auto;
 }
 
