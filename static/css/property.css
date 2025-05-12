@@ -237,3 +237,37 @@ a {
      cursor: pointer;
     background-color: rgba(0, 0, 0, .1);
 }
+
+.property-image {
+  position: relative;
+}
+
+.property-image form {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+}
+
+.save-button {
+  all: unset;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: 'Arial', sans-serif;
+  cursor: pointer;
+  color: #375a9e;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  line-height: 1;
+  text-align: center;
+}
+
+.save-button:hover {
+  background-color: #f6c2e9;
+  color: white;
+  transition: 0.3s ease;
+}
+

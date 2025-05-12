@@ -70,43 +70,46 @@
 </div>
     </div>
 </div>
-
     <div class="main-container">
-        <div class="properties-container" id="property-placeholder">
-            {% for property in properties %}
-            <div class="property-item">
-                <form method="post" action="{% url 'toggle_favorite' property.id %}">
-                    {% csrf_token %}
-                    {% if user in property.favorites.all %}
-                        <button class="btn btn-sm btn-outline-danger">Unsave 🩷️</button>
-                    {% else %}
-                        <button class="btn btn-sm btn-outline-primary">Save 🤍</button>
-                    {% endif %}
-                </form>
-                <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
-                    <div class="property-type">{{ property.type }}</div>
-                    {% if property.is_sold %}
-                        <div class="sold-label">Sold</div>
-                    {% endif %}
-                </div>
-                <div class="property-info">
-                    <h3>{{ property.address }}</h3>
-                    <div class="zip-city">{{ property.zip }} {{ property.city }}</div>
-                </div>
-                <div class="line"></div>
-                <div class="property-details">
-                    <div class="property-detail">📐 {{ property.size }} m²</div>
-                    <div class="property-detail">🛏 {{ property.rooms|floatformat:0 }}</div>
-                    <div class="property-detail">🛁 {{ property.bathrooms|floatformat:0 }}</div>
-                    <div class="property-detail">🛌 {{ property.bedrooms|floatformat:0 }}</div>
-                </div>
-                <div class="property-price">
-                    <div>{{ property.price|floatformat:0|intcomma|replace_comma }} kr.</div>
-                    <a href="{% url 'property-by-id' id=property.id %}">See more</a>
-                </div>
+      <div class="properties-container" id="property-placeholder">
+        {% for property in properties %}
+          <div class="property-item">
+            <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
+              <form method="post" action="{% url 'toggle_favorite' property.id %}">
+                {% csrf_token %}
+                {% if user in property.favorites.all %}
+                  <button class="save-button">Unsave 🩷</button>
+                {% else %}
+                  <button class="save-button">Save 🤍</button>
+                {% endif %}
+              </form>
+              <div class="property-type">{{ property.type }}</div>
+              {% if property.is_sold %}
+                <div class="sold-label">Sold</div>
+              {% endif %}
             </div>
-            {% endfor %}
-        </div>
+
+            <div class="property-info">
+              <h3>{{ property.address }}</h3>
+              <div class="zip-city">{{ property.zip }} {{ property.city }}</div>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="property-details">
+              <div class="property-detail">📐 {{ property.size }} m²</div>
+              <div class="property-detail">🛏 {{ property.rooms|floatformat:0 }}</div>
+              <div class="property-detail">🛁 {{ property.bathrooms|floatformat:0 }}</div>
+              <div class="property-detail">🛌 {{ property.bedrooms|floatformat:0 }}</div>
+            </div>
+
+            <div class="property-price">
+              <div>{{ property.price|floatformat:0|intcomma|replace_comma }} kr.</div>
+              <a href="{% url 'property-by-id' id=property.id %}">See more</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
     </div>
 {% endblock %}
 {% block extra_js %}
