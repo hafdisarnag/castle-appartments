@@ -1,5 +1,10 @@
 {% extends "base.html" %}
-
+{% load humanize %}
+{% load custom_filters %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/property.css' %}">
+{% endblock %}
 {% block content %}
 <div class="container mt-5">
 
@@ -17,7 +22,8 @@
     <!-- Profile Header -->
     <div class="text-center mb-5">
         {% if user.profile.profile_image %}
-            <img src="{{ user.profile.profile_image.url }}" alt="Profile Picture" class="rounded-circle border" width="120" height="120">
+            <img src="{{ user.profile.profile_image.url }}" alt="Profile Picture" class="rounded-circle border" width="120" height="120" style="object-fit: cover;">
+
         {% else %}
             <div class="rounded-circle bg-secondary d-inline-block" style="width: 120px; height: 120px;"></div>
         {% endif %}
@@ -97,26 +103,43 @@
 
     <!-- Saved Properties Section -->
     <h4 class="text-center mb-4">Saved Properties</h4>
-    <div class="row row-cols-1 row-cols-md-3 g-4 mb-4 justify-content-center">
-        {% for property in saved_properties %}
-            <div class="col">
-                <div class="card h-100 shadow-sm">
-                    <img src="{{ property.image.url }}" class="card-img-top" alt="{{ property.title }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ property.title }}</h5>
-                        <p class="card-text">{{ property.address }}</p>
-                        <p class="card-text text-muted">{{ property.price }} kr.</p>
+    <div class="row row-cols-1 row-cols-md-3 g-4 mb-4 justify-content-center" id="saved-properties-list">
+    {% for property in saved_properties %}
+        <div class="col saved-property-card {% if forloop.counter > 3 %}d-none extra-property{% endif %}">
+            <div class="property-item card h-100 shadow-sm">
+                <form method="post" action="{% url 'toggle_favorite' property.id %}" class="position-absolute m-2">
+                    {% csrf_token %}
+                    <button class="btn btn-sm btn-outline-danger">Unsave 🩷️</button>
+                </form>
+                <div class="property-image" style="background-image: url({{ property.images.first.image_url }}); height: 200px; background-size: cover; background-position: center;">
+                    <div class="property-type">{{ property.type }}</div>
+                    {% if property.is_sold %}
+                        <div class="sold-label">Sold</div>
+                    {% endif %}
+                </div>
+                <div class="property-info p-3">
+                    <h5 class="fw-bold">{{ property.address }}</h5>
+                    <div class="zip-city text-muted">{{ property.zip }} {{ property.city }}</div>
+                    <div class="property-details d-flex gap-3 mt-2">
+                        <div>📐 {{ property.size }} m²</div>
+                        <div>🛏 {{ property.rooms|floatformat:0 }}</div>
+                        <div>🛁 {{ property.bathrooms|floatformat:0 }}</div>
+                        <div>🛌 {{ property.bedrooms|floatformat:0 }}</div>
                     </div>
+                    <div class="property-price mt-2 fw-bold">{{ property.price|floatformat:0|intcomma|replace_comma }} kr.</div>
+                    <a href="{% url 'property-by-id' property.id %}" class="btn btn-sm btn-link mt-2">See more</a>
                 </div>
             </div>
-        {% empty %}
-            <p class="text-center">No saved properties yet.</p>
-        {% endfor %}
-    </div>
+        </div>
+    {% empty %}
+        <p class="text-center">No saved properties yet.</p>
+    {% endfor %}
+</div>
+
 
     <div class="text-center mb-5">
-        <a href="#" class="btn btn-outline-dark shadow-sm">View all Saved properties</a>
-    </div>
+    <button id="toggle-saved-btn" class="btn btn-outline-dark shadow-sm">View all Saved properties</button>
+</div>
 </div>
 
 <!-- Toggle Form Script -->
@@ -124,6 +147,26 @@
     document.getElementById("toggle-edit-btn").addEventListener("click", function () {
         const form = document.getElementById("edit-profile-form");
         form.classList.toggle("d-none");
+    });
+</script>
+
+    <script>
+    const toggleBtn = document.getElementById('toggle-saved-btn');
+    let showingAll = false;
+
+    toggleBtn.addEventListener('click', function () {
+        const extraCards = document.querySelectorAll('.extra-property');
+        if (!showingAll) {
+            // Show all
+            extraCards.forEach(card => card.classList.remove('d-none'));
+            toggleBtn.textContent = 'Hide extra Saved properties';
+            showingAll = true;
+        } else {
+            // Hide again to only show 3
+            extraCards.forEach(card => card.classList.add('d-none'));
+            toggleBtn.textContent = 'View all Saved properties';
+            showingAll = false;
+        }
     });
 </script>
 {% endblock %}
