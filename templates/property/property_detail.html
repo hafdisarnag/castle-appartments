@@ -122,6 +122,12 @@
 
   <div class="seller-cover-wrapper">
     <img src="{{ property.seller.cover_image.url }}" alt="{{ property.seller.name }} Cover" class="seller-cover-img">
+      <p>
+        Seller information:
+        <a href="{% url 'seller_profile' property.seller.id %}">
+            {{ property.seller.name }}
+        </a>
+    </p>
   </div>
 </div>
 
