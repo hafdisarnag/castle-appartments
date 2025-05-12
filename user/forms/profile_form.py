@@ -16,13 +16,18 @@ class ProfileForm(forms.ModelForm):
         super(ProfileForm, self).__init__(*args, **kwargs)
         if user:
             self.fields['username'].initial = user.username
+            self.fields['email'].initial = user.email
+            if hasattr(user, 'profile'):
+                self.fields['phone_number'].initial = user.profile.phone_number
             self.user = user
 
     def save(self, commit=True):
         profile = super(ProfileForm, self).save(commit=False)
         self.user.username = self.cleaned_data['username']
+        self.user.email = self.cleaned_data['email']
         if commit:
             self.user.save()
             profile.user = self.user
+            profile.phone_number = self.cleaned_data['phone_number']
             profile.save()
         return profile
