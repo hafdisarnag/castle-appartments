@@ -90,7 +90,7 @@ body {
   max-width: 100%;
   height: auto;
   flex: 1 1 300px;      /* 🔧 Lætur þær taka sanngjarna breidd og bregðast við skjástærð */
-  border-radius: 10px;
+
 }
 
 #load-more-wrapper {
