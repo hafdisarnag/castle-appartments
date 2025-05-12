@@ -4,6 +4,8 @@ from user.models import Profile
 
 class ProfileForm(forms.ModelForm):
     username = forms.CharField(max_length=150, required=True)
+    email = forms.EmailField(required=False)
+    phone_number = forms.CharField(max_length=20, required=False)
 
     class Meta:
         model = Profile
