@@ -6,69 +6,68 @@
 <link rel="stylesheet" href="{% static 'css/property.css' %}">
 {% endblock %}
 {% block content %}
-    <div class="filters">
-      <!-- Row 1: Labels -->
-      <div class="filter-label-row">
-        <div>Filters</div>
-        <div>Postal code</div>
-        <div>Price</div>
-        <div>Type</div>
-        <div>Rooms</div>
-        <div>Street</div>
-        <div>Sort</div>
-      </div>
-
-      <!-- Row 2: Inputs (including your original sliders) -->
-      <div class="filter-input-row">
-        <div></div> <!-- For "Filters" label -->
-        <div class="input-group">
-    <span class="input-group-text" id="postal-search-icon">🔍</span>
-    <input type="text" id="postal" class="form-control" placeholder="e.g. 101, 220" aria-describedby="postal-search-icon">
-</div>
-        <div>
-          <div class="price-slider-stack">
-            <div class="slider-row">
-              <label for="minPrice">Min</label>
-              <input type="range" id="minPrice" min="0" max="200000000" step="1000000">
-              <span id="minPriceValue" class="slider-tooltip">0 kr</span>
-            </div>
-
-            <div class="slider-row">
-              <label for="maxPrice">Max</label>
-              <input type="range" id="maxPrice" min="0" max="200000000" step="1000000">
-              <span id="maxPriceValue" class="slider-tooltip">200,000,000 kr</span>
-            </div>
-          </div>
+    <div class="filters bg-white p-3 rounded shadow-sm mb-4">
+    <div class="row g-2 align-items-end">
+        <div class="col-md-2">
+            <label for="postal" class="form-label">Postal code</label>
+            <input type="text" id="postal" class="form-control form-control-sm" placeholder="e.g. 101, 220">
         </div>
-        <div>
-          <select id="type">
-              <option value="">Any type</option>
-              <option value="Fjölbýlishús">Fjölbýlishús</option>
-              <option value="Einbýlishús">Einbýlishús</option>
-              <option value="Raðhús">Raðhús</option>
-              <option value="Parhús">Parhús</option>
-              <option value="Hæð">Hæð</option>
-          </select>
-        </div>
-        <div>
-          <input type="number" id="rooms">
-        </div>
-        <div class="input-group">
-            <span class="input-group-text" id="search-icon"> 🔍</span>
-            <input type="search" id="search-value" class="form-control" placeholder="Enter search..." aria-label="Search" aria-describedby="search-icon">
-        </div>
-        <div>
-          <select id="sort">
-            <option>Price: low to high</option>
-            <option>Price: high to low</option>
-            <option>Newest</option>
-          </select>
-        </div>
-          <div>
-  <button id="search-button" class="btn btn-primary">Search</button>
-</div>
-      </div>
+       <div class="col-md-3">
+    <label class="form-label">Price</label>
+    <div class="d-flex align-items-center gap-1">
+        <select id="minPrice" class="form-select form-select-sm" style="width: 50%;">
+            <option value="">From</option>
+            <option value="5000000">5 mkr.</option>
+            <option value="10000000">10 mkr.</option>
+            <option value="20000000">20 mkr.</option>
+            <option value="30000000">30 mkr.</option>
+            <option value="50000000">50 mkr.</option>
+            <option value="100000000">100 mkr.</option>
+        </select>
+        <select id="maxPrice" class="form-select form-select-sm" style="width: 50%;">
+            <option value="">To</option>
+            <option value="10000000">10 mkr.</option>
+            <option value="20000000">20 mkr.</option>
+            <option value="30000000">30 mkr.</option>
+            <option value="50000000">50 mkr.</option>
+            <option value="100000000">100 mkr.</option>
+            <option value="150000000">150 mkr.</option>
+        </select>
     </div>
+</div>
+
+        <div class="col-md-2">
+            <label for="type" class="form-label">Type</label>
+            <select id="type" class="form-select form-select-sm">
+                <option value="">Any type</option>
+                <option value="Fjölbýlishús">Fjölbýlishús</option>
+                <option value="Einbýlishús">Einbýlishús</option>
+            </select>
+        </div>
+        <div class="col-md-1">
+            <label for="rooms" class="form-label">Rooms</label>
+            <input type="number" id="rooms" class="form-control form-control-sm" placeholder="Rooms">
+        </div>
+        <div class="col-md-2">
+            <label for="search-value" class="form-label">Street</label>
+            <input type="search" id="search-value" class="form-control form-control-sm" placeholder="Enter street...">
+        </div>
+        <div class="col-md-2">
+            <label for="sort" class="form-label">Sort</label>
+            <select id="sort" class="form-select form-select-sm">
+                <option>Price: low to high</option>
+                <option>Price: high to low</option>
+                <option>Newest</option>
+            </select>
+        </div>
+        <div class="d-flex justify-content-center mt-2 gap-2">
+    <button id="search-button" class="btn btn-primary btn-sm">Search</button>
+    <button id="clear-button" class="btn btn-outline-secondary btn-sm">Clear Filters</button>
+
+</div>
+    </div>
+</div>
+
     <div class="main-container">
         <!-- Filters Sidebar -->
         <!-- Properties Grid -->

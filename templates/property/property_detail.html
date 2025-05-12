@@ -5,6 +5,8 @@
 {% load custom_filters %}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/property-detail.css' %}">
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 {% endblock %}
 {% block content %}
 
@@ -22,7 +24,6 @@
 
 
 <div class="property-container-det">
-
   <div class="property-header">
       <div id="propertyCarousel" class="carousel slide">
   <div class="carousel-inner">
@@ -44,7 +45,7 @@
     <div class="property-type-det">{{ property.type }}</div>
         <h2>{{ property.address }}</h2>
     <div class="property-address-det">{{ property.zip }} {{ property.city }}</div>
-
+    <div id="map" style="height: 400px; width: 100%; margin-top: 20px; border-radius: 10px;"></div>
     <div class="property-details-det">
       <div class="property-detail-det">📐 {{ property.size }} m²</div>
       <div class="property-detail-det">🚪 {{ property.rooms|floatformat:0 }}</div>
@@ -121,6 +122,12 @@
 
   <div class="seller-cover-wrapper">
     <img src="{{ property.seller.cover_image.url }}" alt="{{ property.seller.name }} Cover" class="seller-cover-img">
+      <p>
+        Seller information:
+        <a href="{% url 'seller_profile' property.seller.id %}">
+            {{ property.seller.name }}
+        </a>
+    </p>
   </div>
 </div>
 
@@ -131,19 +138,42 @@
     <img src="{{ img.image_url }}" class="thumb-img" alt="Thumbnail">
   {% endfor %}
 </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Leaflet map logic
+        const latitude = {{ property.latitude|default:"null" }};
+        const longitude = {{ property.longitude|default:"null" }};
+
+        if (latitude && longitude) {
+          console.log("Rendering map at:", latitude, longitude);
+          const map = L.map('map').setView([latitude, longitude], 13);
+
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors',
+            maxZoom: 18,
+          }).addTo(map);
+
+          L.marker([latitude, longitude]).addTo(map)
+            .bindPopup("{{ property.address }}, {{ property.city }}")
+            .openPopup();
+        } else {
+          console.warn("Map not shown: missing coordinates.");
+        }
+
+        // Collapse toggle logic
+        const toggleText = document.getElementById('toggleText');
+        const additional = document.getElementById('additionalInfo');
+
+        if (additional) {
+          additional.addEventListener('shown.bs.collapse', function () {
+            toggleText.textContent = '▲ Show less details';
+          });
+
+          additional.addEventListener('hidden.bs.collapse', function () {
+            toggleText.textContent = '▼ Show more details';
+          });
+        }
+      });
+    </script>
+
 {% endblock %}
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const toggleText = document.getElementById('toggleText');
-    const additional = document.getElementById('additionalInfo');
-
-    additional.addEventListener('shown.bs.collapse', function () {
-      toggleText.textContent = '▲ Show less details';
-    });
-
-    additional.addEventListener('hidden.bs.collapse', function () {
-      toggleText.textContent = '▼ Show more details';
-    });
-  });
-</script>
-
