@@ -7,111 +7,107 @@
 {% endblock %}
 {% block content %}
     <div class="filters bg-white p-3 rounded shadow-sm mb-4">
-    <div class="row g-2 align-items-end">
-        <div class="col-md-2">
-            <label for="postal" class="form-label">Postal code</label>
-            <input type="text" id="postal" class="form-control form-control-sm" placeholder="e.g. 101, 220">
+        <div class="row g-2 align-items-end">
+            <div class="col-md-2">
+                <label for="postal" class="form-label">Postal code</label>
+                <input type="text" id="postal" class="form-control form-control-sm" placeholder="e.g. 101, 220">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Price</label>
+                <div class="d-flex align-items-center gap-1">
+                    <select id="minPrice" class="form-select form-select-sm" style="width: 50%;">
+                        <option value="">From</option>
+                        <option value="5000000">5 mkr.</option>
+                        <option value="10000000">10 mkr.</option>
+                        <option value="20000000">20 mkr.</option>
+                        <option value="30000000">30 mkr.</option>
+                        <option value="50000000">50 mkr.</option>
+                        <option value="100000000">100 mkr.</option>
+                    </select>
+                    <select id="maxPrice" class="form-select form-select-sm" style="width: 50%;">
+                        <option value="">To</option>
+                        <option value="10000000">10 mkr.</option>
+                        <option value="20000000">20 mkr.</option>
+                        <option value="30000000">30 mkr.</option>
+                        <option value="50000000">50 mkr.</option>
+                        <option value="100000000">100 mkr.</option>
+                        <option value="150000000">150+ mkr.</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label for="type" class="form-label">Type</label>
+                <select id="type" class="form-select form-select-sm">
+                    <option value="">Any type</option>
+                    <option value="Fjölbýlishús">Fjölbýlishús</option>
+                    <option value="Einbýlishús">Einbýlishús</option>
+                    <option value="Raðhús">Raðhús</option>
+                    <option value="Hæð">Hæð</option>
+                    <option value="Sumarhús">Sumarhús</option>
+                </select>
+            </div>
+            <div class="col-md-1">
+                <label for="rooms" class="form-label">Rooms</label>
+                <input type="number" id="rooms" class="form-control form-control-sm" placeholder="Rooms">
+            </div>
+            <div class="col-md-2">
+                <label for="search-value" class="form-label">Street</label>
+                <input type="search" id="search-value" class="form-control form-control-sm" placeholder="Enter street...">
+            </div>
+            <div class="col-md-2">
+                <label for="sort" class="form-label">Sort</label>
+                <select id="sort" class="form-select form-select-sm">
+                    <option>Price: low to high</option>
+                    <option>Price: high to low</option>
+                    <option>Newest</option>
+                </select>
+            </div>
+            <div class="d-flex justify-content-center mt-2 gap-2">
+                <button id="search-button" class="btn btn-primary btn-sm">Search</button>
+                <button id="clear-button" class="btn btn-outline-secondary btn-sm">Clear Filters</button>
+            </div>
         </div>
-       <div class="col-md-3">
-    <label class="form-label">Price</label>
-    <div class="d-flex align-items-center gap-1">
-        <select id="minPrice" class="form-select form-select-sm" style="width: 50%;">
-            <option value="">From</option>
-            <option value="5000000">5 mkr.</option>
-            <option value="10000000">10 mkr.</option>
-            <option value="20000000">20 mkr.</option>
-            <option value="30000000">30 mkr.</option>
-            <option value="50000000">50 mkr.</option>
-            <option value="100000000">100 mkr.</option>
-        </select>
-        <select id="maxPrice" class="form-select form-select-sm" style="width: 50%;">
-            <option value="">To</option>
-            <option value="10000000">10 mkr.</option>
-            <option value="20000000">20 mkr.</option>
-            <option value="30000000">30 mkr.</option>
-            <option value="50000000">50 mkr.</option>
-            <option value="100000000">100 mkr.</option>
-            <option value="150000000">150 mkr.</option>
-        </select>
     </div>
-</div>
-
-        <div class="col-md-2">
-            <label for="type" class="form-label">Type</label>
-            <select id="type" class="form-select form-select-sm">
-                <option value="">Any type</option>
-                <option value="Fjölbýlishús">Fjölbýlishús</option>
-                <option value="Einbýlishús">Einbýlishús</option>
-                <option value="Raðhús">Raðhús</option>
-                <option value="Hæð">Hæð</option>
-                <option value="Sumarhús">Sumarhús</option>
-            </select>
-        </div>
-        <div class="col-md-1">
-            <label for="rooms" class="form-label">Rooms</label>
-            <input type="number" id="rooms" class="form-control form-control-sm" placeholder="Rooms">
-        </div>
-        <div class="col-md-2">
-            <label for="search-value" class="form-label">Street</label>
-            <input type="search" id="search-value" class="form-control form-control-sm" placeholder="Enter street...">
-        </div>
-        <div class="col-md-2">
-            <label for="sort" class="form-label">Sort</label>
-            <select id="sort" class="form-select form-select-sm">
-                <option>Price: low to high</option>
-                <option>Price: high to low</option>
-                <option>Newest</option>
-            </select>
-        </div>
-        <div class="d-flex justify-content-center mt-2 gap-2">
-    <button id="search-button" class="btn btn-primary btn-sm">Search</button>
-    <button id="clear-button" class="btn btn-outline-secondary btn-sm">Clear Filters</button>
-
-</div>
-    </div>
-</div>
     <div class="main-container">
-      <div class="properties-container" id="property-placeholder">
-        {% for property in properties %}
-          <div class="property-item">
-            <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
-              <form method="post" action="{% url 'toggle_favorite' property.id %}">
-                {% csrf_token %}
-                {% if user in property.favorites.all %}
-                  <button class="save-button">Unsave 🩷</button>
-                {% else %}
-                  <button class="save-button">Save 🤍</button>
-                {% endif %}
-              </form>
-              <div class="property-type">{{ property.type }}</div>
-              {% if property.is_sold %}
-                <div class="sold-label">Sold</div>
-              {% endif %}
-            </div>
+        <div class="properties-container" id="property-placeholder">
+            {% for property in properties %}
+                <div class="property-item">
+                    <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
+                        <form method="post" action="{% url 'toggle_favorite' property.id %}">
+                            {% csrf_token %}
+                            {% if user in property.favorites.all %}
+                                <button class="save-button">Unsave 🩷</button>
+                            {% else %}
+                                <button class="save-button">Save 🤍</button>
+                            {% endif %}
+                        </form>
+                        <div class="property-type">{{ property.type }}</div>
+                        {% if property.is_sold %}
+                            <div class="sold-label">Sold</div>
+                        {% endif %}
+                    </div>
+                    <div class="property-info">
+                        <h3>{{ property.address }}</h3>
+                        <div class="zip-city">{{ property.zip }} {{ property.city }}</div>
+                    </div>
 
-            <div class="property-info">
-              <h3>{{ property.address }}</h3>
-              <div class="zip-city">{{ property.zip }} {{ property.city }}</div>
-            </div>
+                    <div class="line"></div>
+                    <div class="property-details">
+                        <div class="property-detail">📐 {{ property.size }} m²</div>
+                        <div class="property-detail">🛏 {{ property.rooms|floatformat:0 }}</div>
+                        <div class="property-detail">🛁 {{ property.bathrooms|floatformat:0 }}</div>
+                        <div class="property-detail">🛌 {{ property.bedrooms|floatformat:0 }}</div>
+                    </div>
 
-            <div class="line"></div>
-
-            <div class="property-details">
-              <div class="property-detail">📐 {{ property.size }} m²</div>
-              <div class="property-detail">🛏 {{ property.rooms|floatformat:0 }}</div>
-              <div class="property-detail">🛁 {{ property.bathrooms|floatformat:0 }}</div>
-              <div class="property-detail">🛌 {{ property.bedrooms|floatformat:0 }}</div>
-            </div>
-
-            <div class="property-price">
-              <div>{{ property.price|floatformat:0|intcomma|replace_comma }} kr.</div>
-              <a href="{% url 'property-by-id' id=property.id %}">See more</a>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
+                    <div class="property-price">
+                        <div>{{ property.price|floatformat:0|intcomma|replace_comma }} kr.</div>
+                        <a href="{% url 'property-by-id' id=property.id %}">See more</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
 {% block extra_js %}
-<script src="{% static 'js/property_filter.js' %}"></script>
+    <script src="{% static 'js/property_filter.js' %}"></script>
 {% endblock %}

@@ -4,176 +4,164 @@
 {% load humanize %}
 {% load custom_filters %}
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/property-detail.css' %}">
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="{% static 'css/property-detail.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 {% endblock %}
 {% block content %}
 
-
 {% if messages %}
-  <div class="container mt-4">
-    {% for message in messages %}
-      <div class="alert alert-{{ message.tags }}  text-center fw-semibold px-4 py-3" role="alert" style="font-size: 1.1rem; background-color: #98ff9a; color: black">
-        {{ message }}
-      </div>
-    {% endfor %}
-  </div>
+    <div class="container mt-4">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}  text-center fw-semibold px-4 py-3" role="alert" style="font-size: 1.1rem; background-color: #98ff9a; color: black">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
 {% endif %}
-
-
-
-<div class="property-container-det">
-  <div class="property-header">
-      <div id="propertyCarousel" class="carousel slide">
-  <div class="carousel-inner">
-      {% for img in property.images.all %}
-          <div class="carousel-item {% if forloop.first %}active{% endif %}">
-              <img src="{{ img.image_url }}" class="d-block w-100" alt="Property Image">
-          </div>
-      {% endfor %}
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon"></span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </button>
-      </div>
-  </div>
-    <div class="property-info-det">
-    <div class="property-type-det">{{ property.type }}</div>
-        <h2>{{ property.address }}</h2>
-    <div class="property-address-det">{{ property.zip }} {{ property.city }}</div>
-    <div id="map" style="height: 400px; width: 100%; margin-top: 20px; border-radius: 10px;"></div>
-    <div class="property-details-det">
-      <div class="property-detail-det">📐 {{ property.size }} m²</div>
-      <div class="property-detail-det">🚪 {{ property.rooms|floatformat:0 }}</div>
-      <div class="property-detail-det">🛁 {{ property.bathrooms|floatformat:0 }}</div>
-      <div class="property-detail-det">🛏 {{ property.bedrooms|floatformat:0 }}</div>
-    </div>
-
-    <div class="property-description">
-  <p>{{ property.description }}</p>  <!-- always shown -->
-
-  {% if property.additional_info %}
-    <div class="collapse mt-2" id="additionalInfo">
-      <p>{{ property.additional_info }}</p>
-    </div>
-
-    <a class="toggle-description" data-bs-toggle="collapse" href="#additionalInfo" role="button" aria-expanded="false" aria-controls="additionalInfo">
-      <span id="toggleText">▼ Show more details</span>
-    </a>
-  {% endif %}
-</div>
-
-    <div class="property-date">📅 {{ property.date }}</div>
-    <div class="property-price-det">
-        {{ property.price|floatformat:0|intcomma|replace_comma }} kr.
-    </div>
-
-    <a href="javascript:history.back()" class="go-back">← Go Back</a>
-  </div>
-{% if not property.is_sold and not accepted_offer %}
-
-  {% if existing_offer %}
-    <div class="alert alert-info">
-      You’ve already made an offer of
-      <strong>{{ existing_offer.amount|floatformat:0|intcomma|replace_comma }} kr.</strong>
-      You can update your offer below.
-    </div>
-  {% else %}
-    <h4>Make a purchase offer:</h4>
-  {% endif %}
-{% endif %}
-
-<div class="offer-section">
-  {% if property.is_sold %}
-    <div class="alert alert-danger mt-4">
-      This property has already been sold. No more offers can be made.
-    </div>
-  {% elif accepted_offer and accepted_offer.user != user %}
-    <div class="alert alert-danger mt-4">
-      An offer has already been accepted for this property.
-    </div>
-  {% else %}
-    {% if user.is_authenticated %}
-      <form method="post" action="{% url 'make_offer' property.id %}" class="offer-form">
-        {% csrf_token %}
-        <div class="mb-3">
-          <label for="{{ form.amount.id_for_label }}">Offer Amount:</label>
-          {{ form.amount }}
+    <div class="property-container-det">
+        <div class="property-header">
+            <div id="propertyCarousel" class="carousel slide">
+                <div class="carousel-inner">
+                    {% for img in property.images.all %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <img src="{{ img.image_url }}" class="d-block w-100" alt="Property Image">
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
         </div>
+        <div class="property-info-det">
+            <div class="property-type-det">{{ property.type }}</div>
+            <h2>{{ property.address }}</h2>
+            <div class="property-address-det">{{ property.zip }} {{ property.city }}</div>
+            <div id="map" style="height: 400px; width: 100%; margin-top: 20px; border-radius: 10px;"></div>
+            <div class="property-details-det">
+                <div class="property-detail-det">📐 {{ property.size }} m²</div>
+                <div class="property-detail-det">🚪 {{ property.rooms|floatformat:0 }}</div>
+                <div class="property-detail-det">🛁 {{ property.bathrooms|floatformat:0 }}</div>
+                <div class="property-detail-det">🛏 {{ property.bedrooms|floatformat:0 }}</div>
+            </div>
 
-        <div class="mb-3">
-          <label for="{{ form.expires_at.id_for_label }}">Expiration Date:</label>
-          {{ form.expires_at }}
+            <div class="property-description">
+                <p>{{ property.description }}</p>
+                {% if property.additional_info %}
+                    <div class="collapse mt-2" id="additionalInfo">
+                        <p>{{ property.additional_info }}</p>
+                    </div>
+
+                    <a class="toggle-description" data-bs-toggle="collapse" href="#additionalInfo" role="button" aria-expanded="false" aria-controls="additionalInfo">
+                        <span id="toggleText">▼ Show more details</span>
+                    </a>
+                {% endif %}
+            </div>
+
+            <div class="property-date">📅 {{ property.date }}</div>
+            <div class="property-price-det">
+                {{ property.price|floatformat:0|intcomma|replace_comma }} kr.
+            </div>
+            <a href="javascript:history.back()" class="go-back">← Go Back</a>
         </div>
+        {% if not property.is_sold and not accepted_offer %}
+            {% if existing_offer %}
+                <div class="alert alert-info">
+                    You’ve already made an offer of
+                    <strong>{{ existing_offer.amount|floatformat:0|intcomma|replace_comma }} kr.</strong>
+                    You can update your offer below.
+                </div>
+            {% else %}
+                <h4>Make a purchase offer:</h4>
+            {% endif %}
+        {% endif %}
 
-        <button type="submit" class="submit-button">Submit</button>
-      </form>
-    {% else %}
-      <div class="alert alert-warning mt-3">
-        <a href="{% url 'login' %}"><strong>Log in</strong></a> to make a purchase offer on this property.
-      </div>
-    {% endif %}
-  {% endif %}
+        <div class="offer-section">
+            {% if property.is_sold %}
+                <div class="alert alert-danger mt-4">
+                    This property has already been sold. No more offers can be made.
+                </div>
+            {% elif accepted_offer and accepted_offer.user != user %}
+                <div class="alert alert-danger mt-4">
+                    An offer has already been accepted for this property.
+                </div>
+            {% else %}
 
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'make_offer' property.id %}" class="offer-form">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="{{ form.amount.id_for_label }}">Offer Amount:</label>
+                        {{ form.amount }}
+                    </div>
 
-  <div class="seller-cover-wrapper">
-    <img src="{{ property.seller.cover_image.url }}" alt="{{ property.seller.name }} Cover" class="seller-cover-img">
-      <p>
-        Seller information:
-        <a href="{% url 'seller_profile' property.seller.id %}">
-            {{ property.seller.name }}
-        </a>
-    </p>
-  </div>
-</div>
+                    <div class="mb-3">
+                        <label for="{{ form.expires_at.id_for_label }}">Expiration Date:</label
+                        {{ form.expires_at }}
+                    </div>
 
-
-</div>
-<div class="image-thumbnail-gallery mt-4">
-  {% for img in property.images.all %}
-    <img src="{{ img.image_url }}" class="thumb-img" alt="Thumbnail">
-  {% endfor %}
-</div>
+                    <button type="submit" class="submit-button">Submit</button>
+                </form>
+            {% else %}
+                <div class="alert alert-warning mt-3">
+                    <a href="{% url 'login' %}"><strong>Log in</strong></a> to make a purchase offer on this property.
+                </div>
+            {% endif %}
+            {% endif %}
+            <div class="seller-cover-wrapper">
+                <img src="{{ property.seller.cover_image.url }}" alt="{{ property.seller.name }} Cover" class="seller-cover-img">
+                <p>
+                    Seller information:
+                    <a href="{% url 'seller_profile' property.seller.id %}">{{ property.seller.name }}</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="image-thumbnail-gallery mt-4">
+        {% for img in property.images.all %}
+            <img src="{{ img.image_url }}" class="thumb-img" alt="Thumbnail">
+        {% endfor %}
+    </div>
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        // Leaflet map logic
+        document.addEventListener('DOMContentLoaded', function () {
+
         const latitude = {{ property.latitude|default:"null" }};
         const longitude = {{ property.longitude|default:"null" }};
-
         if (latitude && longitude) {
-          console.log("Rendering map at:", latitude, longitude);
-          const map = L.map('map').setView([latitude, longitude], 13);
+            console.log("Rendering map at:", latitude, longitude);
+            const map = L.map('map').setView([latitude, longitude], 13);
 
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors',
-            maxZoom: 18,
-          }).addTo(map);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors',
+                maxZoom: 18,
+            }).addTo(map);
 
-          L.marker([latitude, longitude]).addTo(map)
-            .bindPopup("{{ property.address }}, {{ property.city }}")
-            .openPopup();
+            L.marker([latitude, longitude]).addTo(map)
+                .bindPopup("{{ property.address }}, {{ property.city }}")
+                .openPopup();
         } else {
-          console.warn("Map not shown: missing coordinates.");
+            console.warn("Map not shown: missing coordinates.");
         }
 
-        // Collapse toggle logic
+
         const toggleText = document.getElementById('toggleText');
         const additional = document.getElementById('additionalInfo');
 
         if (additional) {
-          additional.addEventListener('shown.bs.collapse', function () {
-            toggleText.textContent = '▲ Show less details';
-          });
+            additional.addEventListener('shown.bs.collapse', function () {
+                toggleText.textContent = '▲ Show less details';
+            });
 
-          additional.addEventListener('hidden.bs.collapse', function () {
-            toggleText.textContent = '▼ Show more details';
-          });
+            additional.addEventListener('hidden.bs.collapse', function () {
+                toggleText.textContent = '▼ Show more details';
+            });
         }
-      });
+
+        });
     </script>
 
 {% endblock %}

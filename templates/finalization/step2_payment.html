@@ -1,14 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container mt-5">
-    <h2>Step 2: Select Payment Method</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <div class="d-flex justify-content-between mt-4">
-            <a href="{% url 'finalization:step1_contact' offer_id  %}" class="btn btn-secondary">Back</a>
-            <button type="submit" class="btn btn-primary">Next</button>
+<div class="container d-flex flex-column justify-content-center align-items-center mt-5">
+    <h2 class="fw-bold mb-4">Step 2</h2>
+    <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
+        <div class="text-center mb-4">
+            <h2>Select Payment Method</h2>
         </div>
-    </form>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3 text-start">
+                <label class="form-label">Payment method:</label>
+                {% for radio in form.payment_method %}
+                    <div class="form-check">
+                        {{ radio.tag }}
+                        <label class="form-check-label" for="{{ radio.id_for_label }}">
+                            {{ radio.choice_label }}
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <a href="{% url 'finalization:step1_contact' offer_id  %}" class="btn btn-secondary">Back</a>
+                <button  type="submit" class="btn" style="background-color: #ffade8; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">Next</button>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

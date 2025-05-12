@@ -12,9 +12,11 @@
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'property-index' %}active{% endif %}" href="{% url 'property-index' %}">Properties</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link {% if request.resolver_match.url_name == 'my_offers' %}active{% endif %}" href="{% url 'my_offers' %}">Offers</a>
-        </li>
+        {% if user.is_authenticated %}
+<li class="nav-item">
+  <a class="nav-link {% if request.resolver_match.url_name == 'my_offers' %}active{% endif %}" href="{% url 'my_offers' %}">Offers</a>
+</li>
+{% endif %}
         <li class="nav-item">
             <a class="nav-link inspiration-link {% if request.resolver_match.url_name == 'inspiration' %}active{% endif %}" href="{% url 'inspiration' %}">
                 Home Design<br>Inspiration

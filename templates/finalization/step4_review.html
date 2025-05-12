@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container mt-5">
-    <h2>Step 4: Review & Confirm</h2>
+<div class="container d-flex flex-column justify-content-center align-items-center mt-5">
+  <h2 class="fw-bold mb-4">Step 3</h2>
+    <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
+    <div class="text-center mb-4">
+        <h2>Review & Confirm</h2>
+    </div>
 
     <h5 class="mt-4">Contact Information</h5>
     <ul>
@@ -19,7 +23,7 @@
     <h5 class="mt-4">Payment Details</h5>
     <ul>
         {% for key, value in payment_details.items %}
-            <li><strong>{{ method|cut:"_"|title }}:</strong> {{ value }}</li>
+            <li><strong>{{ key|cut:"_"|title }}:</strong> {{ value }}</li>
         {% endfor %}
     </ul>
 
@@ -27,8 +31,10 @@
         {% csrf_token %}
         <div class="d-flex justify-content-between">
             <a href="{% url 'finalization:step3_payment_details' offer_id  %}" class="btn btn-secondary">Back</a>
-            <button type="submit" class="btn btn-success">Confirm Purchase</button>
+            <button type="submit" class="btn" style="background-color: #ffade8; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">Confirm Purchase</button>
         </div>
     </form>
 </div>
+</div>
+
 {% endblock %}
