@@ -1,14 +1,57 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container mt-5">
-    <h2>Step 3: {{ method|cut:"_"|title }} Details</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <div class="d-flex justify-content-between mt-4">
-            <a href="{% url 'finalization:step2_payment' offer_id  %}" class="btn btn-secondary">Back</a>
-            <button type="submit" class="btn btn-primary">Next</button>
+<div class="container d-flex flex-column justify-content-center align-items-center mt-5">
+    <h2 class="fw-bold mb-4">Step 3</h2>
+    <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
+        <div class="text-center mb-4">
+            <h2>{{ method|cut:"_"|title }} Details</h2>
         </div>
-    </form>
+        <form method="post">
+            {% csrf_token %}
+
+            {% if method == 'credit_card' %}
+                <div class="mb-3">
+                    <label for="{{ form.cardholder_name.id_for_label }}" class="form-label">Cardholder name</label>
+                    {{ form.cardholder_name }}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ form.card_number.id_for_label }}" class="form-label">Card number</label>
+                    {{ form.card_number }}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ form.expiry_date.id_for_label }}" class="form-label">Expiry date</label>
+                    {{ form.expiry_date }}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ form.cvc.id_for_label }}" class="form-label">CVC</label>
+                    {{ form.cvc }}
+                </div>
+
+            {% elif method == 'bank_transfer' %}
+                <div class="mb-3">
+                    <label for="{{ form.bank_account.id_for_label }}" class="form-label">Bank account</label>
+                    {{ form.bank_account }}
+                </div>
+
+            {% elif method == 'mortgage' %}
+                <div class="mb-3">
+                    <label for="{{ form.provider.id_for_label }}" class="form-label">Select Mortgage Provider</label>
+                    {{ form.provider }}
+                </div>
+            {% endif %}
+
+            <div class="d-flex justify-content-between mt-4">
+                <a href="{% url 'finalization:step2_payment' offer_id  %}" class="btn btn-secondary">Back</a>
+                <button type="submit" class="btn" style="background-color: #ffade8; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">Next</button>
+            </div>
+        </form>
+    </div>
 </div>
+
+<style>
+    input, select {
+        width: 100%;
+        display: block;
+    }
+</style>
 {% endblock %}
