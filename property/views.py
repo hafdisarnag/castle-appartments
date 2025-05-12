@@ -6,6 +6,7 @@ from offers.forms.forms import OfferForm
 from offers.models import Offer
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
+from django.core.paginator import Paginator
 
 def index(request):
     if request.GET:
@@ -83,3 +84,17 @@ def get_seller_by_id(request, id):
     return render(request, "sellers/sellerprofile.html", {
         "seller": seller,
     })
+
+
+def load_more_properties(request):
+    page_number = request.GET.get('page')
+    properties = Property.objects.all().order_by('-id')  # Breyttu röðun ef þarf
+    paginator = Paginator(properties, 3)  # Fjöldi eigna per síðu
+
+    try:
+        page_obj = paginator.page(page_number)
+    except:
+        return HttpResponse('')  # Skilar engu ef engin síða
+
+    return render(request, 'property/load_more_partial.html', {'properties': page_obj})
+

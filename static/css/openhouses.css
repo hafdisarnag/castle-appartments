@@ -1,0 +1,57 @@
+.open-houses-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.open-house-time {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: #f69cd3; /* eða #375a9e ef þú vilt halda bláum */
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  z-index: 2;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.no-open-houses {
+  font-style: italic;
+  color: gray;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+#openhouses-load-more-wrapper {
+  position: relative;
+  width: 100vw;
+  margin: 3rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+#openhouses-load-more-btn {
+  background-color: white;
+  color: #f6c2e9;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border: none;
+  padding: 0.8rem 2rem;
+  cursor: pointer;
+  z-index: 1;
+  border-radius: 10px;
+  font-family: 'Anton', sans-serif;
+}
+
+#openhouses-load-more-btn:hover {
+  background-color: #f6c2e9;
+  color: white;
+  transition: 0.3s ease;
+}
+

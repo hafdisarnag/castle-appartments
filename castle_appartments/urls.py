@@ -29,6 +29,7 @@ urlpatterns = [
     path('seller/', include('sellers.urls')),
     path('finalize/', include('finalization.urls', namespace='finalization')),
     path('inspiration/', include('inspiration.urls')),
+    path('openhouses/', include('openhouses.urls')),
 ]
 
 from django.conf import settings
