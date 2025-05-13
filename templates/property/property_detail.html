@@ -25,7 +25,7 @@
                 <div class="carousel-inner">
                     {% for img in property.images.all %}
                         <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                            <img src="{{ img.image_url }}" class="d-block w-100" alt="Property Image">
+                            <img src="{{ img.image_url.url }}" class="d-block w-100" alt="Property Image">
                         </div>
                     {% endfor %}
                 </div>
@@ -123,7 +123,7 @@
     </div>
     <div class="image-thumbnail-gallery mt-4">
         {% for img in property.images.all %}
-            <img src="{{ img.image_url }}" class="thumb-img" alt="Thumbnail">
+            <img src="{{ img.image_url.url }}" class="thumb-img" alt="Thumbnail">
         {% endfor %}
     </div>
     <script>
