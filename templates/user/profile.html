@@ -107,11 +107,13 @@
     {% for property in saved_properties %}
         <div class="col saved-property-card {% if forloop.counter > 3 %}d-none extra-property{% endif %}">
             <div class="property-item card h-100 shadow-sm">
-                <form method="post" action="{% url 'toggle_favorite' property.id %}" class="position-absolute m-2">
-                    {% csrf_token %}
-                    <button class="btn btn-sm btn-outline-danger">Unsave 🩷️</button>
-                </form>
-                <div class="property-image" style="background-image: url({{ property.images.first.image_url }}); height: 200px; background-size: cover; background-position: center;">
+                <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
+                    <form method="post" action="{% url 'toggle_favorite' property.id %}">
+                        {% csrf_token %}
+                        <button class="save-button">
+                            <img src="{% static 'images/save.png' %}" alt="Save" class="save-icon">
+                        </button>
+                    </form>
                     <div class="property-type">{{ property.type }}</div>
                     {% if property.is_sold %}
                         <div class="sold-label">Sold</div>
