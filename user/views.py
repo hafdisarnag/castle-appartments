@@ -4,6 +4,7 @@ from user.forms.profile_form import ProfileForm
 from user.models import Profile
 from django.contrib import messages
 from property.models import Property
+from django.http import JsonResponse
 
 def register(request):
     if request.method == 'POST':
@@ -47,7 +48,12 @@ def toggle_favorite(request, property_id):
 
     if request.user in property.favorites.all():
         property.favorites.remove(request.user)
+        status = 'removed'
     else:
         property.favorites.add(request.user)
+        status = 'added'
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return JsonResponse({'status': status})
 
     return redirect('profile')

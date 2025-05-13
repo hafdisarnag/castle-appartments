@@ -12,15 +12,20 @@
           <div class="open-house-time">
             {{ property.open_house_time|format_open_house_time_is }}
           </div>
-            <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
-              <form method="post" action="{% url 'toggle_favorite' property.id %}">
-                {% csrf_token %}
-                <button class="save-button">
+          <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
+            <form method="post" action="{% url 'toggle_favorite' property.id %}" class="favorite-form" data-property-id="{{ property.id }}">
+              {% csrf_token %}
+              <button type="submit" class="save-button">
+                {% if property.is_favorite %}
+                  <img src="{% static 'images/saved.png' %}" alt="Saved" class="save-icon">
+                {% else %}
                   <img src="{% static 'images/save.png' %}" alt="Save" class="save-icon">
-                </button>
-              </form>
-              <div class="property-type">{{ property.type }}</div>
-            </div>
+                {% endif %}
+              </button>
+            </form>
+              <div class="favorite-message-inside" style="display: none;"></div>
+            <div class="property-type">{{ property.type }}</div>
+          </div>
           <div class="property-info">
             <h3>{{ property.address }}</h3>
             <div class="zip-city">{{ property.zip }} {{ property.city }}</div>
@@ -29,10 +34,10 @@
           <div class="line"></div>
 
           <div class="property-details">
-            <div class="property-detail">📐 {{ property.size }} m²</div>
-            <div class="property-detail">🛏 {{ property.rooms|floatformat:0 }}</div>
-            <div class="property-detail">🛁 {{ property.bathrooms|floatformat:0 }}</div>
-            <div class="property-detail">🛌 {{ property.bedrooms|floatformat:0 }}</div>
+            <div class="property-detail">🎐 {{ property.size }} m²</div>
+            <div class="property-detail">🛎 {{ property.rooms|floatformat:0 }}</div>
+            <div class="property-detail">🚱 {{ property.bathrooms|floatformat:0 }}</div>
+            <div class="property-detail">🛋 {{ property.bedrooms|floatformat:0 }}</div>
           </div>
 
           <div class="property-price">
@@ -51,6 +56,9 @@
     <button id="openhouses-load-more-btn">Load More Results</button>
     <div class="load-more-line bottom"></div>
   </div>
+
+  <div id="favorite-message" class="favorite-message" style="display:none;"></div>
 </div>
 
 <script src="{% static 'js/load_more_openhouses.js' %}"></script>
+<script src="{% static 'js/favorites.js' %}"></script>
