@@ -55,7 +55,39 @@
         <button id="load-more-btn">Load More Results</button>
         <div class="load-more-line bottom"></div>
     </div>
-    {% include "open houses/openhouses.html" %}
-    <script src="{% static 'js/load_more.js' %}"></script>
-    <script src="{% static 'js/load_more_openhouses.js' %}"></script>
+{% include "open houses/openhouses.html" %}
+<script src="{% static 'js/load_more.js' %}"></script>
+<script src="{% static 'js/load_more_openhouses.js' %}"></script>
+<!-- Real Estate Agencies section -->
+<div class="agencies-section">
+  <h2>Real Estate Agencies</h2>
+  <div class="agency-carousel-container">
+    <button class="scroll-btn left-btn">←</button>
+    <div class="agency-carousel" id="agency-carousel">
+      {% for agency in agencies %}
+        <div class="agency-card">
+          <a href="{% url 'seller_profile' agency.id %}">
+            <img src="{{ agency.cover_image.url }}" alt="{{ agency.name }}">
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+    <button class="scroll-btn right-btn">→</button>
+  </div>
+</div>
+
+<script>
+  const carousel = document.getElementById('agency-carousel');
+  const leftBtn = document.querySelector('.left-btn');
+  const rightBtn = document.querySelector('.right-btn');
+
+  leftBtn.addEventListener('click', () => {
+    carousel.scrollBy({ left: -300, behavior: 'smooth' });
+  });
+
+  rightBtn.addEventListener('click', () => {
+    carousel.scrollBy({ left: 300, behavior: 'smooth' });
+  });
+</script>
+
 {% endblock %}
