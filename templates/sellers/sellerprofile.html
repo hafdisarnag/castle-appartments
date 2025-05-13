@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
+{% load custom_filters %}
+{% load custom_filters2 %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/seller.css' %}">
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/property.css' %}">
+{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/seller.css' %}">
-
 <div class="seller-profile-container">
 
   {% if seller.cover_image %}
@@ -27,21 +34,60 @@
 
   <p class="seller-bio">{{ seller.bio }}</p>
 
-    <h2 class="property-list-title">Properties for Sale</h2>
-    <div class="property-list">
+  <h2 class="section-title">Properties for Sale</h2>
+
+  <div class="main-container">
+    <div class="properties-container" id="property-list">
       {% for property in properties %}
-        <a href="{% url 'property-by-id' property.id %}" class="property-card">
-          {% if property.images.first %}
-            <img src="{{ property.images.first.image_url }}" alt="Property Image">
-          {% endif %}
-          <div class="property-info">
-            <p>{{ property.address }}</p>
+        <div class="property-item" data-url="{% url 'property-by-id' id=property.id %}">
+          <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
+            <form method="post" action="{% url 'toggle_favorite' property.id %}">
+              {% csrf_token %}
+              <button class="save-button" type="submit">
+                <img src="{% static 'images/save.png' %}" alt="Save" class="save-icon">
+              </button>
+            </form>
+            <div class="property-type">{{ property.type }}</div>
           </div>
-        </a>
+          <div class="property-info">
+            <h3>{{ property.address }}</h3>
+            <div class="zip-city">{{ property.zip }} {{ property.city }}</div>
+          </div>
+          <div class="line"></div>
+          <div class="property-details">
+            <div class="property-detail">📐 {{ property.size }} m²</div>
+            <div class="property-detail">🛏 {{ property.rooms|floatformat:0 }}</div>
+            <div class="property-detail">🛁 {{ property.bathrooms|floatformat:0 }}</div>
+            <div class="property-detail">🛌 {{ property.bedrooms|floatformat:0 }}</div>
+          </div>
+          <div class="property-price">
+            <div>{{ property.price|floatformat:0|intcomma|replace_comma }} kr.</div>
+          </div>
+        </div>
       {% empty %}
         <p>No properties listed by this seller.</p>
       {% endfor %}
     </div>
+  </div>
 
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const items = document.querySelectorAll(".property-item");
+    items.forEach(item => {
+      item.addEventListener("click", function (e) {
+        // Prevent redirection if clicking inside the form (save button)
+        if (e.target.closest("form")) return;
+        const url = this.getAttribute("data-url");
+        if (url) {
+          window.location.href = url;
+        }
+      });
+
+      // Optional: make it obvious it's clickable
+      item.style.cursor = "pointer";
+    });
+  });
+</script>
 {% endblock %}
