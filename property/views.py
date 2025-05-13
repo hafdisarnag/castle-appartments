@@ -50,7 +50,7 @@ def index(request):
                 'bedrooms': x.bedrooms,
                 'price': x.price,
                 'id': x.id,
-                'image': x.images.first().image_url if x.images.exists() else None,
+                'image': x.images.first().image_url.url if x.images.exists() else None,
             } for x in queryset],
         })
 
