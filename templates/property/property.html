@@ -72,13 +72,18 @@
         <div class="properties-container" id="property-placeholder">
             {% for property in properties %}
                 <div class="property-item">
-                        <div class="property-image" style="background-image: url({{ property.images.first.image_url.url }})">
-                          <form method="post" action="{% url 'toggle_favorite' property.id %}">
+                    <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
+                        <form method="post" action="{% url 'toggle_favorite' property.id %}" class="favorite-form" data-property-id="{{ property.id }}">
                             {% csrf_token %}
-                            <button class="save-button">
-                              <img src="{% static 'images/save.png' %}" alt="Save" class="save-icon">
+                            <button type="submit" class="save-button">
+                                {% if property.is_favorite %}
+                                    <img src="{% static 'images/saved.png' %}" alt="Saved" class="save-icon">
+                                {% else %}
+                                    <img src="{% static 'images/save.png' %}" alt="Save" class="save-icon">
+                                {% endif %}
                             </button>
-                          </form>
+                        </form>
+                        <div class="favorite-message-inside" style="display: none;"></div>
                         <div class="property-type">{{ property.type }}</div>
                         {% if property.is_sold %}
                             <div class="sold-label">Sold</div>
@@ -92,7 +97,7 @@
                     <div class="line"></div>
                     <div class="property-details">
                         <div class="property-detail">📐 {{ property.size }} m²</div>
-                        <div class="property-detail">🛏 {{ property.rooms|floatformat:0 }}</div>
+                        <div class="property-detail">🚪 {{ property.rooms|floatformat:0 }}</div>
                         <div class="property-detail">🛁 {{ property.bathrooms|floatformat:0 }}</div>
                         <div class="property-detail">🛌 {{ property.bedrooms|floatformat:0 }}</div>
                     </div>
@@ -108,4 +113,5 @@
 {% endblock %}
 {% block extra_js %}
     <script src="{% static 'js/property_filter.js' %}"></script>
+    <script src="{% static 'js/favorites.js' %}"></script>
 {% endblock %}
