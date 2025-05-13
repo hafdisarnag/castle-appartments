@@ -77,7 +77,6 @@
     const items = document.querySelectorAll(".property-item");
     items.forEach(item => {
       item.addEventListener("click", function (e) {
-        // Prevent redirection if clicking inside the form (save button)
         if (e.target.closest("form")) return;
         const url = this.getAttribute("data-url");
         if (url) {
@@ -85,7 +84,6 @@
         }
       });
 
-      // Optional: make it obvious it's clickable
       item.style.cursor = "pointer";
     });
   });
