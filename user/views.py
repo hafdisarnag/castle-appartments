@@ -11,7 +11,7 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            Profile.objects.create(user=user)
+            Profile.objects.create(user=user, phone_number='')
             return redirect('login')
         else:
             return render(request, 'user/register.html', {'form': form})
