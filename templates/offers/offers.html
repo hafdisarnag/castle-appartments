@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container mt-5">
-  <h2 class="text-center mb-4"">My Purchase Offers</h2>
+  <h2 class="text-center mb-4">My Purchase Offers</h2>
 
   {% if offers %}
     <div class="table-responsive">
@@ -17,6 +17,7 @@
             <th>Status</th>
             <th>Seller</th>
             <th>Price</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -30,30 +31,33 @@
               <td>{{ offer.created_at|date:"Y-m-d" }}</td>
               <td>{{ offer.expires_at|date:"Y-m-d" }}</td>
               <td>
-  {% if offer.is_accepted %}
-    <span class="badge bg-success">Accepted</span>
-  {% elif offer.is_expired %}
-   <span class="badge" style="background-color: #ffe0f0; color: black; font-weight: 500;">Accepted</span>
-
-  {% else %}
-    <span class="badge" style="background-color: #ffe0f0; color: black; font-weight: 500;">Pending</span>
-
-  {% endif %}
-</td>
+                {% if offer.is_finalized %}
+                  <span class="badge bg-primary">Finalized</span>
+                {% elif offer.is_accepted %}
+                  <span class="badge bg-success">Accepted</span>
+                {% elif offer.is_expired %}
+                  <span class="badge bg-warning text-dark">Expired</span>
+                {% else %}
+                  <span class="badge" style="background-color: #ffe0f0; color: black; font-weight: 500;">Pending</span>
+                {% endif %}
+              </td>
               <td>{{ offer.property.seller.name }}</td>
               <td><strong>{{ offer.amount|floatformat:0|intcomma|replace_comma }} kr.</strong></td>
-            <td>
-        {% if offer.is_accepted and not offer.is_finalized and not offer.property.is_sold %}
-    <a href="{% url 'finalization:step1_contact' offer.id %}" class="btn btn-sm" style="background-color: #f8c6d8; color: #8b005d;">
-        Finalize
-    </a>
-
-{% elif offer.property.is_sold %}
-    <span class="badge bg-secondary">Sold</span>
-{% else %}
-    <span>-</span>
-{% endif %}
-    </td>
+              <td>
+                {% if offer.is_accepted and not offer.is_finalized and not offer.property.is_sold %}
+                  <a href="{% url 'finalization:step1_contact' offer.id %}" class="btn btn-sm" style="background-color: #f8c6d8; color: #8b005d;">
+                    Finalize
+                  </a>
+                {% elif offer.property.is_sold %}
+                  <span class="badge bg-secondary">Sold</span>
+                {% elif offer.is_finalized %}
+                  <span class="badge bg-primary">Finalized</span>
+                {% elif offer.is_expired %}
+                  <span class="badge bg-warning text-dark">Expired</span>
+                {% else %}
+                  <span class="text-muted">Awaiting Review</span>
+                {% endif %}
+              </td>
             </tr>
           {% endfor %}
         </tbody>
