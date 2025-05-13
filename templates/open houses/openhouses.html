@@ -12,7 +12,7 @@
           <div class="open-house-time">
             {{ property.open_house_time|format_open_house_time_is }}
           </div>
-          <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
+          <div class="property-image" style="background-image: url({{ property.images.first.image_url.url }})">
             <form method="post" action="{% url 'toggle_favorite' property.id %}" class="favorite-form" data-property-id="{{ property.id }}">
               {% csrf_token %}
               <button type="submit" class="save-button">

@@ -20,7 +20,7 @@
       <div class="properties-container" id="property-list">
         {% for property in featured_properties %}
           <div class="property-item">
-          <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
+          <div class="property-image" style="background-image: url({{ property.images.first.image_url.url }})">
               <form method="post" action="{% url 'toggle_favorite' property.id %}" class="favorite-form" data-property-id="{{ property.id }}">
                   {% csrf_token %}
                   <button type="submit" class="save-button">
