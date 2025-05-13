@@ -20,13 +20,18 @@
       <div class="properties-container" id="property-list">
         {% for property in featured_properties %}
           <div class="property-item">
-            <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
-              <form method="post" action="{% url 'toggle_favorite' property.id %}">
-                {% csrf_token %}
-                <button class="save-button">
-                  <img src="{% static 'images/save.png' %}" alt="Save" class="save-icon">
-                </button>
+          <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
+              <form method="post" action="{% url 'toggle_favorite' property.id %}" class="favorite-form" data-property-id="{{ property.id }}">
+                  {% csrf_token %}
+                  <button type="submit" class="save-button">
+                      {% if property.is_favorite %}
+                          <img src="{% static 'images/saved.png' %}" alt="Saved" class="save-icon">
+                      {% else %}
+                          <img src="{% static 'images/save.png' %}" alt="Save" class="save-icon">
+                      {% endif %}
+                  </button>
               </form>
+              <div class="favorite-message-inside" style="display: none;"></div>
               <div class="property-type">{{ property.type }}</div>
             </div>
             <div class="property-info">
@@ -87,5 +92,6 @@
     carousel.scrollBy({ left: 300, behavior: 'smooth' });
   });
 </script>
+    <script src="{% static 'js/favorites.js' %}"></script>
 
 {% endblock %}

@@ -41,12 +41,17 @@
       {% for property in properties %}
         <div class="property-item" data-url="{% url 'property-by-id' id=property.id %}">
           <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
-            <form method="post" action="{% url 'toggle_favorite' property.id %}">
+            <form method="post" action="{% url 'toggle_favorite' property.id %}" class="favorite-form" data-property-id="{{ property.id }}">
               {% csrf_token %}
-              <button class="save-button" type="submit">
-                <img src="{% static 'images/save.png' %}" alt="Save" class="save-icon">
+              <button type="submit" class="save-button">
+                {% if property.is_favorite %}
+                  <img src="{% static 'images/saved.png' %}" alt="Saved" class="save-icon">
+                {% else %}
+                  <img src="{% static 'images/save.png' %}" alt="Save" class="save-icon">
+                {% endif %}
               </button>
             </form>
+              <div class="favorite-message-inside" style="display: none;"></div>
             <div class="property-type">{{ property.type }}</div>
           </div>
           <div class="property-info">
@@ -88,4 +93,5 @@
     });
   });
 </script>
+    <script src="{% static 'js/favorites.js' %}"></script>
 {% endblock %}

@@ -15,6 +15,7 @@
   position: relative;
 }
 
+
 .save-icon {
   display: block;              /* fjarlægir inline-image spacing */
   width: 28px;
@@ -43,6 +44,48 @@
 
 .save-button:hover .save-icon {
   transform: scale(1.1);
+}
+
+.property-item .save-button {
+  display: none;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.property-item:hover .save-button {
+  display: block;
+}
+
+.favorite-message {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  background: #2b2b2b;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  z-index: 1000;
+  display: none;
+  font-size: 0.95rem;
+}
+
+.favorite-message-inside {
+  position: absolute;
+  inset: 0; /* stytting fyrir top/left/right/bottom: 0 */
+  background-color: rgba(255, 194, 246, 0.60);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
 }
 
 .property-type {
