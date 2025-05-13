@@ -15,28 +15,34 @@
   position: relative;
 }
 
-.property-image form {
-  position: absolute;
-  top: 10px;
-  left: 10px; /* eða right: 10px ef þú vilt takkann hægra megin */
-  z-index: 4;
+.save-icon {
+  display: block;              /* fjarlægir inline-image spacing */
+  width: 28px;
+  height: 25px;
+  transition: transform 0.2s ease;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  pointer-events: none;
 }
 
 .save-button {
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 4px 10px;
-  font-size: 0.75rem;
-  font-weight: bold;
+  all: unset;
   cursor: pointer;
-  color: #375a9e;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  outline: none;
+  border: none;
+  box-shadow: none;
+  -webkit-tap-highlight-color: transparent;
+  appearance: none;
 }
 
-.save-button:hover {
-  background-color: #f6c2e9;
-  color: white;
+.save-button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.save-button:hover .save-icon {
+  transform: scale(1.1);
 }
 
 .property-type {

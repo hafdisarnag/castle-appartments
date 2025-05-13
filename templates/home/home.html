@@ -23,11 +23,9 @@
             <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
               <form method="post" action="{% url 'toggle_favorite' property.id %}">
                 {% csrf_token %}
-                {% if user in property.favorites.all %}
-                  <button class="save-button">Unsave 🩷</button>
-                {% else %}
-                  <button class="save-button">Save 🤍</button>
-                {% endif %}
+                <button class="save-button">
+                  <img src="{% static 'images/save.png' %}" alt="Save" class="save-icon">
+                </button>
               </form>
               <div class="property-type">{{ property.type }}</div>
             </div>
