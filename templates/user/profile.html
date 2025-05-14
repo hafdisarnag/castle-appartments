@@ -107,7 +107,7 @@
     {% for property in saved_properties %}
         <div class="col saved-property-card {% if forloop.counter > 3 %}d-none extra-property{% endif %}">
             <div class="property-item card h-100 shadow-sm">
-                <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
+                <div class="property-image" style="background-image: url({{ property.images.first.image_url.url }})">
                     <form method="post" action="{% url 'toggle_favorite' property.id %}">
                         {% csrf_token %}
                         <button class="save-button">
