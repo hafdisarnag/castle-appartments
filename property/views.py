@@ -7,11 +7,12 @@ from offers.models import Offer
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
 from django.core.paginator import Paginator
+from django.template.loader import render_to_string
 
 def index(request):
-    if request.GET:
-        queryset = Property.objects.all()
+    queryset = Property.objects.all()
 
+    if request.GET:
         if 'search_filter' in request.GET:
             queryset = queryset.filter(address__icontains=request.GET['search_filter'])
 
@@ -38,24 +39,11 @@ def index(request):
             elif request.GET['sort'] == "Newest":
                 queryset = queryset.order_by("-date")
 
-        return JsonResponse({
-            'data': [{
-                'type': x.type,
-                'address': x.address,
-                'zip': x.zip,
-                'city': x.city,
-                'size': x.size,
-                'rooms': x.rooms,
-                'bathrooms': x.bathrooms,
-                'bedrooms': x.bedrooms,
-                'price': x.price,
-                'id': x.id,
-                'image': x.images.first().image_url.url if x.images.exists() else None,
-            } for x in queryset],
-        })
+        html = render_to_string('property/property_list_partial.html', {'properties': queryset}, request)
+        return JsonResponse({'html': html})
 
     return render(request, "property/property.html", {
-        "properties": Property.objects.all(),
+        "properties": queryset,
     })
 
 def get_property_by_id(request, id):

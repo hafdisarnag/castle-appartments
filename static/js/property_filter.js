@@ -23,42 +23,21 @@ document.addEventListener("DOMContentLoaded", function () {
         if (sort) params.append("sort", sort);
 
         const response = await fetch(`?${params.toString()}`);
-        if (response.ok) {
-            const json = await response.json();
-            displayProperties(json.data);
-        }
+            if (response.ok) {
+                const json = await response.json();
+                displayProperties(json.html);
+            }
+
     }
 
-    function displayProperties(properties) {
-        if (properties.length === 0) {
-            propertiesPlaceholder.innerHTML = `<div>No properties found.</div>`;
-            return;
-        }
+    function displayProperties(propertiesHTML) {
+        propertiesPlaceholder.innerHTML = propertiesHTML;
 
-        const items = properties.map(property => `
-            <div class="property-item">
-                <div class="property-image" style="background-image: url(${property.image})">
-                    <div class="property-type">${property.type}</div>
-                </div>
-                <div class="property-info">
-                    <h3>${property.address}</h3>
-                    <div class="zip-city">${property.zip} ${property.city}</div>
-                </div>
-                <div class="line"></div>
-                <div class="property-details">
-                    <div class="property-detail">📐 ${property.size} m²</div>
-                    <div class="property-detail">🛏 ${property.rooms}</div>
-                    <div class="property-detail">🛁 ${property.bathrooms}</div>
-                    <div class="property-detail">🛌 ${property.bedrooms}</div>
-                </div>
-                <div class="property-price">
-                    <div>${property.price} kr.</div>
-                    <a href="${property.id}">See more</a>
-                </div>
-            </div>
-        `);
-        propertiesPlaceholder.innerHTML = items.join('');
+        // Reinitialize favorites after the new HTML is injected
+        if (typeof initializeFavorites === 'function') {
+            initializeFavorites();
     }
+}
 
     if (searchButton) {
         searchButton.addEventListener("click", runFilterSearch);
