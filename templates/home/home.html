@@ -70,7 +70,7 @@
       {% for agency in agencies %}
         <div class="agency-card">
           <a href="{% url 'seller_profile' agency.id %}">
-            <img src="{{ agency.cover_image.url }}" alt="{{ agency.name }}">
+            <img src="{{ agency.logo.url }}" alt="{{ agency.name }}">
           </a>
         </div>
       {% endfor %}
