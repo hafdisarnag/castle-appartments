@@ -23,6 +23,7 @@ class Property(models.Model):
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
     open_house_time = models.DateTimeField(null=True, blank=True)
+    click_count = models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.address} ({self.pk})"

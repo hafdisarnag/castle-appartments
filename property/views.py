@@ -61,6 +61,10 @@ def index(request):
 def get_property_by_id(request, id):
     property = get_object_or_404(Property, id=id)
 
+    # Bæta við smelltalningu (click count)
+    property.click_count += 1
+    property.save(update_fields=['click_count'])
+
     existing_offer = None
     accepted_offer = None
     form = None
@@ -69,7 +73,6 @@ def get_property_by_id(request, id):
         existing_offer = Offer.objects.filter(user=request.user, property=property).first()
         accepted_offer = property.offers.filter(is_accepted=True).first()
         form = OfferForm(instance=existing_offer)
-
 
     return render(request, "property/property_detail.html", {
         "property": property,
@@ -97,4 +100,5 @@ def load_more_properties(request):
         return HttpResponse('')  # Skilar engu ef engin síða
 
     return render(request, 'property/load_more_partial.html', {'properties': page_obj})
+
 
