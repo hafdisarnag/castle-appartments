@@ -9,10 +9,16 @@ from django.shortcuts import get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.template.loader import render_to_string
 
+from django.shortcuts import render
+from django.http import JsonResponse
+from django.template.loader import render_to_string
+from .models import Property
+
 def index(request):
     queryset = Property.objects.all()
 
     if request.GET:
+        # Síum eftir leitarskilyrðum úr GET beiðni
         if 'search_filter' in request.GET:
             queryset = queryset.filter(address__icontains=request.GET['search_filter'])
 
@@ -39,11 +45,31 @@ def index(request):
             elif request.GET['sort'] == "Newest":
                 queryset = queryset.order_by("-date")
 
+        # Merking fyrir uppáhalds ef innskráður
+        if request.user.is_authenticated:
+            favorite_ids = request.user.favorite_properties.values_list('id', flat=True)
+            for property in queryset:
+                property.is_favorite = property.id in favorite_ids
+        else:
+            for property in queryset:
+                property.is_favorite = False
+
         html = render_to_string('property/property_list_partial.html', {'properties': queryset}, request)
         return JsonResponse({'html': html})
 
+    # Ef engin síun – sýnum nýjustu eignir
+    properties = Property.objects.all().order_by("-date")
+
+    if request.user.is_authenticated:
+        favorite_ids = request.user.favorite_properties.values_list('id', flat=True)
+        for property in properties:
+            property.is_favorite = property.id in favorite_ids
+    else:
+        for property in properties:
+            property.is_favorite = False
+
     return render(request, "property/property.html", {
-        "properties": queryset,
+        "properties": properties,
     })
 
 def get_property_by_id(request, id):
