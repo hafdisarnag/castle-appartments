@@ -7,12 +7,12 @@ from offers.models import Offer
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
 from django.core.paginator import Paginator
+from django.template.loader import render_to_string
 
 def index(request):
-    if request.GET.get("search_filter") or request.GET.get("postal") or request.GET.get("min_price"):
-        # Þetta er filter-beiðni frá JS (með einhverjum param)
-        queryset = Property.objects.all()
+    queryset = Property.objects.all()
 
+    if request.GET:
         if 'search_filter' in request.GET:
             queryset = queryset.filter(address__icontains=request.GET['search_filter'])
 
@@ -39,46 +39,19 @@ def index(request):
             elif request.GET['sort'] == "Newest":
                 queryset = queryset.order_by("-date")
 
-        # Sækjum favorites ef innskráður
-        favorite_ids = []
-        if request.user.is_authenticated:
-            favorite_ids = request.user.favorite_properties.values_list('id', flat=True)
+        html = render_to_string('property/property_list_partial.html', {'properties': queryset}, request)
+        return JsonResponse({'html': html})
 
-        return JsonResponse({
-            'data': [{
-                'type': x.type,
-                'address': x.address,
-                'zip': x.zip,
-                'city': x.city,
-                'size': x.size,
-                'rooms': x.rooms,
-                'bathrooms': x.bathrooms,
-                'bedrooms': x.bedrooms,
-                'price': x.price,
-                'id': x.id,
-                'image': x.images.first().image_url.url if x.images.exists() else None,
-                'is_favorite': x.id in favorite_ids,
-            } for x in queryset],
-        })
-
-    else:
-        # Þetta er venjuleg síðubeiðni (engin filter params)
-        properties = Property.objects.all().order_by("-date")
-
-        if request.user.is_authenticated:
-            favorite_ids = request.user.favorite_properties.values_list('id', flat=True)
-            for property in properties:
-                property.is_favorite = property.id in favorite_ids
-        else:
-            for property in properties:
-                property.is_favorite = False
-
-        return render(request, "property/property.html", {
-            "properties": properties,
-        })
+    return render(request, "property/property.html", {
+        "properties": queryset,
+    })
 
 def get_property_by_id(request, id):
     property = get_object_or_404(Property, id=id)
+
+    # Bæta við smelltalningu (click count)
+    property.click_count += 1
+    property.save(update_fields=['click_count'])
 
     existing_offer = None
     accepted_offer = None
@@ -88,7 +61,6 @@ def get_property_by_id(request, id):
         existing_offer = Offer.objects.filter(user=request.user, property=property).first()
         accepted_offer = property.offers.filter(is_accepted=True).first()
         form = OfferForm(instance=existing_offer)
-
 
     return render(request, "property/property_detail.html", {
         "property": property,
@@ -116,4 +88,5 @@ def load_more_properties(request):
         return HttpResponse('')  # Skilar engu ef engin síða
 
     return render(request, 'property/load_more_partial.html', {'properties': page_obj})
+
 
