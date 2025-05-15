@@ -281,7 +281,7 @@ body {
 .popular-properties-box {
   max-width: 300px;
   flex-shrink: 0;
-  background-color: #ffc2f6;
+  background-color: #f6c2e9;
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
@@ -354,5 +354,7 @@ body {
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   margin-top: 0.5rem;
+  margin-right: 2rem; /* ✅ Bætir bili frá hægri brún */
 }
+
 
