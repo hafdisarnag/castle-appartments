@@ -40,7 +40,7 @@
     <div class="properties-container" id="property-list">
       {% for property in properties %}
         <div class="property-item" data-url="{% url 'property-by-id' id=property.id %}">
-          <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
+          <div class="property-image" style="background-image: url({{ property.images.first.image_url.url }})">
             <form method="post" action="{% url 'toggle_favorite' property.id %}" class="favorite-form" data-property-id="{{ property.id }}">
               {% csrf_token %}
               <button type="submit" class="save-button">
