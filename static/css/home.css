@@ -202,9 +202,10 @@ body {
 }
 
 .hero-collage {
-    position: relative;
-    width: 100vw;
-    height: auto;
+  position: relative;
+  width: 100vw;
+  height: auto;
+  margin-bottom: 30px;
 }
 
 
