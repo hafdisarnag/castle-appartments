@@ -358,5 +358,21 @@ body {
   margin-right: 2rem; /* Bil frá hægri brún */
 }
 
+.section-divider {
+  height: 1px;
+  background-color: #ccc;
+  margin: 50px 0; /* bil fyrir ofan og neðan */
+  width: 100%;
+}
+
+.section-divider2 {
+  height: 1px;
+  background-color: #ccc;
+  margin-top: 10px; /* bil fyrir ofan og neðan */
+  margin-bottom: 60px;
+  width: 100%;
+}
+
+
 
 
