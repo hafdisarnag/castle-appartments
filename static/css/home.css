@@ -329,3 +329,28 @@ body {
 .popular-list li a:hover {
   text-decoration: underline;
 }
+
+.main-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: nowrap; /* mikilvægt! engin wrapping */
+  width: 100%;
+}
+
+.properties-wrapper {
+  flex: 1;
+  max-width: calc(100% - 320px); /* skilur eftir pláss hægra megin */
+}
+
+.popular-properties-box {
+  width: 300px;
+  flex-shrink: 0;
+  background-color: #ffe6f0;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-top: 0.5rem;
+}
+
