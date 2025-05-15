@@ -280,17 +280,20 @@ body {
 
 .popular-properties-box {
   max-width: 300px;
-  background-color: #ffe6f0;
+  flex-shrink: 0;
+  background-color: #ffc2f6;
   border-radius: 8px;
   padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   margin-top: 24px;
   margin-left: auto;
 }
 
+
 .popular-title {
   font-size: 20px;
   font-weight: bold;
-  color: #d63384;
+  color: #000000;
   margin-bottom: 10px;
 }
 
@@ -302,13 +305,12 @@ body {
 
 .popular-tabs span {
   font-weight: bold;
-  color: #999;
   cursor: pointer;
 }
 
 .popular-tabs .active-tab {
-  color: #d63384;
-  border-bottom: 2px solid #d63384;
+  color: #000000;
+  border-bottom: 2px solid #000000;
 }
 
 .popular-list {
@@ -322,7 +324,7 @@ body {
 }
 
 .popular-list li a {
-  color: #b30059;
+  color: #000000;
   text-decoration: none;
 }
 
@@ -347,7 +349,7 @@ body {
 .popular-properties-box {
   width: 300px;
   flex-shrink: 0;
-  background-color: #ffe6f0;
+  background-color: #ffc2f6;
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
