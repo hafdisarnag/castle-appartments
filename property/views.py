@@ -38,6 +38,10 @@ def index(request):
                 queryset = queryset.order_by("-price")
             elif request.GET['sort'] == "Newest":
                 queryset = queryset.order_by("-date")
+            elif request.GET['sort'] == "Street: A to Z":
+                queryset = queryset.order_by("address")
+            elif request.GET['sort'] == "Street: Z to A":
+                queryset = queryset.order_by("-address")
 
         html = render_to_string('property/property_list_partial.html', {'properties': queryset}, request)
         return JsonResponse({'html': html})
