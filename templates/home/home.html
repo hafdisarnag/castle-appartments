@@ -33,6 +33,9 @@
               </form>
               <div class="favorite-message-inside" style="display: none;"></div>
               <div class="property-type">{{ property.type }}</div>
+              {% if property.is_sold %}
+                  <div class="sold-label">Sold</div>
+              {% endif %}
             </div>
             <div class="property-info">
               <h3>{{ property.address }}</h3>
