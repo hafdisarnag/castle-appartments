@@ -7,7 +7,7 @@
     <div class="open-house-time">
         {{ property.open_house_time|format_open_house_time_is }}
     </div>
-      <div class="property-image" style="background-image: url({{ property.images.first.image_url }})">
+      <div class="property-image" style="background-image: url({{ property.images.first.image_url.url }})">
           <form method="post" action="{% url 'toggle_favorite' property.id %}">
               {% csrf_token %}
               <button class="save-button">
@@ -23,7 +23,7 @@
     <div class="line"></div>
     <div class="property-details">
       <div class="property-detail">📐 {{ property.size }} m²</div>
-      <div class="property-detail">🛏 {{ property.rooms|floatformat:0 }}</div>
+      <div class="property-detail">🚪 {{ property.rooms|floatformat:0 }}</div>
       <div class="property-detail">🛁 {{ property.bathrooms|floatformat:0 }}</div>
       <div class="property-detail">🛌 {{ property.bedrooms|floatformat:0 }}</div>
     </div>
