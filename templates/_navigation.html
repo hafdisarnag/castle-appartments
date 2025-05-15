@@ -22,11 +22,7 @@
                 Home Design<br>Inspiration
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link scroll-to-openhouses" href="{% url 'home-index' %}#upcoming-open-houses">
-                Upcoming<br>Open Houses
-            </a>
-        </li>
+
 
         {% if user.is_authenticated %}
             <a href="{% url 'profile' %}">
