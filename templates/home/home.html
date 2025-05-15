@@ -53,11 +53,30 @@
         {% endfor %}
       </div>
     </div>
+      <div class="popular-properties-box">
+    <h2 class="popular-title">Vinsælar eignir</h2>
+    <div class="popular-tabs">
+      <span class="active-tab">Í DAG</span>
+      <span>Í GÆR</span>
+      <span>Í VIKUNNI</span>
+    </div>
+    <ol class="popular-list">
+      {% for property in popular_properties %}
+        <li>
+          <a href="{% url 'property-by-id' property.id %}">
+            {{ property.address }} ({{ property.click_count }})
+          </a>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+
     <div id="load-more-wrapper">
         <div class="load-more-line top"></div>
         <button id="load-more-btn">Load More Results</button>
         <div class="load-more-line bottom"></div>
     </div>
+
 {% include "open houses/openhouses.html" %}
 <script src="{% static 'js/load_more.js' %}"></script>
 <script src="{% static 'js/load_more_openhouses.js' %}"></script>

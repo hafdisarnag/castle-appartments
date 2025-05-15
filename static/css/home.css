@@ -278,3 +278,54 @@ body {
   right: 10px;
 }
 
+.popular-properties-box {
+  max-width: 300px;
+  background-color: #ffe6f0;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 24px;
+  margin-left: auto;
+}
+
+.popular-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #d63384;
+  margin-bottom: 10px;
+}
+
+.popular-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.popular-tabs span {
+  font-weight: bold;
+  color: #999;
+  cursor: pointer;
+}
+
+.popular-tabs .active-tab {
+  color: #d63384;
+  border-bottom: 2px solid #d63384;
+}
+
+.popular-list {
+  list-style: decimal inside;
+  padding: 0;
+  margin: 0;
+}
+
+.popular-list li {
+  margin-bottom: 8px;
+}
+
+.popular-list li a {
+  color: #b30059;
+  text-decoration: none;
+}
+
+.popular-list li a:hover {
+  text-decoration: underline;
+}
