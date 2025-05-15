@@ -44,6 +44,10 @@ def index(request):
                 queryset = queryset.order_by("-price")
             elif request.GET['sort'] == "Newest":
                 queryset = queryset.order_by("-date")
+            elif request.GET['sort'] == "Street: A to Z":
+                queryset = queryset.order_by("address")
+            elif request.GET['sort'] == "Street: Z to A":
+                queryset = queryset.order_by("-address")
 
         # Merking fyrir uppáhalds ef innskráður
         if request.user.is_authenticated:
