@@ -111,7 +111,7 @@
                     <form method="post" action="{% url 'toggle_favorite' property.id %}">
                         {% csrf_token %}
                         <button class="save-button">
-                            <img src="{% static 'images/save.png' %}" alt="Save" class="save-icon">
+                            <img src="{% static 'images/saved.png' %}" alt="Save" class="save-icon">
                         </button>
                     </form>
                     <div class="property-type">{{ property.type }}</div>

@@ -19,6 +19,7 @@ def index(request):
     return render(request, "home/home.html", {
         "properties": Property.objects.all(),
         "featured_properties": Property.objects.order_by('-date')[:3],
+        "popular_properties": Property.objects.order_by('-click_count')[:10],  # <- HÉR BÆTIRÐU VIÐ
         "open_houses": open_houses,
         "agencies": Seller.objects.filter(seller_type="agency"),
     })
