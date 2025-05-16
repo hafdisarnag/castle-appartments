@@ -210,10 +210,10 @@ body {
 
 
 .agencies-section h2 {
-    padding-top: 5px;
-    font-size: 30px;
-    font-family: Impact, serif;
-    padding-left: 5px;
+  padding-top: 5px;
+  font-size: 30px;
+  font-family: Impact, serif;
+  padding-left: 5px;
 }
 
 .agency-carousel-container {
@@ -234,15 +234,15 @@ body {
 }
 
 .agency-card {
-  min-width: 300px;
-  max-width: 300px;
-  margin-right: 16px;
+  width: 300px;
+  height: 300px;
   flex-shrink: 0;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   background-color: #fff;
-  transition: transform 0.2s ease-in-out;
+  display: flex;               /* þetta hjálpar */
+  align-items: center;         /* miðja lóðrétt */
+  justify-content: center;     /* miðja lárétt */
 }
 
 .agency-card:hover {
@@ -251,10 +251,12 @@ body {
 
 .agency-card img {
   width: 100%;
-  height: auto;
-  object-fit: contain;
-  background-color: #f7f7f7; /* valkvætt, til að fylla út umhverfið */
+  height: 100%;
+  object-fit: contain;         /* heldur hlutföllum */
+  padding: 20px;               /* smá rými svo logo "flæði ekki út úr" */
+  background-color: transparent;
 }
+
 
 
 .scroll-btn {

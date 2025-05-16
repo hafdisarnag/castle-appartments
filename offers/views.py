@@ -26,7 +26,7 @@ def make_offer(request, property_id):
             offer = form.save(commit=False)
             offer.user = request.user
             offer.property = prop
-            offer.status = 'pending'  # ✅ Always reset to pending when user bids again
+            offer.status = 'pending'
             offer.save()
             messages.success(request, "Your offer has been submitted successfully and is now pending.")
             return redirect('property-by-id', id=property_id)
