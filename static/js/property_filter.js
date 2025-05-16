@@ -32,8 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function displayProperties(propertiesHTML) {
         propertiesPlaceholder.innerHTML = propertiesHTML;
-
-        // Reinitialize favorites after the new HTML is injected
         if (typeof initializeFavorites === 'function') {
             initializeFavorites();
     }
@@ -53,11 +51,8 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("search-value").value = "";
             document.getElementById("sort").value = "Price: low to high";
 
-            // Call the same search function to reload all properties
             await runFilterSearch();
         });
     }
 
-    // Optionally trigger initial search on page load if needed:
-    // runFilterSearch();
 });

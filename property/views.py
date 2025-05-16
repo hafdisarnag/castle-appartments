@@ -8,10 +8,6 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.template.loader import render_to_string
-
-from django.shortcuts import render
-from django.http import JsonResponse
-from django.template.loader import render_to_string
 from .models import Property
 
 def index(request):
@@ -79,7 +75,7 @@ def index(request):
 def get_property_by_id(request, id):
     property = get_object_or_404(Property, id=id)
 
-    # Bæta við smelltalningu (click count)
+    # Bæta við click count
     property.click_count += 1
     property.save(update_fields=['click_count'])
 
@@ -109,13 +105,13 @@ def get_seller_by_id(request, id):
 
 def load_more_properties(request):
     page_number = request.GET.get('page')
-    properties = Property.objects.all().order_by('-id')  # Breyttu röðun ef þarf
-    paginator = Paginator(properties, 3)  # Fjöldi eigna per síðu
+    properties = Property.objects.all().order_by('-id')
+    paginator = Paginator(properties, 3)
 
     try:
         page_obj = paginator.page(page_number)
     except:
-        return HttpResponse('')  # Skilar engu ef engin síða
+        return HttpResponse('')
 
     return render(request, 'property/load_more_partial.html', {'properties': page_obj})
 
