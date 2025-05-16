@@ -15,7 +15,7 @@
   margin-left: 1rem;
   font-size: 0.9rem;
   line-height: 1.1;
-  text-align: center;      /* ✅ Miðjar bæði línur */
+  text-align: center;
   padding-top: 0.6rem;
   padding-bottom: 0.6rem;
 }
@@ -37,7 +37,7 @@
 
 .custom-navbar .navbar-nav {
   display: flex;
-  align-items: center; /* ✅ Miðjar alla takka lóðrétt */
+  align-items: center;
 }
 
 body {
