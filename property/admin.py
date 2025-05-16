@@ -1,9 +1,9 @@
 from django.contrib import admin
 from .models import Property, PropertyImage
 
-class PropertyImageInline(admin.TabularInline):  # or admin.StackedInline
+class PropertyImageInline(admin.TabularInline):
     model = PropertyImage
-    extra = 1  # number of extra image fields shown
+    extra = 1
 
 class PropertyAdmin(admin.ModelAdmin):
     inlines = [PropertyImageInline]
