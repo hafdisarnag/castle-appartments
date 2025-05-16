@@ -15,31 +15,17 @@
   position: relative;
 }
 
-
 .save-icon {
   display: block;
   width: 28px;
   height: 25px;
   transition: transform 0.2s ease;
-  border: none;
-  outline: none;
-  box-shadow: none;
-  pointer-events: none;
 }
 
 .save-button {
   all: unset;
   cursor: pointer;
-  outline: none;
-  border: none;
-  box-shadow: none;
   -webkit-tap-highlight-color: transparent;
-  appearance: none;
-}
-
-.save-button:focus {
-  outline: none;
-  box-shadow: none;
 }
 
 .save-button:hover .save-icon {
@@ -47,13 +33,9 @@
 }
 
 .property-item .save-button {
-  display: none;
   position: absolute;
   top: 10px;
   left: 10px;
-  background: none;
-  border: none;
-  cursor: pointer;
   z-index: 5;
 }
 
@@ -125,18 +107,6 @@ body {
   padding: 0;
 }
 
-.image-text-home {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  max-width: 100vw;
-  overflow-x: hidden;
-  position: relative;
-}
-
 .dream-home {
   position: absolute;
   top: 45%;
@@ -161,38 +131,10 @@ body {
   flex: 1 1 300px;
 }
 
-#load-more-wrapper {
-  position: relative;
-  width: 100%;
-  margin: 3rem 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
 .load-more-line {
   height: 2px;
   background-color: #f6c2e9;
   width: 100%;
-}
-
-#load-more-btn {
-  background-color: white;
-  color: #f6c2e9;
-  font-weight: bold;
-  font-size: 1.1rem;
-  padding: 0.8rem 2rem;
-  cursor: pointer;
-  z-index: 1;
-  border-radius: 10px;
-  font-family: 'Anton', sans-serif;
-}
-
-#load-more-btn:hover {
-  background-color: #f6c2e9;
-  color: white;
-  transition: 0.3s ease;
 }
 
 .hero-collage {
@@ -201,7 +143,6 @@ body {
   height: auto;
   margin-bottom: 30px;
 }
-
 
 .agencies-section h2 {
   padding-top: 5px;
@@ -223,7 +164,7 @@ body {
 }
 
 .agency-carousel::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
+  display: none;
 }
 
 .agency-card {
@@ -247,7 +188,6 @@ body {
   height: 100%;
   object-fit: contain;
   padding: 20px;
-  background-color: transparent;
 }
 
 .scroll-btn {
@@ -270,7 +210,6 @@ body {
 .right-btn {
   right: 10px;
 }
-
 
 .popular-title {
   font-size: 20px;
@@ -306,7 +245,6 @@ body {
 }
 
 .popular-list li a {
-  display: inline;
   color: #000000;
 }
 

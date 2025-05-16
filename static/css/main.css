@@ -1,4 +1,3 @@
-
 .custom-navbar {
   background-color: #ffc2f6;
     border: solid black 1px;
@@ -29,7 +28,7 @@
     height: 50px;
     width: 50px;
     border-radius: 50%;
-    border: solid .5px darkgray;
+    border: solid 5px darkgray;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
