@@ -1,9 +1,13 @@
 {% extends "base.html" %}
-
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/user.css' %}">
+{% endblock %}
 {% block content %}
+
 <div class="container d-flex flex-column justify-content-center align-items-center mt-5">
 
-    <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
+    <div class="card shadow p-4 login-card">
         <div class="text-center mb-4">
             <h1>Login</h1>
         </div>
@@ -11,11 +15,11 @@
         <form method="post" action="{% url 'login' %}" class="d-flex flex-column gap-3">
             {% csrf_token %}
             {{ form }}
-            <button type="submit" class="btn" style="background-color: #ffade8; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">Login</button>
+            <button type="submit" class="btn login-btn">Login</button>
         </form>
 
         <div class="mt-3 text-center">
-            <a href="{% url 'register' %}" class="text-decoration-none" style="color: #ff79ff">Don't have an account? Register</a>
+            <a href="{% url 'register' %}" class="text-decoration-none register-link">Don't have an account? Register</a>
         </div>
     </div>
 </div>
