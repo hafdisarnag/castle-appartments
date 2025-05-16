@@ -12,71 +12,62 @@
 
 {% block content %}
 <div class="seller-profile-container">
-
-  {% if seller.cover_image %}
-    <img src="{{ seller.cover_image.url }}" alt="Seller Cover" class="seller-cover">
-  {% endif %}
-
-  <div class="seller-header">
-    {% if seller.logo %}
-      <img src="{{ seller.logo.url }}" alt="Seller Logo" class="seller-logo">
+    {% if seller.cover_image %}
+        <img src="{{ seller.cover_image.url }}" alt="Seller Cover" class="seller-cover">
     {% endif %}
-
-    <div class="seller-info">
-      <h1>{{ seller.name }}</h1>
-      <p class="seller-type">{{ seller.get_seller_type_display }}</p>
-
-      {% if seller.seller_type == 'agency' %}
-        <p class="seller-address">{{ seller.street }}, {{ seller.postal_code }} {{ seller.city }}</p>
-      {% endif %}
-    </div>
-  </div>
-
-  <p class="seller-bio">{{ seller.bio }}</p>
-
-  <h2 class="section-title">Properties for Sale</h2>
-
-  <div class="main-container">
-    <div class="properties-container" id="property-list">
-      {% for property in properties %}
-        <div class="property-item" data-url="{% url 'property-by-id' id=property.id %}">
-          <div class="property-image" style="background-image: url({{ property.images.first.image_url.url }})">
-            <form method="post" action="{% url 'toggle_favorite' property.id %}" class="favorite-form" data-property-id="{{ property.id }}">
-              {% csrf_token %}
-              <button type="submit" class="save-button">
-                {% if property.is_favorite %}
-                  <img src="{% static 'images/saved.png' %}" alt="Saved" class="save-icon">
-                {% else %}
-                  <img src="{% static 'images/save.png' %}" alt="Save" class="save-icon">
-                {% endif %}
-              </button>
-            </form>
-              <div class="favorite-message-inside" style="display: none;"></div>
-            <div class="property-type">{{ property.type }}</div>
-          </div>
-          <div class="property-info">
-            <h3>{{ property.address }}</h3>
-            <div class="zip-city">{{ property.zip }} {{ property.city }}</div>
-          </div>
-          <div class="line"></div>
-          <div class="property-details">
-            <div class="property-detail">📐 {{ property.size }} m²</div>
-            <div class="property-detail">🚪 {{ property.rooms|floatformat:0 }}</div>
-            <div class="property-detail">🛁 {{ property.bathrooms|floatformat:0 }}</div>
-            <div class="property-detail">🛌 {{ property.bedrooms|floatformat:0 }}</div>
-          </div>
-          <div class="property-price">
-            <div>{{ property.price|floatformat:0|intcomma|replace_comma }} kr.</div>
-          </div>
+    <div class="seller-header">
+        {% if seller.logo %}
+            <img src="{{ seller.logo.url }}" alt="Seller Logo" class="seller-logo">
+        {% endif %}
+        <div class="seller-info">
+            <h1>{{ seller.name }}</h1>
+            <p class="seller-type">{{ seller.get_seller_type_display }}</p>
+            {% if seller.seller_type == 'agency' %}
+                <p class="seller-address">{{ seller.street }}, {{ seller.postal_code }} {{ seller.city }}</p>
+            {% endif %}
         </div>
-      {% empty %}
-        <p>No properties listed by this seller.</p>
-      {% endfor %}
     </div>
-  </div>
-
+    <p class="seller-bio">{{ seller.bio }}</p>
+    <h2 class="section-title">Properties for Sale</h2>
+    <div class="main-container">
+        <div class="properties-container" id="property-list">
+            {% for property in properties %}
+                <div class="property-item" data-url="{% url 'property-by-id' id=property.id %}">
+                    <div class="property-image" style="background-image: url({{ property.images.first.image_url.url }})">
+                        <form method="post" action="{% url 'toggle_favorite' property.id %}" class="favorite-form" data-property-id="{{ property.id }}">
+                            {% csrf_token %}
+                            <button type="submit" class="save-button">
+                                {% if property.is_favorite %}
+                                    <img src="{% static 'images/saved.png' %}" alt="Saved" class="save-icon">
+                                {% else %}
+                                    <img src="{% static 'images/save.png' %}" alt="Save" class="save-icon">
+                                {% endif %}
+                            </button>
+                        </form>
+                        <div class="favorite-message-inside" style="display: none;"></div>
+                        <div class="property-type">{{ property.type }}</div>
+                    </div>
+                    <div class="property-info">
+                        <h3>{{ property.address }}</h3>
+                        <div class="zip-city">{{ property.zip }} {{ property.city }}</div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="property-details">
+                        <div class="property-detail">📐 {{ property.size }} m²</div>
+                        <div class="property-detail">🚪 {{ property.rooms|floatformat:0 }}</div>
+                        <div class="property-detail">🛁 {{ property.bathrooms|floatformat:0 }}</div>
+                        <div class="property-detail">🛌 {{ property.bedrooms|floatformat:0 }}</div>
+                    </div>
+                    <div class="property-price">
+                        <div>{{ property.price|floatformat:0|intcomma|replace_comma }} kr.</div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No properties listed by this seller.</p>
+            {% endfor %}
+        </div>
+    </div>
 </div>
-
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const items = document.querySelectorAll(".property-item");
