@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Toggle profile edit form
+
     const editBtn = document.getElementById("toggle-edit-btn");
     const editForm = document.getElementById("edit-profile-form");
 
@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Toggle saved properties
+
     const toggleBtn = document.getElementById('toggle-saved-btn');
     const extraCards = document.querySelectorAll('.extra-property');
     let showingAll = false;

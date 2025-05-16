@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const img = form.querySelector('img');
       const formData = new FormData(form);
-      const propertyElement = form.closest('.property-item');  // ✅ sækjum viðeigandi kort
+      const propertyElement = form.closest('.property-item');
 
       fetch(form.action, {
         method: 'POST',

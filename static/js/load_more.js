@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(response => response.text())
       .then(html => {
         if (html.trim() === '') {
-          loadBtn.style.display = 'none'; // Felur takkann ef engar fleiri eignir
+          loadBtn.style.display = 'none';
         } else {
           wrapper.insertAdjacentHTML('beforeend', html);
         }
