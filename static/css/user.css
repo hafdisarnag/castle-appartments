@@ -1,0 +1,59 @@
+.profile-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid #dee2e6;
+}
+
+.profile-placeholder {
+    width: 120px;
+    height: 120px;
+}
+
+#edit-profile-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.logout-btn {
+    background-color: #ff7474;
+    color: black;
+}
+
+.login-card {
+    max-width: 400px;
+    width: 100%;
+}
+
+.login-btn {
+    background-color: #ffade8;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.register-link {
+    color: #ff79ff;
+}
+
+.btn-pink {
+    background-color: #ffade8;
+    color: black;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.btn-pink:hover {
+    background-color: #ff99dd;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    transform: scale(1.02);
+}
+
+.register-container {
+    min-height: 100vh;
+}
+
+.register-card {
+    max-width: 400px;
+    width: 100%;
+}

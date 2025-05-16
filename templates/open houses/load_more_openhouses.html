@@ -1,35 +1,34 @@
 {% load static %}
 {% load custom_filters2 %}
 {% load humanize %}
-
 {% for property in open_houses %}
-  <div class="property-item">
-    <div class="open-house-time">
-        {{ property.open_house_time|format_open_house_time_is }}
+    <div class="property-item">
+        <div class="open-house-time">
+            {{ property.open_house_time|format_open_house_time_is }}
+        </div>
+        <div class="property-image" style="background-image: url({{ property.images.first.image_url.url }})">
+            <form method="post" action="{% url 'toggle_favorite' property.id %}">
+                {% csrf_token %}
+                <button class="save-button">
+                    <img src="{% static 'images/save.png' %}" alt="Save" class="save-icon">
+                </button>
+            </form>
+            <div class="property-type">{{ property.type }}</div>
+        </div>
+        <div class="property-info">
+            <h3>{{ property.address }}</h3>
+            <div class="zip-city">{{ property.zip }} {{ property.city }}</div>
+        </div>
+        <div class="line"></div>
+        <div class="property-details">
+            <div class="property-detail">📐 {{ property.size }} m²</div>
+            <div class="property-detail">🚪 {{ property.rooms|floatformat:0 }}</div>
+            <div class="property-detail">🛁 {{ property.bathrooms|floatformat:0 }}</div>
+            <div class="property-detail">🛌 {{ property.bedrooms|floatformat:0 }}</div>
+        </div>
+        <div class="property-price">
+            <div>{{ property.price|floatformat:0|intcomma|replace_comma }} kr.</div>
+            <a href="{% url 'property-by-id' id=property.id %}">See more</a>
+        </div>
     </div>
-      <div class="property-image" style="background-image: url({{ property.images.first.image_url.url }})">
-          <form method="post" action="{% url 'toggle_favorite' property.id %}">
-              {% csrf_token %}
-              <button class="save-button">
-                  <img src="{% static 'images/save.png' %}" alt="Save" class="save-icon">
-              </button>
-          </form>
-          <div class="property-type">{{ property.type }}</div>
-      </div>
-    <div class="property-info">
-      <h3>{{ property.address }}</h3>
-      <div class="zip-city">{{ property.zip }} {{ property.city }}</div>
-    </div>
-    <div class="line"></div>
-    <div class="property-details">
-      <div class="property-detail">📐 {{ property.size }} m²</div>
-      <div class="property-detail">🚪 {{ property.rooms|floatformat:0 }}</div>
-      <div class="property-detail">🛁 {{ property.bathrooms|floatformat:0 }}</div>
-      <div class="property-detail">🛌 {{ property.bedrooms|floatformat:0 }}</div>
-    </div>
-    <div class="property-price">
-      <div>{{ property.price|floatformat:0|intcomma|replace_comma }} kr.</div>
-      <a href="{% url 'property-by-id' id=property.id %}">See more</a>
-    </div>
-  </div>
 {% endfor %}
