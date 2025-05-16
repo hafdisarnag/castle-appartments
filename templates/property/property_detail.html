@@ -9,16 +9,15 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 {% endblock %}
 {% block content %}
-
-{% if messages %}
-    <div class="container mt-4">
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}  text-center fw-semibold px-4 py-3" role="alert" style="font-size: 1.1rem; background-color: #98ff9a; color: black">
-                {{ message }}
-            </div>
-        {% endfor %}
-    </div>
-{% endif %}
+    {% if messages %}
+        <div class="container mt-4">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}  text-center fw-semibold px-4 py-3" role="alert" style="font-size: 1.1rem; background-color: #98ff9a; color: black">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
     <div class="property-container-det">
         <div class="property-header">
             <div id="propertyCarousel" class="carousel slide">
@@ -55,7 +54,6 @@
                     <div class="collapse mt-2" id="additionalInfo">
                         <p>{{ property.additional_info }}</p>
                     </div>
-
                     <a class="toggle-description" data-bs-toggle="collapse" href="#additionalInfo" role="button" aria-expanded="false" aria-controls="additionalInfo">
                         <span id="toggleText">▼ Show more details</span>
                     </a>
@@ -98,12 +96,10 @@
                         <label for="{{ form.amount.id_for_label }}">Offer Amount:</label>
                         {{ form.amount }}
                     </div>
-
                     <div class="mb-3">
                         <label for="{{ form.expires_at.id_for_label }}">Expiration Date:</label>
                         {{ form.expires_at }}
                     </div>
-
                     <button type="submit" class="submit-button">Submit</button>
                 </form>
             {% else %}
@@ -128,40 +124,31 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-
         const latitude = {{ property.latitude|default:"null" }};
         const longitude = {{ property.longitude|default:"null" }};
         if (latitude && longitude) {
             console.log("Rendering map at:", latitude, longitude);
             const map = L.map('map').setView([latitude, longitude], 13);
-
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; OpenStreetMap contributors',
                 maxZoom: 18,
             }).addTo(map);
-
             L.marker([latitude, longitude]).addTo(map)
                 .bindPopup("{{ property.address }}, {{ property.city }}")
                 .openPopup();
         } else {
             console.warn("Map not shown: missing coordinates.");
         }
-
-
         const toggleText = document.getElementById('toggleText');
         const additional = document.getElementById('additionalInfo');
-
         if (additional) {
             additional.addEventListener('shown.bs.collapse', function () {
                 toggleText.textContent = '▲ Show less details';
             });
-
             additional.addEventListener('hidden.bs.collapse', function () {
                 toggleText.textContent = '▼ Show more details';
             });
         }
-
         });
     </script>
-
 {% endblock %}
