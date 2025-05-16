@@ -5,7 +5,7 @@ from django.shortcuts import render
 from .models import DesignIdea
 
 def inspiration_home(request):
-    category = request.GET.get("category")  # tekur ?category=kitchen úr URL
+    category = request.GET.get("category")
     if category:
         ideas = DesignIdea.objects.filter(category=category)
     else:

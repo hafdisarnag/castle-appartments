@@ -1,5 +1,4 @@
 from django import template
-
 register = template.Library()
 
 @register.filter
@@ -14,7 +13,6 @@ MONTHS_IS = {
 
 @register.filter
 def format_open_house_time_is(value):
-    """Birta dagsetningu og tíma á íslensku, t.d. 20. maí, kl. 15:05"""
     if not value:
         return ""
     day = value.day
