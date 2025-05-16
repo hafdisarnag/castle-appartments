@@ -14,7 +14,7 @@ def index(request):
     queryset = Property.objects.all()
 
     if request.GET:
-        # Síum eftir leitarskilyrðum úr GET beiðni
+
         if 'search_filter' in request.GET:
             queryset = queryset.filter(address__icontains=request.GET['search_filter'])
 
@@ -45,7 +45,7 @@ def index(request):
             elif request.GET['sort'] == "Street: Z to A":
                 queryset = queryset.order_by("-address")
 
-        # Merking fyrir uppáhalds ef innskráður
+
         if request.user.is_authenticated:
             favorite_ids = request.user.favorite_properties.values_list('id', flat=True)
             for property in queryset:
@@ -57,7 +57,7 @@ def index(request):
         html = render_to_string('property/property_list_partial.html', {'properties': queryset}, request)
         return JsonResponse({'html': html})
 
-    # Ef engin síun – sýnum nýjustu eignir
+
     properties = Property.objects.all().order_by("-date")
 
     if request.user.is_authenticated:

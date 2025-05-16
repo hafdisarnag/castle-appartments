@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
   const forms = document.querySelectorAll('.favorite-form');
-
   forms.forEach(form => {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
