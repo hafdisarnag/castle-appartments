@@ -47,7 +47,6 @@
                 <div class="property-detail-det">🛁 {{ property.bathrooms|floatformat:0 }}</div>
                 <div class="property-detail-det">🛏 {{ property.bedrooms|floatformat:0 }}</div>
             </div>
-
             <div class="property-description">
                 <p>{{ property.description }}</p>
                 {% if property.additional_info %}
@@ -59,7 +58,6 @@
                     </a>
                 {% endif %}
             </div>
-
             <div class="property-date">📅 {{ property.date }}</div>
             <div class="property-price-det">
                 {{ property.price|floatformat:0|intcomma|replace_comma }} kr.
@@ -77,7 +75,6 @@
                 <h4>Make a purchase offer:</h4>
             {% endif %}
         {% endif %}
-
         <div class="offer-section">
             {% if property.is_sold %}
                 <div class="alert alert-danger mt-4">
@@ -111,8 +108,7 @@
             <div class="seller-cover-wrapper">
                 <img src="{{ property.seller.cover_image.url }}" alt="{{ property.seller.name }} Cover" class="seller-cover-img">
                 <p>
-                    Seller information:
-                    <a href="{% url 'seller_profile' property.seller.id %}">{{ property.seller.name }}</a>
+                    Seller information:<a href="{% url 'seller_profile' property.seller.id %}">{{ property.seller.name }}</a>
                 </p>
             </div>
         </div>
