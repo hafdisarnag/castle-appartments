@@ -13,7 +13,6 @@ def index(request):
     if request.user.is_authenticated:
         favorite_ids = set(request.user.favorite_properties.values_list('id', flat=True))
 
-    # Merkjum is_favorite fyrir öll property í öllum listum
     def mark_favorites(properties):
         for prop in properties:
             prop.is_favorite = prop.id in favorite_ids
