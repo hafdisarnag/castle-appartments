@@ -1,83 +1,73 @@
 {% extends "base.html" %}
 {% load humanize %}
 {% load custom_filters %}
-
 {% block content %}
-<div class="container mt-5">
-{% if messages %}
-  <div class="container mt-3">
-    {% for message in messages %}
-      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    {% endfor %}
-  </div>
-{% endif %}
-  <h2 class="text-center mb-4">My Purchase Offers</h2>
-
-  {% if offers %}
-    <div class="table-responsive">
-      <table class="table table-bordered table-hover text-center align-middle" style="background-color: #fff0f5; border-color: #ffc0cb; border-radius: 12px;">
-        <thead class="text-white" style="background-color: #ff69b4;">
-          <tr>
-            <th>Property</th>
-            <th>Date</th>
-            <th>Expires</th>
-            <th>Status</th>
-            <th>Seller</th>
-            <th>Price</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for offer in offers %}
-            <tr>
-              <td>
-                <a href="{% url 'property-by-id' offer.property.id %}" class="text-decoration-none" style="color: black;">
-                  {{ offer.property.address }}
-                </a>
-              </td>
-              <td>{{ offer.created_at|date:"Y-m-d" }}</td>
-              <td>{{ offer.expires_at|date:"Y-m-d" }}</td>
-              <!-- STATUS COLUMN -->
-              <td>
-                {% if offer.status == 'accepted' %}
-                  <span class="badge bg-success">Accepted</span>
-                {% elif offer.status == 'rejected' %}
-                  <span class="badge bg-danger">Rejected</span>
-                {% elif offer.status == 'pending' %}
-                  <span class="badge" style="background-color: #ffe0f0; color: black; font-weight: 500;">Pending</span>
-                {% endif %}
-              </td>
-              <td>{{ offer.property.seller.name }}</td>
-              <td><strong>{{ offer.amount|floatformat:0|intcomma|replace_comma }} kr.</strong></td>
-              <!-- ACTIONS COLUMN -->
-              <td>
-                {% if offer.property.is_sold %}
-                  <span class="badge bg-secondary">Sold</span>
-                {% elif offer.status == 'accepted' %}
-                  <a href="{% url 'finalization:step1_contact' offer.id %}" class="btn btn-sm" style="background-color: #f8c6d8; color: #8b005d;">
-                    Finalize
-                  </a>
-                {% elif offer.status == 'rejected' %}
-                  <a href="{% url 'make_offer' offer.property.id %}" class="btn btn-sm btn-warning">
-                    Bid Higher
-                  </a>
-                  <a href="{% url 'remove_offer' offer.id %}" class="btn btn-sm btn-secondary">
-                    Remove Offer
-                  </a>
-                {% elif offer.status == 'pending' %}
-                  <span class="text-muted">Awaiting Review</span>
-                {% endif %}
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+    <div class="container mt-5">
+        {% if messages %}
+            <div class="container mt-3">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <h2 class="text-center mb-4">My Purchase Offers</h2>
+        {% if offers %}
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover text-center align-middle" style="background-color: #fff0f5; border-color: #ffc0cb; border-radius: 12px;">
+                    <thead class="text-white" style="background-color: #ff69b4;">
+                    <tr>
+                        <th>Property</th>
+                        <th>Date</th>
+                        <th>Expires</th>
+                        <th>Status</th>
+                        <th>Seller</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for offer in offers %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'property-by-id' offer.property.id %}" class="text-decoration-none" style="color: black;">
+                                    {{ offer.property.address }}
+                                </a>
+                            </td>
+                            <td>{{ offer.created_at|date:"Y-m-d" }}</td>
+                            <td>{{ offer.expires_at|date:"Y-m-d" }}</td>
+                            <td>
+                                {% if offer.status == 'accepted' %}
+                                    <span class="badge bg-success">Accepted</span>
+                                {% elif offer.status == 'rejected' %}
+                                    <span class="badge bg-danger">Rejected</span>
+                                {% elif offer.status == 'pending' %}
+                                    <span class="badge" style="background-color: #ffe0f0; color: black; font-weight: 500;">Pending</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ offer.property.seller.name }}</td>
+                            <td><strong>{{ offer.amount|floatformat:0|intcomma|replace_comma }} kr.</strong></td>
+                            <td>
+                                {% if offer.property.is_sold %}
+                                    <span class="badge bg-secondary">Sold</span>
+                                {% elif offer.status == 'accepted' %}
+                                    <a href="{% url 'finalization:step1_contact' offer.id %}" class="btn btn-sm" style="background-color: #f8c6d8; color: #8b005d;">Finalize</a>
+                                {% elif offer.status == 'rejected' %}
+                                    <a href="{% url 'make_offer' offer.property.id %}" class="btn btn-sm btn-warning">Bid Higher</a>
+                                    <a href="{% url 'remove_offer' offer.id %}" class="btn btn-sm btn-secondary">Remove Offer</a>
+                                {% elif offer.status == 'pending' %}
+                                    <span class="text-muted">Awaiting Review</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-center text-muted mt-4">You haven’t made any offers yet.</p>
+        {% endif %}
     </div>
-  {% else %}
-    <p class="text-center text-muted mt-4">You haven’t made any offers yet.</p>
-  {% endif %}
-</div>
 {% endblock %}

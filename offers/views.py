@@ -6,7 +6,6 @@ from offers.models import Offer
 from property.models import Property
 from django.contrib import messages
 
-
 @login_required
 def make_offer(request, property_id):
     prop = get_object_or_404(Property, pk=property_id)

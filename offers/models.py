@@ -1,8 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-
 from property.models import Property
-
 
 class Offer(models.Model):
     STATUS_CHOICES = [
@@ -16,7 +14,7 @@ class Offer(models.Model):
     amount = models.DecimalField("Offer Amount", max_digits=20, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
     expires_at = models.DateField("Expires On")
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')  # ← new field
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     is_accepted = models.BooleanField(default=False)
 
     def is_expired(self):
