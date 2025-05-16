@@ -1,63 +1,55 @@
 {% load static %}
 {% load custom_filters2 %}
 {% load humanize %}
-
 <h2 id="upcoming-open-houses" class="section-title">Upcoming Open Houses</h2>
-
 <div id="openhouses-section">
-  <div class="open-houses-container" id="openhouses-container">
-    {% if open_houses %}
-      {% for property in open_houses %}
-        <div class="property-item">
-          <div class="open-house-time">
-            {{ property.open_house_time|format_open_house_time_is }}
-          </div>
-          <div class="property-image" style="background-image: url({{ property.images.first.image_url.url }})">
-            <form method="post" action="{% url 'toggle_favorite' property.id %}" class="favorite-form" data-property-id="{{ property.id }}">
-              {% csrf_token %}
-              <button type="submit" class="save-button">
-                {% if property.is_favorite %}
-                  <img src="{% static 'images/saved.png' %}" alt="Saved" class="save-icon">
-                {% else %}
-                  <img src="{% static 'images/save.png' %}" alt="Save" class="save-icon">
-                {% endif %}
-              </button>
-            </form>
-              <div class="favorite-message-inside" style="display: none;"></div>
-            <div class="property-type">{{ property.type }}</div>
-          </div>
-          <div class="property-info">
-            <h3>{{ property.address }}</h3>
-            <div class="zip-city">{{ property.zip }} {{ property.city }}</div>
-          </div>
-
-          <div class="line"></div>
-
-          <div class="property-details">
-            <div class="property-detail">📐 {{ property.size }} m²</div>
-            <div class="property-detail">🚪 {{ property.rooms|floatformat:0 }}</div>
-            <div class="property-detail">🛁 {{ property.bathrooms|floatformat:0 }}</div>
-            <div class="property-detail">🛌 {{ property.bedrooms|floatformat:0 }}</div>
-          </div>
-
-          <div class="property-price">
-            <div>{{ property.price|floatformat:0|intcomma|replace_comma }} kr.</div>
-            <a href="{% url 'property-by-id' id=property.id %}">See more</a>
-          </div>
-        </div>
-      {% endfor %}
-    {% else %}
-      <p class="no-open-houses">No open houses at the moment.</p>
-    {% endif %}
-  </div>
-
-  <div id="openhouses-load-more-wrapper">
-    <div class="load-more-line top"></div>
-    <button id="openhouses-load-more-btn">Load More Results</button>
-    <div class="load-more-line bottom"></div>
-  </div>
-
+    <div class="open-houses-container" id="openhouses-container">
+        {% if open_houses %}
+            {% for property in open_houses %}
+                <div class="property-item">
+                    <div class="open-house-time">
+                        {{ property.open_house_time|format_open_house_time_is }}
+                    </div>
+                    <div class="property-image" style="background-image: url({{ property.images.first.image_url.url }})">
+                        <form method="post" action="{% url 'toggle_favorite' property.id %}" class="favorite-form" data-property-id="{{ property.id }}">
+                            {% csrf_token %}
+                            <button type="submit" class="save-button">
+                                {% if property.is_favorite %}
+                                    <img src="{% static 'images/saved.png' %}" alt="Saved" class="save-icon">
+                                {% else %}
+                                    <img src="{% static 'images/save.png' %}" alt="Save" class="save-icon">
+                                {% endif %}
+                            </button>
+                        </form>
+                        <div class="favorite-message-inside" style="display: none;"></div>
+                        <div class="property-type">{{ property.type }}</div>
+                    </div>
+                    <div class="property-info">
+                        <h3>{{ property.address }}</h3>
+                        <div class="zip-city">{{ property.zip }} {{ property.city }}</div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="property-details">
+                        <div class="property-detail">📐 {{ property.size }} m²</div>
+                        <div class="property-detail">🚪 {{ property.rooms|floatformat:0 }}</div>
+                        <div class="property-detail">🛁 {{ property.bathrooms|floatformat:0 }}</div>
+                        <div class="property-detail">🛌 {{ property.bedrooms|floatformat:0 }}</div>
+                    </div>
+                    <div class="property-price">
+                        <div>{{ property.price|floatformat:0|intcomma|replace_comma }} kr.</div>
+                        <a href="{% url 'property-by-id' id=property.id %}">See more</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-open-houses">No open houses at the moment.</p>
+        {% endif %}
+    </div>
+    <div id="openhouses-load-more-wrapper">
+        <div class="load-more-line top"></div>
+        <button id="openhouses-load-more-btn">Load More Results</button>
+        <div class="load-more-line bottom"></div>
+    </div>
 </div>
-
 <script src="{% static 'js/load_more_openhouses.js' %}"></script>
 <script src="{% static 'js/favorites.js' %}"></script>

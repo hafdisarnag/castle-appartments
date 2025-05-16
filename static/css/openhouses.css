@@ -9,7 +9,7 @@
   position: absolute;
   top: 12px;
   right: 12px;
-  background-color: #f69cd3; /* eða #375a9e ef þú vilt halda bláum */
+  background-color: #f69cd3;
   color: #fff;
   padding: 6px 14px;
   border-radius: 10px;
@@ -41,18 +41,16 @@
   color: #f6c2e9;
   font-weight: bold;
   font-size: 1.1rem;
-  border: none;
   padding: 0.8rem 2rem;
   cursor: pointer;
-  z-index: 1;
   border-radius: 10px;
   font-family: 'Anton', sans-serif;
+  transition: 0.3s ease, color 0.3s ease;
 }
 
 #openhouses-load-more-btn:hover {
   background-color: #f6c2e9;
   color: white;
-  transition: 0.3s ease;
 }
 
 .property-image {
@@ -63,34 +61,21 @@
 .property-image form {
   position: absolute;
   top: 10px;
-  left: 10px; /* eða right: 10px ef þú vilt takkann hægra megin */
+  left: 10px;
   z-index: 4;
 }
 
 .save-icon {
-  display: block;              /* fjarlægir inline-image spacing */
+  display: block;
   width: 28px;
   height: 25px;
   transition: transform 0.2s ease;
-  border: none;
-  outline: none;
-  box-shadow: none;
-  pointer-events: none;
 }
 
 .save-button {
   all: unset;
   cursor: pointer;
-  outline: none;
-  border: none;
-  box-shadow: none;
   -webkit-tap-highlight-color: transparent;
-  appearance: none;
-}
-
-.save-button:focus {
-  outline: none;
-  box-shadow: none;
 }
 
 .save-button:hover .save-icon {
@@ -98,18 +83,10 @@
 }
 
 .property-item .save-button {
-  display: none;
   position: absolute;
   top: 10px;
   left: 10px;
-  background: none;
-  border: none;
-  cursor: pointer;
   z-index: 5;
-}
-
-.property-item:hover .save-button {
-  display: block;
 }
 
 .favorite-message {
@@ -122,13 +99,12 @@
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   z-index: 1000;
-  display: none;
   font-size: 0.95rem;
 }
 
 .favorite-message-inside {
   position: absolute;
-  inset: 0; /* stytting fyrir top/left/right/bottom: 0 */
+  inset: 0;
   background-color: rgba(255, 194, 246, 0.60);
   color: white;
   font-size: 1.1rem;
@@ -136,7 +112,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: none;
 }
 
 
