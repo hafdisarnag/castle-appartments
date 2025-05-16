@@ -1,103 +1,8 @@
-
-.main-container {
-    display: flex;
-    gap: 20px;
-}
-
 .filters {
     width: 100%;
     padding: 1rem 2rem;
-    background-color: #f9f9f9;
     border-bottom: 1px solid #ddd;
     box-sizing: border-box;
-}
-
-.filter-label-row,
-.filter-input-row {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-}
-
-.filter-label-row > div,
-.filter-input-row > div {
-    flex: 1;
-    min-width: 120px;
-    font-size: 0.85rem;
-}
-
-.filter-label-row {
-    font-weight: bold;
-    padding-bottom: 0.3rem;
-}
-
-.filter-label-row > div:first-child {
-  position: relative;
-  top: 20px;
-  font-size: 1rem;
-}
-
-.filter-input-row input,
-.filter-input-row select {
-    width: 100%;
-    padding: 0.3rem 0.5rem;
-    font-size: 0.85rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.price-slider-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-}
-
-.slider-row {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-}
-
-input[type="range"] {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 4px;
-    background: #ccc;
-    border-radius: 2px;
-    outline: none;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 12px;
-    height: 12px;
-    background: #f7b1dd;
-    border-radius: 50%;
-    cursor: pointer;
-    border: none;
-}
-
-.price-value {
-    font-size: 0.8rem;
-    color: #555;
-    min-width: 100px;
-    text-align: left;
-}
-
-.slider-tooltip {
-  display: none;
-  background: #f7b1dd;
-  color: #000;
-  padding: 0.2rem 0.4rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  position: relative;
-  top: -5px;
-}
-.slider-tooltip.active {
-  display: inline-block;
 }
 
 .properties-container {
@@ -108,12 +13,8 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .property-item {
-    background-color: white;
     border-radius: 8px;
-    overflow: hidden;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    text-align: left;
-    position: relative;
     transition: transform 0.3s ease;
     border: 1px solid #ddd;
 }
@@ -121,15 +22,6 @@ input[type="range"]::-webkit-slider-thumb {
 .property-item:hover {
     transform: translateY(-10px);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-}
-
-.heart-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.5em;
-    cursor: pointer;
-    z-index: 10;
 }
 
 .property-image {
@@ -212,14 +104,6 @@ a {
     padding-left: 5px;
 }
 
-#search-icon {
-  transition: all 0.5s;
-}
-
-#search-icon:hover {
-  cursor: pointer;
-    background-color: rgba(0, 0, 0, .1);
-}
 
 .sold-label {
     position: absolute;
@@ -238,20 +122,10 @@ a {
     background-color: rgba(0, 0, 0, .1);
 }
 
-.property-image {
-  position: relative;
-}
-
-.property-image form {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 10;
-}
 
 
 .save-icon {
-  display: block;              /* fjarlægir inline-image spacing */
+  display: block;
   width: 28px;
   height: 25px;
   transition: transform 0.2s ease;
@@ -259,25 +133,6 @@ a {
   outline: none;
   box-shadow: none;
   pointer-events: none;
-}
-
-.save-button {
-  all: unset;
-  cursor: pointer;
-  outline: none;
-  border: none;
-  box-shadow: none;
-  -webkit-tap-highlight-color: transparent;
-  appearance: none;
-}
-
-.save-button:focus {
-  outline: none;
-  box-shadow: none;
-}
-
-.save-button:hover .save-icon {
-  transform: scale(1.1);
 }
 
 .property-item .save-button {
@@ -295,23 +150,10 @@ a {
   display: block;
 }
 
-.favorite-message {
-  position: fixed;
-  top: 80px;
-  right: 20px;
-  background: #2b2b2b;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  z-index: 1000;
-  display: none;
-  font-size: 0.95rem;
-}
 
 .favorite-message-inside {
   position: absolute;
-  inset: 0; /* stytting fyrir top/left/right/bottom: 0 */
+  inset: 0;
   background-color: rgba(255, 194, 246, 0.60);
   color: white;
   font-size: 1.1rem;
